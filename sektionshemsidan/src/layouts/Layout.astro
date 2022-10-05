@@ -19,27 +19,35 @@ const { title } = Astro.props;
 		<slot />
 	</body>
 </html>
-<style>
-	:root {
-		--font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-		--font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
-		--font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
-
-		--color-text: hsl(12, 5%, 4%);
-		--color-bg: hsl(10, 21%, 95%);
-		--color-border: hsl(17, 24%, 90%);
-	}
+<style lang="scss">
+	@font-face {
+		font-family: 'Gill Sans MT';
+		src: url('gill-sans-mt.ttf'); 
+		font-weight: normal;
+		font-style: normal;
+  	} 
 
 	html {
-		font-family: system-ui, sans-serif;
+		font-family: 'Gill Sans MT';
 		font-size: var(--font-size-base);
 		color: var(--color-text);
 		background-color: var(--color-bg);
 	}
 
+
+	@mixin headline-1{
+		font-size: 66;
+		line-height: 74px;
+	}
+
 	body {
 		margin: 0;
+		@include headline-1;
 	}
+
+
+
+
 
 
 </style>
