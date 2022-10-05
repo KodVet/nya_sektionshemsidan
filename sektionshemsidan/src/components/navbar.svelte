@@ -18,13 +18,12 @@
 
 <style>
     li{
-
+        font-size: x-large;
+        font: bold;
     }
     a{
         text-decoration: none;
         color: inherit;
-        
-
     }
 
     .underlined{
@@ -34,9 +33,10 @@
     ul{
         display: flex;
         justify-content: space-between;
-        width: 400px;
+        width: 650px;
         list-style: none;
         align-items: center;
+        padding-right: 30px;
     }
     
     nav {
