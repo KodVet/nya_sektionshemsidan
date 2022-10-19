@@ -6,15 +6,14 @@
 <nav> 
     <img src="images/vector.png" alt="det är ju loggan hummer" />
     <ul>
-        <li><a href="index.astro" class={active === "start" ? 'underlined' : ''}>Start</a></li>
-        <li><a href="" class={active === "student" ? 'underlined' : ''}>Student</a></li>
-        <li><a href="">Om sektionen</a></li>
-        <li><a href="">Förmedlemmar</a></li>
-        <li><a href="">Kontakt</a></li>
+        <li><a href="index" class={active === "start" ? 'underlined' : ''}>Start</a></li>
+        <li><a href="student" class={active === "student" ? 'underlined' : ''}>Student</a></li>
+        <li><a href="sektionen">Om sektionen</a></li>
+        <li><a href="medlemmar">Förmedlemmar</a></li>
+        <li><a href="kontakt">Kontakt</a></li>
     </ul>
    
 </nav>
-
 
 <style>
     li{

@@ -1,10 +1,15 @@
 ---
+import Navbar from '../components/navbar.svelte'
+import Sidebar from '../components/sidebar.svelte'
+
 export interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+
 ---
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +21,14 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<main>
+			<Navbar active="start"/>
+			<div>
+				<Sidebar active={}/>
+				<slot />
+			</div>
+		</main>
+
 	</body>
 </html>
 <style lang="scss">
@@ -29,38 +41,23 @@ const { title } = Astro.props;
 
 	html {
 		font-family: 'Gill Sans MT';
-		font-size: var(--font-size-base);
-		color: var(--color-text);
-		background-color: var(--color-bg);
 	}
-
-
-	@mixin headline-1{
-		font-size: 66;
-		line-height: 74px;
-	}
-
 	body {
 		margin: 0;
-		@include headline-1;
 	}
 
-
-
-
-
+	main {
+		margin: auto;
+		padding: 1em;
+		max-width: 100%;
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+	}
 
 </style>
 
 <style is:global>
-	h1 {
-		font-size: var(--font-size-xl);
-	}
-
-	h2 {
-		font-size: var(--font-size-lg);
-	}
-
 	code {
 		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
 			Bitstream Vera Sans Mono, Courier New, monospace;
