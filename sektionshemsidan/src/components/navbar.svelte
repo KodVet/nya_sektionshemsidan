@@ -6,7 +6,7 @@
 <nav> 
     <img src="images/vector.png" alt="det är ju loggan hummer" />
     <ul>
-        <li><a href="index" class={active === "start" ? 'underlined' : ''}>Start</a></li>
+        <li><a href="/" class={active === "start" ? 'underlined' : ''}>Start</a></li>
         <li><a href="student" class={active === "student" ? 'underlined' : ''}>Student</a></li>
         <li><a href="sektionen">Om sektionen</a></li>
         <li><a href="medlemmar">Förmedlemmar</a></li>
