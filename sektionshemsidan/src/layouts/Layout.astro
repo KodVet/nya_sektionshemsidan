@@ -28,7 +28,6 @@ const { title } = Astro.props;
 				<slot />
 			</div>
 		</main>
-
 	</body>
 </html>
 <style lang="scss">
@@ -44,11 +43,12 @@ const { title } = Astro.props;
 	}
 	body {
 		margin: 0;
+		background-color: gainsboro;
 	}
 
 	main {
-		margin: auto;
-		padding: 1em;
+		margin: 0;
+		padding: 0;
 		max-width: 100%;
 		display: flex;
 		justify-content: flex-start;
