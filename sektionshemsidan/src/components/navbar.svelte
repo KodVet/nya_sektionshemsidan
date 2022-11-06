@@ -1,10 +1,24 @@
 <script>
-	export let active;    
+	export let active;  
+    let y;
+    let nav_h;
+    let min_h = 75;
+    let max_h = 107;
+    let max_scroll = 100;
+    function nav_scroll() {
+        if(0<=y && 100>=y){
+            nav_h = String(max_h - ((max_h-min_h)/max_scroll)*y) + "px"
+            console.log(nav_h) 
+        }  
+    }
 </script>
 
-
-<nav> 
+<svelte:window on:scroll={nav_scroll} bind:scrollY={y}/>
+<nav style="height:{nav_h}"> 
     <img id="logo" src="images/KogvetHuvet.svg" alt="det är ju loggan hummer" />
+<!--     <div>
+        Du har scrollat {y} pixlar
+    </div> -->
     <ul>
         <li><a href="/" class={active === "start" ? 'underlined' : ''}>Start</a></li>
         <li><a href="student" class={active === "student" ? 'underlined' : ''}>Student</a></li>
@@ -12,7 +26,6 @@
         <li><a href="medlemmar">För medlemmar</a></li>
         <li><a href="kontakt">Kontakt</a></li>
     </ul>
-   
 </nav>
 
 <style>
@@ -43,6 +56,7 @@
     }
     
     nav {
+        position: fixed;
         width: 100%;
         background-color: rgba(3, 125, 79, 1);
         display: flex;
