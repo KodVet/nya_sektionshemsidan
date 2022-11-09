@@ -3,6 +3,7 @@ import Navbar from '../components/navbar.svelte'
 import Sidebar from '../components/sidebar.svelte'
 import Grid from '../components/grid.svelte'
 
+
 export interface Props {
 	title: string;
 }
@@ -23,14 +24,12 @@ const { title } = Astro.props;
 	<body>
 		<Navbar client:load active="start"/>
 		<main>
+			<Navbar active="start"/>
 			<div>
+				<Sidebar active={}/>
 				<slot />
 			</div>
 		</main>
-		<div class = "container">
-			<Grid direction = "left"/>
-			<Grid direction ="right"/>
-		</div>
 	</body>
 </html>
 <style lang="scss">
@@ -41,18 +40,10 @@ const { title } = Astro.props;
 		font-style: normal;
   	} 
 
-	.container{
-		margin: 10%;
-		margin-top: 10%;
-		width: 8 em;
-
-	}
-
 	#sida {
 		display: flex;
 		flex-direction: row;
 	}
-
 	html {
 		font-family: 'Gill Sans MT';
 	}
@@ -71,6 +62,12 @@ const { title } = Astro.props;
 		max-width: 100%;
 		display: flex;
 		justify-content: flex-start;
+		flex-direction: column;
+	}
+
+	#content{
+		display: flex;
+		flex-direction: row; 
 
 	}
 
