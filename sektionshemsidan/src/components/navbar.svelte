@@ -23,7 +23,7 @@
         else {
             sticky=false
         }
-}
+    }   
     let margin_max = 40; 
     let margin = "40px";   
         function margin_scroll() {
@@ -31,7 +31,7 @@
                 margin = String(margin_max - ((margin_max-23.5)/max_scroll)*y) + "px"
                 console.log(margin) 
             }
-
+    }
     function scroll_funcs() {
         sticky_nav();
         nav_scroll();
@@ -39,11 +39,6 @@
     }
     console.log("javascript funkar")
     
-    
-    }
-
-
-
 </script>
 
 <svelte:window on:scroll={scroll_funcs} bind:scrollY={y}/>
