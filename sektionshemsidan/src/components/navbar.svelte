@@ -24,12 +24,26 @@
             sticky=false
         }
 }
+    let margin_max = 40; 
+    let margin = "40px";   
+        function margin_scroll() {
+            if(0<=y && 100>=y){
+                margin = String(margin_max - ((margin_max-23.5)/max_scroll)*y) + "px"
+                console.log(margin) 
+            }
 
     function scroll_funcs() {
         sticky_nav();
         nav_scroll();
+        margin_scroll();
     }
     console.log("javascript funkar")
+    
+    
+    }
+
+
+
 </script>
 
 <svelte:window on:scroll={scroll_funcs} bind:scrollY={y}/>
@@ -38,13 +52,52 @@
 <!--     <div>
         Du har scrollat {y} pixlar
     </div> -->
+  
     <ul>
-        <li><a href="/" class={active === "start" ? 'underlined' : ''}>Start</a></li>
-        <li><a href="student" class={active === "student" ? 'underlined' : ''}>Student</a></li>
-        <li><a href="sektionen">Om sektionen</a></li>
-        <li><a href="medlemmar">För medlemmar</a></li>
-        <li><a href="kontakt">Kontakt</a></li>
+        <div class="ddbutton">
+            <li><a href="/" class={active === "start" ? 'underlined' : ''}>Start</a></li>
+            <div class="ddcontent" style = "margin-top:{margin};">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+            </div>
+        </div>
+
+        <div class="ddbutton">
+            <li><a href="student" class={active === "student" ? 'underlined' : ''}>Student</a></li>
+            <div class="ddcontent" style = "margin-top:{margin};">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href='#'>Link 3</a>
+           </div>
+        </div>
+
+        <div class="ddbutton">
+            <li><a href="sektionen">Om sektionen</a></li>
+            <div class="ddcontent" style = "margin-top:{margin};">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+            </div>
+        </div>
+
+        <div class="ddbutton">
+            <li><a href="medlemmar">För medlemmar</a></li>
+            <div class="ddcontent" style = "margin-top:{margin};">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+            </div>
+        </div>
+
+        <div class="ddbutton">
+            <li><a href="kontakt">Kontakt</a></li>
+            <div class="ddcontent" style = "margin-top:{margin};">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+            </div>
+        </div>
+        
+        
     </ul>
+
 </nav>
 
 <style>
@@ -82,6 +135,26 @@
         justify-content: space-between;
         
     }
+
+    .ddbutton:hover .ddcontent {
+      display:flex;
+    }
+    .ddcontent{
+        display: none;
+        position: fixed;
+        left: 0px;
+        background-color: #f9f9f9;
+        width:100%;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .ddcontent a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+}
 
     .stickied{
         position: fixed !important;
