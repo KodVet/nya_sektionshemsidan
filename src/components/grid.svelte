@@ -20,7 +20,7 @@
 <div id = {dir} class = container>
 
     <div class= "box1">
-        <p>{text}</p>
+        <p class = "txt" >{text}</p>
     
     </div>
 
@@ -37,7 +37,6 @@
 
 .container {
     margin: 5%;
-    background-color: aqua;
     height: 400px;
     width: 1000px;
     display: flex;
@@ -46,7 +45,7 @@
 
 
 #direction_right {
-    flex-direction: column;
+    flex-direction: row;
     
 }
 
@@ -56,17 +55,23 @@
 
 .box1{
     height: 300px;
-    width: 30%;
-    background-color: green;
+    width: 40%;
+    margin: 5%;
+    background-color: grey;
 
 }
 
 .box2{
     height: 300px;
-    width: 30%;
-    background-color: red;
+    width: 40%;
+    background-color: grey;
     display: flex;
+    margin: 5%;
     justify-content: center;
+}
+
+.txt{
+    margin: 5% ;
 }
 
 </style>

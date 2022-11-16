@@ -28,8 +28,8 @@ const { title } = Astro.props;
 			</div>
 		</main>
 		<div class = "container">
-			<Grid direction = "left"/>
-			<Grid direction ="right"/>
+			<Grid direction = "left" text={"Här kan man ha text"} link={}/>
+			<Grid direction ="right" text={"Här kan man också ha text"} link={}/>
 		</div>
 	</body>
 </html>
@@ -65,12 +65,12 @@ const { title } = Astro.props;
 	}
 
 	main {
-		
 		margin: 0;
 		padding: 0;
 		max-width: 100%;
 		display: flex;
 		justify-content: flex-start;
+		flex-direction: column;
 
 	}
 
