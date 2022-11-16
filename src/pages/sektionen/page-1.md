@@ -1,6 +1,6 @@
 ---
 title: Hello, World
-slug: more-styling
+slug: inlägg
 ---
 
 # Hi there!

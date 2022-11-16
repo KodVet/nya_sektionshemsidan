@@ -1,6 +1,8 @@
 ---
+import Layout from "../../layouts/Layout.astro";
+
 export async function getStaticPaths() {
-	const posts = await Astro.glob('../pages/*.md');
+	const posts = await Astro.glob('./*.md');
 	return posts.map((post) => {
 		return {
 			params: {slug: post.frontmatter.slug},
@@ -13,9 +15,10 @@ export async function getStaticPaths() {
 const {Content, frontmatter} = Astro.props;
 
 ---
-
-<article>
+<Layout title="Kogvet Sektionen på Linköpings Universitet">
+	<article>
     <h1>{frontmatter.title}</h1>
     <h2>hej</h2>
     <Content />
-</article>
+	</article>
+</Layout>
