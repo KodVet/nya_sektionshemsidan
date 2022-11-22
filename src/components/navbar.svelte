@@ -69,7 +69,7 @@
         </div>
 
         <div class="ddbutton">
-            <li><a href="/sektionen">Om sektionen</a></li>
+            <li><a href="/sektionen" class={active === "sektionen" ? 'underlined' : ''}>Om sektionen</a></li>
             <div class="ddcontent" style = "margin-top:{margin};">
                 <a href="sektionen/inlägg">inlägg</a>
                 <a href="#">Link 2</a>
@@ -77,7 +77,7 @@
         </div>
 
         <div class="ddbutton">
-            <li><a href="/medlemmar">För medlemmar</a></li>
+            <li><a href="/medlemmar" class={active === "medlemmar" ? 'underlined' : ''}>För medlemmar</a></li>
             <div class="ddcontent" style = "margin-top:{margin};">
                 <a href="#">Link 1</a>
                 <a href="#">Link 2</a>
@@ -85,7 +85,7 @@
         </div>
 
         <div class="ddbutton">
-            <li><a href="/kontakt">Kontakt</a></li>
+            <li><a href="/kontakt" class={active === "kontakt" ? 'underlined' : ''}>Kontakt</a></li>
             <div class="ddcontent" style = "margin-top:{margin};">
                 <a href="#">Link 1</a>
                 <a href="#">Link 2</a>

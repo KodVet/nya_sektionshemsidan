@@ -5,8 +5,10 @@ import Grid from '../components/grid.svelte'
 
 export interface Props {
 	title: string;
+	active: string;
 }
 
+const { active } = Astro.props
 const { title } = Astro.props;
 
 ---
@@ -21,7 +23,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<Navbar client:load active="start"/>
+		<Navbar client:load active={active}/>
 		<main>
 			<div>
 				<slot />
