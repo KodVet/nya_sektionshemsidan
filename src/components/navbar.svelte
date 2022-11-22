@@ -1,12 +1,14 @@
 <script>
 	export let active;  
     let y;
-    let nav_h;
+    
     let nav;
 
-    let min_h = 75;
-    let max_h = 107;
+    let min_h = 60;
+    let max_h = 115;
     let max_scroll = 100;
+    let nav_h = String(max_h) + "px";
+
     let sticky = false
     function nav_scroll() {
         if(0<=y && 100>=y){
@@ -128,7 +130,7 @@
         background-color: rgba(3, 125, 79, 1);
         display: flex;
         justify-content: space-between;
-        
+        transition: 20ms;
     }
 
     .ddbutton:hover .ddcontent {
