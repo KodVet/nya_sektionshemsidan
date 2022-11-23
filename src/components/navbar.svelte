@@ -1,5 +1,11 @@
 <script>
-	export let active;  
+    import Dropdown from "./dropdown.svelte";
+    const pages = import.meta.glob('../pages/*.astro')
+    console.log("pages", pages)
+	export let active;
+    
+    
+    
     let y;
     
     let nav;
