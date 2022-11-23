@@ -134,7 +134,7 @@
         position: relative;
         width: 100%;
         background-color: rgba(3, 125, 79, 1);
-        display: flex;
+        display: none;
         justify-content: space-between;
         transition: 20ms;
     }
@@ -163,4 +163,11 @@
         position: fixed !important;
         top: 0px;
     }
+
+@media (min-width: 577px) 
+{nav {
+    display:flex; 
+    margin: auto; 
+    width: 90%; }
+}
 </style>

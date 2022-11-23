@@ -2,6 +2,7 @@
 import Navbar from '../components/navbar.svelte'
 import Sidebar from '../components/sidebar.svelte'
 import Grid from '../components/grid.svelte'
+import Mobilnavbar from '../components/mobilnavbar.svelte'
 
 export interface Props {
 	title: string;
@@ -23,16 +24,20 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<Navbar client:load active={active}/>
+		<nav>
+			<Navbar client:load active={active}/>
+			<Mobilnavbar client:load />
+		</nav>
+
 		<main>
 			<div>
 				<slot />
 			</div>
 		</main>
-		<div class = "container">
+		<!-- <div class = "container">
 			<Grid direction = "left" text={"Här kan man ha text"} link={}/>
 			<Grid direction ="right" text={"Här kan man också ha text"} link={}/>
-		</div>
+		</div> -->
 	</body>
 </html>
 <style lang="scss">
@@ -64,6 +69,8 @@ const { title } = Astro.props;
 		height: 2000px;
 		margin: 0;
 		background-color: gainsboro;
+		display: flex;
+
 	}
 
 	main {
@@ -74,6 +81,11 @@ const { title } = Astro.props;
 		justify-content: flex-start;
 		flex-direction: column;
 
+	}
+	
+	nav{
+		justify-content: center;
+		width: 100%;
 	}
 
 </style>
