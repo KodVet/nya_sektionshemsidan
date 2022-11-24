@@ -53,12 +53,14 @@
     </div> -->
 
     <ul>
-        {#each Object.values(pages) as params}
+        {#each Object.values(pages) as pageData}
 
-        <div class="ddbutton"><li><a href="{params.url}" class={active}>{params.pageData.btnName}</a></li>
+        <div class="ddbutton"><li><a href="{pageData.url}" class={active === pageData.url ? 'underlined' : ''}>{pageData.pageData.btnName}</a></li>
             <div class="ddcontent" style = "margin-top:{margin};">
                 <a href="#">Link 1</a>
                 <a href="#">Links...</a>
+                <a href="#">{active}</a>
+                <a href="#">{pageData.url}</a>
             </div>
         </div>
 

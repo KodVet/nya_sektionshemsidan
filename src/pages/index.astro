@@ -7,7 +7,7 @@ export let pageData = {
 console.log("här ska det vara en url:", Astro.url)
 ---
 
-<Layout title="Kogvet Sektionen på Linköpings Universitet" active="start">
+<Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<main>
 	</main>
 </Layout>

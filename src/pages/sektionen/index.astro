@@ -6,7 +6,7 @@ export let pageData = {
 };
 ---
 
-<Layout title="Kogvet Sektionen på Linköpings Universitet" active="sektionen">
+<Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<main>
 		<h1>The current URL is: {Astro.url}</h1>
 		<h1>The current URL pathname is: {Astro.url.pathname}</h1>
