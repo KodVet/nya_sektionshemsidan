@@ -55,10 +55,10 @@
     <ul>
         {#each Object.values(pages) as params}
 
-        <div class="ddbutton"><li><a href="{params.url}" class={active}>{params.btnName}</a></li>
+        <div class="ddbutton"><li><a href="{params.url}" class={active}>{params.pageData.btnName}</a></li>
             <div class="ddcontent" style = "margin-top:{margin};">
                 <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
+                <a href="#">Links...</a>
             </div>
         </div>
 

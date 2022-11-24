@@ -1,11 +1,16 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-export const btnName = "Om sektionen"
+export let pageData = {
+	btnName: "Om sektionen",
+	url: null
+};
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active="sektionen">
 	<main>
-
+		<h1>The current URL is: {Astro.url}</h1>
+		<h1>The current URL pathname is: {Astro.url.pathname}</h1>
+		<h1>The current URL origin is: {Astro.url.origin}</h1>
 	</main>
 </Layout>
 
