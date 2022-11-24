@@ -4,6 +4,11 @@ import Sidebar from '../components/sidebar.svelte'
 import Grid from '../components/grid.svelte'
 import Mobilnavbar from '../components/mobilnavbar.svelte'
 
+
+	const pages = import.meta.glob('../pages/**/index.astro', { eager: true})
+	//console.log("inuti astro layout:", pages)
+
+
 export interface Props {
 	title: string;
 	active: string;
@@ -25,7 +30,7 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<nav>
-			<Navbar client:load active={active}/>
+			<Navbar client:load active={active} pages={pages}/>
 			<Mobilnavbar client:load />
 		</nav>
 

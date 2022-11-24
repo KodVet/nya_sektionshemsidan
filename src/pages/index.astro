@@ -1,6 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-export const btnName = "Start"
+export let pageData = {
+	btnName: "Start",
+	url: null
+};
+console.log("här ska det vara en url:", Astro.url)
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active="start">

@@ -1,43 +1,16 @@
 <script>
     import Dropdown from "./dropdown.svelte";
-    
-    // import funktionen alt1:
-    //         ||
-    const pages = import.meta.glob('../pages/**/index.astro')
-    //console.log("pages", pages)
-    let pageParams = getPageParams();
-    async function getPageParams() {
-        let params = [];
-        for (const path in pages) {
-        await pages[path]().then((mod) => {
-            const temp = {
-                url: ((mod.url) ? mod.url : '/'),
-                btnName: mod.btnName
-            }
-            params.push(JSON.parse(JSON.stringify(temp)));
-            params = params;
-            // console.log(path, mod, mod.btnName, temp.url)
-        })
-    }
-    return params;
-    };
-    // pageParams.then(resolved => console.log(resolved, "här är den"));
-
-
-
-
-
-
-	export let active;
+    export let pages;
+    //console.log("inuti navbar-komponenten:", pages)
+    export let active;
     let y;
     let nav;
+
 
     let min_h = 60;
     let max_h = 115;
     let max_scroll = 100;
     let nav_h = String(max_h) + "px";
-
-    let sticky = false
     function nav_scroll() {
         if(0<=y && 100>=y){
             nav_h = String(max_h - ((max_h-min_h)/max_scroll)*y) + "px"
@@ -45,6 +18,7 @@
         }
     }
 
+    let sticky = false
     function sticky_nav(){
         if (y >= nav.offsetTop){
             sticky = true
@@ -79,8 +53,7 @@
     </div> -->
 
     <ul>
-        {#await pageParams then result}
-        {#each result as params}
+        {#each Object.values(pages) as params}
 
         <div class="ddbutton"><li><a href="{params.url}" class={active}>{params.btnName}</a></li>
             <div class="ddcontent" style = "margin-top:{margin};">
@@ -90,7 +63,6 @@
         </div>
 
         {/each}
-        {/await}
         <!-- <div class="ddbutton">
             <li><a href="/" class={active === "start" ? 'underlined' : ''}>Start</a></li>
             <div class="ddcontent" style = "margin-top:{margin};">
