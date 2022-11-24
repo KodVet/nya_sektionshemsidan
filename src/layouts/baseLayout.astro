@@ -4,6 +4,7 @@ import Sidebar from '../components/sidebar.svelte'
 import Grid from '../components/grid.svelte'
 import Mobilnavbar from '../components/mobilnavbar.svelte'
 import BaseHead from '../components/baseHead.astro'
+import BaseFooter from '../components/baseFooter.astro'
 
 
 	const pages = import.meta.glob('../pages/**/index.astro', { eager: true})
@@ -22,7 +23,8 @@ const { title } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en">
-	<baseHead title={title}/>
+	<BaseHead title={title}/>
+
 	<body>
 		<nav>
 			<Navbar client:load active={active} pages={pages}/>
@@ -38,6 +40,7 @@ const { title } = Astro.props;
 			<Grid direction = "left" text={"Här kan man ha text"} link={}/>
 			<Grid direction ="right" text={"Här kan man också ha text"} link={}/>
 		</div> -->
+		<BaseFooter />
 	</body>
 </html>
 <style lang="scss">
@@ -90,6 +93,10 @@ const { title } = Astro.props;
 
 	}
 
+	BaseFooter {
+		bottom: 0%;
+		border-radius: 45px;
+	}
 </style>
 
 <style is:global>

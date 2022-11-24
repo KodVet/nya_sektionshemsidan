@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 const {Content, frontmatter} = Astro.props;
 
 ---
-<Layout title="Kogvet Sektionen på Linköpings Universitet">
+<Layout title="Kogvet Sektionen på Linköpings Universitet" active="sektionen">
 	<article>
     <h1>{frontmatter.title}</h1>
     <h2>hej</h2>
