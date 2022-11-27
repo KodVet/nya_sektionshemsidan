@@ -41,29 +41,27 @@
 </script>
 
 <svelte:window on:scroll={scroll_funcs} bind:scrollY={y}/>
+<div class="wrapper">
 <nav bind:this={nav} style="height:{nav_h}">
-    <!-- <nav bind:this={nav} style="height:{nav_h}" class:stickied={sticky}> -->
-        <img id="logo" src="images/KogvetHuvet.svg" alt="det är ju loggan hummer" />
-    <!--     <div>
-            Du har scrollat {y} pixlar
-        </div> -->
-    
-        <ul>
-            {#each Object.values(pages) as pageData}
-            <li class="navBtn" id="{pageData.pageData.btnName}">
-                <div class="ddbutton" on><a href="{pageData.url}" class={active === pageData.url ? 'underlined' : ''}>{pageData.pageData.btnName}</a>
-                    <div class="ddcontent" id="{pageData.pageData.btnName}" style = "background-color: {active === pageData.url ? 'lightgreen' : 'grey'};">
-                        <a href="#">Link 1</a>
-                        <a href="#">Links...</a>
-                        <a href="#">{active}</a>
-                        <a href="#">{pageData.url}</a>
-                    </div>
+    <img id="logo" src="images/KogvetHuvet.svg" alt="det är ju loggan hummer" />
+    <ul>
+        {#each Object.values(pages) as pageData}
+        <li class="navBtn" id="{pageData.pageData.btnName}">
+            <div class="ddbutton" class:active="{active === pageData.url}"><a href="{pageData.url}">{pageData.pageData.btnName}</a>
+                <div class="dot" style={active === pageData.url ? 'display: block;' : 'display: none;'}></div>
+                <div class="ddcontent" id="{pageData.pageData.btnName}" style = "background-color: {active === pageData.url ? 'lightgreen' : 'white'};">
+                    <a href="#">Link 1</a>
+                    <a href="#">Links...</a>
+                    <a href="#">{active}</a>
+                    <a href="{pageData.url}">{pageData.url}</a>
                 </div>
-            </li>
-            {/each}
-        </ul>
-    
+            </div>
+        </li>
+        {/each}
+    </ul>
 </nav>
+</div>
+
 
 <style>
     #logo {
@@ -73,10 +71,17 @@
     li{
         font-size: x-large;
         font: bold;
+        height: 100%;
     }
-    a{
+    .ddbutton > a {
         text-decoration: none;
         color: inherit;
+    }
+    .wrapper {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        height: fit-content;
     }
 
     .underlined{
@@ -90,43 +95,72 @@
         list-style: none;
         align-items: center;
         padding-right: 100px;
+        height: 100%;
+        margin: 0px;
     }
 
     nav {
+        opacity: 100%;
         position: fixed;
         width: 100%;
         background-color: rgba(3, 125, 79, 1);
         display: none;
         justify-content: space-between;
         transition: 20ms;
+        top: 0%;
+        z-index: 5;
     }
-
-    .navBtn {
-        counter-increment: navBtncount; 
+    nav > * {
+        position: relative;
+        opacity: 100%;
     }
-
+    nav * {
+        z-index: initial;
+    }
+    .ddbutton {
+        transition: color ease-in-out .5s;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
     .ddbutton:hover .ddcontent {
         opacity: 100%;
-        transform: translateY(0);
+        pointer-events: all;
+        transform: translateY(0%);
     }
-    .navBtn:has(.underlined) .ddcontent {
+    .ddbutton:hover {
+        color: aliceblue;
+    }
+
+    .navBtn:hover ~ .navBtn .active .ddcontent {
+        opacity: 0%;
+        transform: translateY(-50%);
+        transition: all ease-in-out .5s;
+    }
+    .navBtn:has(.active) .ddcontent {
         opacity: 100%;
-        transform: translateY(0);
         transition: none;
-        z-index: 0;
+        transform: translateY(0%);
+        z-index: -10;
+    }
+    ul .active {
+        margin-top: 3px;
     }
     .ddcontent{
+        pointer-events: none;
+        width: 100vw;
         position: absolute;
-        left: 0px;
+        right: 0px;
         /* background-color: #f9f9f9; */
-        width:100%;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
         display: flex;
         transform: translateY(-50%);
+        z-index: -5;
         opacity: 0%;
         transition: all ease-in-out .5s;
         top: 100%;
+        overflow: hidden;
     }
 
     .ddcontent a {
@@ -134,6 +168,15 @@
         padding: 12px 16px;
         text-decoration: none;
 }
+    .navBtn .dot {
+        position: relative;
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        left: 50%;
+        transform: translateY(5px);
+    }
 
     .stickied{
         position: fixed !important;
@@ -142,8 +185,8 @@
 
 @media (min-width: 577px)
 {nav {
-    display:flex;
+    display: flex;
     margin: auto;
-    width: 90%; }
+    width: 100%; }
 }
 </style>
