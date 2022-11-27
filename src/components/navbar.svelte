@@ -35,6 +35,7 @@
         // sticky_nav();
         nav_scroll();
     }
+
     console.log("javascript funkar")
 
 </script>
@@ -49,9 +50,9 @@
     
         <ul>
             {#each Object.values(pages) as pageData}
-            <li class="navBtn">
+            <li class="navBtn" id="{pageData.pageData.btnName}">
                 <div class="ddbutton" on><a href="{pageData.url}" class={active === pageData.url ? 'underlined' : ''}>{pageData.pageData.btnName}</a>
-                    <div class="ddcontent">
+                    <div class="ddcontent" id="{pageData.pageData.btnName}" style = "background-color: {active === pageData.url ? 'lightgreen' : 'grey'};">
                         <a href="#">Link 1</a>
                         <a href="#">Links...</a>
                         <a href="#">{active}</a>
@@ -100,17 +101,31 @@
         transition: 20ms;
     }
 
+    .navBtn {
+        counter-increment: navBtncount; 
+    }
+
     .ddbutton:hover .ddcontent {
-      display:flex;
+        opacity: 100%;
+        transform: translateY(0);
+    }
+    .navBtn:has(.underlined) .ddcontent {
+        opacity: 100%;
+        transform: translateY(0);
+        transition: none;
+        z-index: 0;
     }
     .ddcontent{
         position: absolute;
-        display: none;
         left: 0px;
-        background-color: #f9f9f9;
+        /* background-color: #f9f9f9; */
         width:100%;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
+        display: flex;
+        transform: translateY(-50%);
+        opacity: 0%;
+        transition: all ease-in-out .5s;
         top: 100%;
     }
 
@@ -118,7 +133,6 @@
         color: black;
         padding: 12px 16px;
         text-decoration: none;
-        display: block;
 }
 
     .stickied{
