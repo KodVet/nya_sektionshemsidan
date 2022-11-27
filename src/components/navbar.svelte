@@ -1,112 +1,67 @@
 <script>
-    import Dropdown from "./dropdown.svelte";
+
     export let pages;
     //console.log("inuti navbar-komponenten:", pages)
     export let active;
     let y;
     let nav;
 
-
     let min_h = 60;
     let max_h = 115;
-    let max_scroll = 100;
+    let max_scroll = 200;
     let nav_h = String(max_h) + "px";
     function nav_scroll() {
-        if(0<=y && 100>=y){
+        if(0<=y && max_scroll>=y){
             nav_h = String(max_h - ((max_h-min_h)/max_scroll)*y) + "px"
             console.log("nav_scroll", nav_h, y, nav.offsetTop)
+        }
+        else{
+            nav_h = String(min_h) + "px"
         }
     }
 
     let sticky = false
-    function sticky_nav(){
-        if (y >= nav.offsetTop){
-            sticky = true
-            console.log("I AM STICKY", nav.offsetTop)
-        }
-        else {
-            sticky=false
-        }
-    }
-    let margin_max = 40;
-    let margin = "40px";
-        function margin_scroll() {
-            if(0<=y && 100>=y){
-                margin = String(margin_max - ((margin_max-23.5)/max_scroll)*y) + "px"
-                console.log(margin)
-            }
-    }
+    // function sticky_nav(){
+    //     if (y >= nav.offsetTop){
+    //         sticky = true
+    //         console.log("I AM STICKY", nav.offsetTop)
+    //     }
+    //     else {
+    //         sticky=false
+    //     }
+    // }
+
     function scroll_funcs() {
-        sticky_nav();
+        // sticky_nav();
         nav_scroll();
-        margin_scroll();
     }
     console.log("javascript funkar")
 
 </script>
 
 <svelte:window on:scroll={scroll_funcs} bind:scrollY={y}/>
-<nav bind:this={nav} style="height:{nav_h}" class:stickied={sticky}> 
-    <img id="logo" src="images/KogvetHuvet.svg" alt="det är ju loggan hummer" />
-<!--     <div>
-        Du har scrollat {y} pixlar
-    </div> -->
-
-    <ul>
-        {#each Object.values(pages) as pageData}
-
-        <div class="ddbutton"><li><a href="{pageData.url}" class={active === pageData.url ? 'underlined' : ''}>{pageData.pageData.btnName}</a></li>
-            <div class="ddcontent" style = "margin-top:{margin};">
-                <a href="#">Link 1</a>
-                <a href="#">Links...</a>
-                <a href="#">{active}</a>
-                <a href="#">{pageData.url}</a>
-            </div>
-        </div>
-
-        {/each}
-        <!-- <div class="ddbutton">
-            <li><a href="/" class={active === "start" ? 'underlined' : ''}>Start</a></li>
-            <div class="ddcontent" style = "margin-top:{margin};">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-            </div>
-        </div>
-
-        <div class="ddbutton">
-            <li><a href="/student" class={active === "student" ? 'underlined' : ''}>Student</a></li>
-            <div class="ddcontent" style = "margin-top:{margin};">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href='#'>Link 3</a>
-           </div>
-        </div>
-
-        <div class="ddbutton">
-            <li><a href="/sektionen" class={active === "sektionen" ? 'underlined' : ''}>Om sektionen</a></li>
-            <div class="ddcontent" style = "margin-top:{margin};">
-                <a href="sektionen/inlägg">inlägg</a>
-                <a href="#">Link 2</a>
-            </div>
-        </div>
-
-        <div class="ddbutton">
-            <li><a href="/medlemmar" class={active === "medlemmar" ? 'underlined' : ''}>För medlemmar</a></li>
-            <div class="ddcontent" style = "margin-top:{margin};">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-            </div>
-        </div>
-
-        <div class="ddbutton">
-            <li><a href="/kontakt" class={active === "kontakt" ? 'underlined' : ''}>Kontakt</a></li>
-            <div class="ddcontent" style = "margin-top:{margin};">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-            </div>
+<nav bind:this={nav} style="height:{nav_h}">
+    <!-- <nav bind:this={nav} style="height:{nav_h}" class:stickied={sticky}> -->
+        <img id="logo" src="images/KogvetHuvet.svg" alt="det är ju loggan hummer" />
+    <!--     <div>
+            Du har scrollat {y} pixlar
         </div> -->
-    </ul>
-
+    
+        <ul>
+            {#each Object.values(pages) as pageData}
+            <li class="navBtn">
+                <div class="ddbutton" on><a href="{pageData.url}" class={active === pageData.url ? 'underlined' : ''}>{pageData.pageData.btnName}</a>
+                    <div class="ddcontent">
+                        <a href="#">Link 1</a>
+                        <a href="#">Links...</a>
+                        <a href="#">{active}</a>
+                        <a href="#">{pageData.url}</a>
+                    </div>
+                </div>
+            </li>
+            {/each}
+        </ul>
+    
 </nav>
 
 <style>
@@ -137,7 +92,7 @@
     }
 
     nav {
-        position: relative;
+        position: fixed;
         width: 100%;
         background-color: rgba(3, 125, 79, 1);
         display: none;
@@ -149,13 +104,14 @@
       display:flex;
     }
     .ddcontent{
+        position: absolute;
         display: none;
-        position: fixed;
         left: 0px;
         background-color: #f9f9f9;
         width:100%;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
+        top: 100%;
     }
 
     .ddcontent a {
