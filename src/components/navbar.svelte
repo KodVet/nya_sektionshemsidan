@@ -49,7 +49,7 @@
         <li class="navBtn" id="{pageData.pageData.btnName}">
             <div class="ddbutton" class:active="{active === pageData.url}"><a href="{pageData.url}">{pageData.pageData.btnName}</a>
                 <div class="dot" style={active === pageData.url ? 'display: block;' : 'display: none;'}></div>
-                <div class="ddcontent" id="{pageData.pageData.btnName}" style = "background-color: {active === pageData.url ? 'lightgreen' : 'white'};">
+                <div class="ddcontent" id="{pageData.pageData.btnName}" style = "background-color: {active === pageData.url ? '#D1F2D5' : '#F3F3F4'};">
                     <a href="#">Link 1</a>
                     <a href="#">Links...</a>
                     <a href="#">{active}</a>
@@ -72,6 +72,10 @@
         font-size: x-large;
         font: bold;
         height: 100%;
+        padding-inline: 30px;
+    }
+    li:first-child {
+        padding-left: 200px;
     }
     .ddbutton > a {
         text-decoration: none;
@@ -90,11 +94,11 @@
 
     ul{
         display: flex;
-        justify-content: space-between;
-        width: 650px;
+        justify-content: flex-start;
+        width: 1100px;
         list-style: none;
         align-items: center;
-        padding-right: 100px;
+        padding: 0%;
         height: 100%;
         margin: 0px;
     }
@@ -124,18 +128,18 @@
         justify-content: center;
         flex-direction: column;
     }
-    .ddbutton:hover .ddcontent {
+    .navBtn:hover .ddcontent {
         opacity: 100%;
         pointer-events: all;
         transform: translateY(0%);
     }
-    .ddbutton:hover {
+    .navBtn:hover {
         color: aliceblue;
     }
 
     .navBtn:hover ~ .navBtn .active .ddcontent {
         opacity: 0%;
-        transform: translateY(-50%);
+        transform: translateY(-100%);
         transition: all ease-in-out .5s;
     }
     .navBtn:has(.active) .ddcontent {
@@ -155,7 +159,7 @@
         /* background-color: #f9f9f9; */
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         display: flex;
-        transform: translateY(-50%);
+        transform: translateY(-100%);
         z-index: -5;
         opacity: 0%;
         transition: all ease-in-out .5s;
