@@ -132,6 +132,7 @@
         opacity: 100%;
         pointer-events: all;
         transform: translateY(0%);
+        clip-path: inset(0 0 0 0);
     }
     .navBtn:hover {
         color: aliceblue;
@@ -140,31 +141,42 @@
     .navBtn:hover ~ .navBtn .active .ddcontent {
         opacity: 0%;
         transform: translateY(-100%);
-        transition: all ease-in-out .5s;
+        clip-path: inset(95px 0 0 0);
+        /* transition: all ease-in-out .5s; */
     }
-    .navBtn:has(.active) .ddcontent {
+    /* .navBtn:has(~ .active) */
+
+    .active .ddcontent {
         opacity: 100%;
-        transition: none;
+        /* transition: none; */
         transform: translateY(0%);
+        clip-path: inset(0 0 0 0);
         z-index: -10;
+
     }
     ul .active {
         margin-top: 3px;
     }
     .ddcontent{
-        pointer-events: none;
-        width: 100vw;
         position: absolute;
-        right: 0px;
-        /* background-color: #f9f9f9; */
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        pointer-events: none;
+        height: 60px;
+        /* pixel-värdet är bredden av scrollbaren */
+        width: calc(100vw - 16px);
+        right: 0;
+        padding: 0px;
+        /* box-shadow: 0px 8px 36px 0px rgba(0,0,0,0.7); */
         display: flex;
-        transform: translateY(-100%);
         z-index: -5;
-        opacity: 0%;
-        transition: all ease-in-out .5s;
         top: 100%;
-        overflow: hidden;
+        background-clip: content-box;
+        padding-bottom: 35px;
+
+        /* animationen */
+        clip-path: inset(95px 0 0 0);
+        transform: translateY(-100%);
+        opacity: 0%;
+        transition: opacity, transform, clip-path, ease-in-out .5s;
     }
 
     .ddcontent a {
