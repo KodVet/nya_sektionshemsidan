@@ -26,11 +26,8 @@ const { title } = Astro.props;
 	<BaseHead title={title}/>
 
 	<body>
-		<nav>
-			<Navbar client:load active={active} pages={pages}/>
-			<Mobilnavbar client:load />
-		</nav>
-
+		<Navbar client:load active={active} pages={pages}/>
+		<Mobilnavbar client:load />
 		<main>
 			<div>
 				<slot />
@@ -85,13 +82,21 @@ const { title } = Astro.props;
 		flex-direction: column;
 
 	}
+
+	body::-webkit-scrollbar {
+  width: 16px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #d4aa70;
+  border-radius: 100px;
+}
 	
-	nav{
-		justify-content: center;
-		width: 100%;
-
-
-	}
 
 	BaseFooter {
 		bottom: 0%;
