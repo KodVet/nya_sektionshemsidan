@@ -79,7 +79,8 @@
     }
     .ddbutton > a {
         text-decoration: none;
-        color: inherit;
+        color: #F3F3F4;
+        transition: color ease-in-out .5s;
     }
     .wrapper {
         position: relative;
@@ -134,8 +135,8 @@
         transform: translateY(0%);
         clip-path: inset(0 0 0 0);
     }
-    .navBtn:hover {
-        color: aliceblue;
+    .navBtn:hover > .ddbutton  > a {
+        color: #221E1F;
     }
 
     .navBtn:hover ~ .navBtn .active .ddcontent,
@@ -168,6 +169,7 @@
         padding: 0px;
         /* box-shadow: 0px 8px 36px 0px rgba(0,0,0,0.7); */
         display: flex;
+        justify-content: center;
         top: 100%;
         background-clip: content-box;
         padding-bottom: 35px;
@@ -179,8 +181,8 @@
         transition: opacity, transform, clip-path, ease-in-out .5s;
     }
 
-    .ddcontent a {
-        color: black;
+    .ddcontent > * {
+        color: #221E1F;
         padding: 12px 16px;
         text-decoration: none;
 }
