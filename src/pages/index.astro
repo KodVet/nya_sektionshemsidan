@@ -1,14 +1,17 @@
 ---
 import Layout from '../layouts/baseLayout.astro';
+import Hero from '../components/hero.astro'
+let geturl = (() => Astro.url.pathname)
 export let pageData = {
 	btnName: "Start",
-	url: null
+	path: null
 };
 console.log("här ska det vara en url:", Astro.url)
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<main>
+		<Hero />
 	</main>
 </Layout>
 
