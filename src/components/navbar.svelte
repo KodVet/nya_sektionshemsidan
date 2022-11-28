@@ -48,7 +48,7 @@
         {#each Object.values(pages) as pageData}
         <li class="navBtn" id="{pageData.pageData.btnName}">
             <div class="ddbutton" class:active="{active === pageData.url}"><a href="{pageData.url}">{pageData.pageData.btnName}</a>
-                <div class="dot" style={active === pageData.url ? 'display: block;' : 'display: none;'}></div>
+                <div class="dot"></div>
                 <div class="ddcontent" id="{pageData.pageData.btnName}" style = "background-color: {active === pageData.url ? '#D1F2D5' : '#F3F3F4'};">
                     <a href="#">Link 1</a>
                     <a href="#">Links...</a>
@@ -80,7 +80,6 @@
     .ddbutton > a {
         text-decoration: none;
         color: #F3F3F4;
-        transition: color ease-in-out .5s;
     }
     .wrapper {
         position: relative;
@@ -122,12 +121,19 @@
     nav * {
         z-index: initial;
     }
+    
+    /* Animation och interaktivitet med knapparna och dropdowns */
     .ddbutton {
         transition: color ease-in-out .5s;
         height: 100%;
         display: flex;
         justify-content: center;
         flex-direction: column;
+        align-items: center;
+    }
+    .navBtn:hover .dot {
+        width: 50%;
+        height: 5px;
     }
     .navBtn:hover .ddcontent {
         opacity: 100%;
@@ -135,9 +141,9 @@
         transform: translateY(0%);
         clip-path: inset(0 0 0 0);
     }
-    .navBtn:hover > .ddbutton  > a {
+    /* .navBtn:hover > .ddbutton  > a {
         color: #221E1F;
-    }
+    } */
 
     .navBtn:hover ~ .navBtn .active .ddcontent,
     .navBtn:has(~ .navBtn:hover) .active .ddcontent {
@@ -156,8 +162,9 @@
         pointer-events: all;
 
     }
-    ul .active {
-        margin-top: 3px;
+
+    ul .active .dot {
+        width: 5px;
     }
     .ddcontent{
         position: absolute;
@@ -178,7 +185,8 @@
         clip-path: inset(95px 0 0 0);
         transform: translateY(-100%);
         opacity: 0%;
-        transition: opacity, transform, clip-path, ease-in-out .5s;
+        transition: ease-in-out .5s;
+        transition-property: opacity, transform, clip-path;
     }
 
     .ddcontent > * {
@@ -188,12 +196,13 @@
 }
     .navBtn .dot {
         position: relative;
-        width: 6px;
-        height: 6px;
+        width: 0;
+        height: 5px;
+        border-radius: 20px;
         background: white;
-        border-radius: 50%;
-        left: 50%;
         transform: translateY(5px);
+        transition: .5s ease-in-out;
+        transition-property: width, border-radius;
     }
 
     .stickied{
