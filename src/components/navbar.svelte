@@ -46,14 +46,14 @@
     <img id="logo" src="images/KogvetHuvet.svg" alt="det är ju loggan hummer" />
     <ul>
         {#each Object.values(pages) as pageData}
-        <li class="navBtn" id="{pageData.pageData.btnName}">
-            <div class="ddbutton" class:active="{active === pageData.url}"><a href="{pageData.url}">{pageData.pageData.btnName}</a>
+        <li class="navBtn" id="{pageData.btnName}">
+            <div class="ddbutton" class:active="{active === pageData.url}"><a href="{pageData.url}">{pageData.btnName}</a>
                 <div class="dot"></div>
-                <div class="ddcontent" id="{pageData.pageData.btnName}" style = "background-color: {active === pageData.url ? '#D1F2D5' : '#F3F3F4'};">
+                <div class="ddcontent" id="{pageData.btnName}" style = "background-color: {active === pageData.url ? '#D1F2D5' : '#F3F3F4'};">
                     <a href="#">Link 1</a>
                     <a href="#">Links...</a>
-                    <a href="#">{active}</a>
-                    <a href="{pageData.url}">{pageData.url}</a>
+                    <a href="#">active:{active}</a>
+                    <a href="{pageData.url}">pageData.url:{pageData.url}</a>
                 </div>
             </div>
         </li>
@@ -80,6 +80,7 @@
     .ddbutton > a {
         text-decoration: none;
         color: #F3F3F4;
+        transition: all ease-in-out .2s;
     }
     .wrapper {
         position: relative;
@@ -141,16 +142,17 @@
         transform: translateY(0%);
         clip-path: inset(0 0 0 0);
     }
-    /* .navBtn:hover > .ddbutton  > a {
-        color: #221E1F;
-    } */
+
+    /* kankse blir klottrigt?? */
+    .ddbutton  > a:hover {
+        color: rgb(152, 152, 152);
+    }
 
     .navBtn:hover ~ .navBtn .active .ddcontent,
     .navBtn:has(~ .navBtn:hover) .active .ddcontent {
         opacity: 0%;
         transform: translateY(-100%);
-        clip-path: inset(95px 0 0 0);
-        /* transition: all ease-in-out .5s; */
+        clip-path: inset(85px 0 0 0);
     }
 
     .active .ddcontent {
@@ -169,7 +171,7 @@
     .ddcontent{
         position: absolute;
         pointer-events: none;
-        height: 60px;
+        height: 50px;
         /* pixel-värdet är bredden av scrollbaren */
         width: calc(100vw - 16px);
         right: 0;
@@ -182,7 +184,7 @@
         padding-bottom: 35px;
 
         /* animationen */
-        clip-path: inset(95px 0 0 0);
+        clip-path: inset(85px 0 0 0);
         transform: translateY(-100%);
         opacity: 0%;
         transition: ease-in-out .5s;
