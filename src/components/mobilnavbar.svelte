@@ -1,11 +1,16 @@
+ let: motion whileHover
+ 
  <nav>
         <ul>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
+            <div class= "dropdown">
+                <li> <a href indexedDB.astro> Start </a></li>
+                    <div class = "dropdown-content"> <a href="">Intressant sida 1</a></div>
+                    <div class = "dropdown-content"> <a href="">Intressant sida 2</a></div>
+            </div>
+            <li>Om sektionen</li>
+            <li>Ny student</li>
+            <li>För medlemmar</li>
+            <li>Kontakt</li>
         </ul>
  </nav>
 
@@ -26,7 +31,20 @@ ul{
    padding: 0px;
    
 }
+.dropdown {
+  position: relative;
+  display: inline-block;
 
+}
+.dropdown-content {
+    display: none;
+}
+.dropdown-content a {
+    display: block;
+}
+
+nav:hover .dropdown-content {display: block;}
+nav:hover .dropbtn {background-color: #3e8e41;}
 
 
 @media (max-width: 576px) 
@@ -36,5 +54,6 @@ ul{
     width: 90%;
     justify-content: center; }
 }
+
 </style>
 
