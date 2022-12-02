@@ -37,6 +37,7 @@
     }
 
     console.log("javascript funkar")
+    console.log(pages)
 
 </script>
 
@@ -50,11 +51,16 @@
             <div class="ddbutton" class:active="{active === pageData.url}"><a href="{pageData.url}">{pageData.btnName}</a>
                 <div class="dot"></div>
                 <div class="ddcontent" id="{pageData.btnName}" style = "background-color: {active === pageData.url ? '#D1F2D5' : '#F3F3F4'};">
+                {#each Object.values(pageData.childPages) as pageData2}
+                    <a href="{pageData2.url}">{pageData2.btnName}</a>
+                {/each}
+                </div>
+                <!-- <div class="ddcontent" id="{pageData.btnName}" style = "background-color: {active === pageData.url ? '#D1F2D5' : '#F3F3F4'};">
                     <a href="#">Link 1</a>
                     <a href="#">Links...</a>
                     <a href="#">active:{active}</a>
                     <a href="{pageData.url}">pageData.url:{pageData.url}</a>
-                </div>
+                </div> -->
             </div>
         </li>
         {/each}

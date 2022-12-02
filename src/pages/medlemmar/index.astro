@@ -2,7 +2,8 @@
 import Layout from '../../layouts/baseLayout.astro';
 export let pageData = {
 	btnName: "För medlemmar",
-	url: "/medlemmar"
+	url: "/medlemmar",
+	childPages: import.meta.glob('./*.astro', { import: "pageData", eager: true})
 };
 ---
 

@@ -1,13 +1,16 @@
 ---
 import Layout from '../../layouts/baseLayout.astro';
+// const pagesLevel2 = import.meta.glob('/.astro', { import: "pageData", eager: true})
 export let pageData = {
 	btnName: "Kontakt",
-	url: "/kontakt"
+	url: "/kontakt",
+	childPages: (import.meta.glob('./*.astro', { import: "pageData", eager: true}))
 };
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<main>
+
 	</main>
 </Layout>
 
