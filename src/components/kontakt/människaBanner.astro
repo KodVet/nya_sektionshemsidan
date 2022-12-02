@@ -1,0 +1,47 @@
+--- 
+
+const { namn } = Astro.props
+const { post } = Astro.props
+const { kontakt } = Astro.props;
+const { bild } = Astro.props;
+const { direction } = Astro.props;
+
+---
+<div class={direction}>
+    <img src={bild} alt="en fin bild på en person">
+    <div class="txt">
+    <p><b>{post}:</b> {namn}</p> 
+    <p><b>Kontakt:</b> {kontakt}</p>
+    </div>    
+</div>
+
+<style>
+.right{
+    width: 500px;
+    margin-top:40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 35%;
+}
+
+.left{
+    width: 500px;
+    margin-top:40px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-left: 35%;
+
+}
+
+.txt{
+    line-height: 0.6;
+    margin:auto;
+}
+
+img{
+    width: 200px;
+    height: 200px;
+}
+</style>
