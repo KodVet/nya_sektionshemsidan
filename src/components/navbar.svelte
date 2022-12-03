@@ -174,7 +174,7 @@
     ul .active .dot {
         width: 5px;
     }
-    .ddcontent{
+    .ddcontent:has(a){
         position: absolute;
         pointer-events: none;
         height: 50px;
