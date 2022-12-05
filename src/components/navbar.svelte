@@ -55,6 +55,7 @@
                     <a href="{pageData2.url}">{pageData2.btnName}</a>
                 {/each}
                 </div>
+                <div class="pad"></div>
                 <!-- <div class="ddcontent" id="{pageData.btnName}" style = "background-color: {active === pageData.url ? '#D1F2D5' : '#F3F3F4'};">
                     <a href="#">Link 1</a>
                     <a href="#">Links...</a>
@@ -90,9 +91,12 @@
     }
     .wrapper {
         position: relative;
-        z-index: 10;
         width: 100%;
         height: fit-content;
+       
+    }
+    .wrapper * {
+        overflow: visible;
     }
 
     .underlined{
@@ -119,14 +123,12 @@
         justify-content: space-between;
         transition: 20ms;
         top: 0%;
-        z-index: 5;
     }
     nav > * {
         position: relative;
         opacity: 100%;
     }
     nav * {
-        z-index: initial;
     }
     
     /* Animation och interaktivitet med knapparna och dropdowns */
@@ -148,6 +150,9 @@
         transform: translateY(0%);
         clip-path: inset(0 0 0 0);
     }
+    .navBtn:hover .pad{
+        pointer-events: all;
+    }
 
     /* kankse blir klottrigt?? */
     .ddbutton  > a:hover {
@@ -158,7 +163,10 @@
     .navBtn:has(~ .navBtn:hover) .active .ddcontent {
         opacity: 0%;
         transform: translateY(-100%);
-        clip-path: inset(85px 0 0 0);
+        clip-path: inset(60px 0 0 0);
+    }
+    .navBtn {
+        filter: drop-shadow(0px 110px 10px 10px #888888);
     }
 
     .active .ddcontent {
@@ -166,7 +174,6 @@
         /* transition: none; */
         transform: translateY(0%);
         clip-path: inset(0 0 0 0);
-        z-index: -10;
         pointer-events: all;
 
     }
@@ -176,28 +183,38 @@
     }
     .ddcontent:has(a){
         position: absolute;
-        pointer-events: none;
-        height: 50px;
+        /* pointer-events: none; */
+        height: 60px;
         /* pixel-värdet är bredden av scrollbaren */
         width: calc(100vw - 16px);
         right: 0;
-        padding: 0px;
-        /* box-shadow: 0px 8px 36px 0px rgba(0,0,0,0.7); */
+        box-shadow: 0px 110px 10px 10px #888888;
         display: flex;
         justify-content: center;
         top: 100%;
-        background-clip: content-box;
-        padding-bottom: 35px;
 
         /* animationen */
-        clip-path: inset(85px 0 0 0);
+        clip-path: inset(60px 0 0px 0);
         transform: translateY(-100%);
         opacity: 0%;
         transition: ease-in-out .5s;
         transition-property: opacity, transform, clip-path;
     }
+    .ddbutton:has(a) .pad {
+        pointer-events: none;
+        right: 0;
+        width: 100vw;
+        height: 100px;
+        opacity: 0;
+        position: absolute;
+        top: 100%;
+        /* background-color: black; */
+        z-index: -1;
+        /* opacity: 10%; */
+    }
 
-    .ddcontent > * {
+
+    .ddcontent > a {
         color: #221E1F;
         padding: 12px 16px;
         text-decoration: none;
