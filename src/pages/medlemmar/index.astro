@@ -5,6 +5,7 @@ export let pageData = {
 	url: "/medlemmar",
 	childPages: import.meta.glob('./*.astro', { import: "pageData", eager: true})
 };
+
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
