@@ -7,7 +7,7 @@ const { bild } = Astro.props;
 const { direction } = Astro.props;
 
 ---
-<div class={direction}>
+<div class={direction + " wrapper"}>
     <img src={bild} alt="en fin bild på en person">
     <div class="txt">
     <p><b>{post}:</b> {namn}</p> 
@@ -16,23 +16,23 @@ const { direction } = Astro.props;
 </div>
 
 <style>
-.right{
+.wrapper {
     width: 500px;
     margin-top:40px;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     margin-left: 35%;
+    padding: 10px;
+    border-radius: 20px;
+}
+.right{
+    flex-direction: row;
+    background: linear-gradient(119deg, rgba(9,121,10,1) 0%, #62cddb 100%);
 }
 
 .left{
-    width: 500px;
-    margin-top:40px;
-    display: flex;
     flex-direction: row-reverse;
-    justify-content: space-between;
-    margin-left: 35%;
-
+    background: linear-gradient(286deg, #62cddb, rgba(9,121,10,1));  /*vinkeln = vinkelkn av 360 - (vinkeln av .right - 45)*/
 }
 
 .txt{

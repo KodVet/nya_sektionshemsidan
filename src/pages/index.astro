@@ -2,7 +2,7 @@
 
 import Layout from '../layouts/baseLayout.astro';
 import Hero from '../components/hero.astro';
-import MänniskaBanner from '../components/kontakt/människaBanner.astro'
+import MänniskaCard from '../components/kontakt/människaCard.astro'
 let geturl = (() => Astro.url.pathname)
 export let pageData = {
 	btnName: "Start",
@@ -15,14 +15,14 @@ const människor = {människa1: {namn: 'människa1', post: 'kung', kontakt: 'mai
  människa3: {namn: 'människa3', post: 'kung', kontakt: 'mailen@mailservice.com'}}
  
 
- function row_reverse(index){
-	if (index % 2==0) {
-		return "right"
-	}
-	else{
-		return "left"
-	}
- }
+//  function row_reverse(index){
+// 	if (index % 2==0) {
+// 		return "right"
+// 	}
+// 	else{
+// 		return "left"
+// 	}
+//  }
 ---
 
 
@@ -31,12 +31,12 @@ const människor = {människa1: {namn: 'människa1', post: 'kung', kontakt: 'mai
 	<main>
 		<Hero />
 		{Object.values(människor).map((människa, index) => (
-			<MänniskaBanner 
+			<MänniskaCard 
 			namn={människa.namn}
 			post={människa.post} 
 			kontakt={människa.kontakt} 
 			bild="../../public/Sektionslogga 1.png"
-			direction={row_reverse(index)} />
+			direction={((index % 2==0) ? 'right' : 'left')} />
 			))}
 	</main>
 </Layout>
