@@ -1,5 +1,5 @@
 <script>
-    import { beforeUpdate } from "svelte";
+    import { afterUpdate, beforeUpdate } from "svelte";
 
 
 
@@ -23,7 +23,9 @@
         }
     }
 
-
+    beforeUpdate(() => {
+	scroll_funcs()
+});
 
     function scroll_funcs() {
         nav_scroll();
