@@ -1,4 +1,7 @@
 <script>
+    import { beforeUpdate } from "svelte";
+
+
 
     export let pages;
     //console.log("inuti navbar-komponenten:", pages)
@@ -20,19 +23,9 @@
         }
     }
 
-    let sticky = false
-    // function sticky_nav(){
-    //     if (y >= nav.offsetTop){
-    //         sticky = true
-    //         console.log("I AM STICKY", nav.offsetTop)
-    //     }
-    //     else {
-    //         sticky=false
-    //     }
-    // }
+
 
     function scroll_funcs() {
-        // sticky_nav();
         nav_scroll();
     }
 
