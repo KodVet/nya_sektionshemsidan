@@ -123,6 +123,7 @@
         justify-content: space-between;
         transition: 20ms;
         top: 0%;
+        z-index: 1;
     }
     nav > * {
         position: relative;
