@@ -1,5 +1,5 @@
 <script>
-    import { afterUpdate, beforeUpdate } from "svelte";
+    import { afterUpdate, beforeUpdate, onMount } from "svelte";
 
 
 
@@ -24,15 +24,18 @@
     }
 
     beforeUpdate(() => {
-	scroll_funcs()
+	nav_scroll()
 });
+    onMount(() =>{
+        scroll_funcs()
+    });
 
     function scroll_funcs() {
         nav_scroll();
     }
 
-    console.log("javascript funkar")
-    console.log(pages)
+    // console.log("javascript funkar")
+    // console.log(pages)
 
 </script>
 
@@ -112,7 +115,7 @@
     nav {
         opacity: 100%;
         position: fixed;
-        width: 100%;
+        width: 100%;    
         background-color: rgba(3, 125, 79, 1);
         display: none;
         justify-content: space-between;
