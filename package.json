@@ -17,6 +17,7 @@
     "swup": "^2.0.19"
   },
   "devDependencies": {
+    "@swup/head-plugin": "^1.2.1",
     "sass": "^1.55.0"
   }
 }
