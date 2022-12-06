@@ -22,7 +22,7 @@ posts = [
     },
 
 
-
+]
 </script>
 
 
