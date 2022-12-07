@@ -42,7 +42,7 @@
 <svelte:window on:scroll={scroll_funcs} bind:scrollY={y}/>
 <div class="wrapper">
 <nav bind:this={nav} style="height:{nav_h}">
-    <img id="logo" src="images/KogvetHuvet.svg" alt="det är ju loggan hummer" />
+    <img id="logo" src="/images/KogvetHuvet.svg" alt="det är ju loggan hummer" />
     <ul>
         {#each Object.values(pages) as pageData}
         <li class="navBtn" id="{pageData.btnName}">
