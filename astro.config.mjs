@@ -4,8 +4,8 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://kodvet.gitlab-pages.liu.se/sektionshemsidan',
-  base: '/sektionshemsidan',
+  site: 'https://kodvet.gitlab-pages.liu.se/sektionshemsidan/',
+  base: '/sektionshemsidan/',
   // Your public domain, e.g.: https://my-site.dev/. Used to generate sitemaps and canonical URLs.
   // base: 'kvit/',
   sitemap: true,
