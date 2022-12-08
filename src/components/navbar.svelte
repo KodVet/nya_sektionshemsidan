@@ -1,8 +1,8 @@
 <script>
     import { afterUpdate, beforeUpdate, onMount } from "svelte";
-    export let baseURL;
+    export let baseUrl;
     export let pages;
-    console.log("inuti navbar-komponenten:", baseURL)
+    console.log("inuti navbar-komponenten:", baseUrl)
     export let active;
     let y;
     let nav;
@@ -40,15 +40,15 @@
 <svelte:window on:scroll={scroll_funcs} bind:scrollY={y}/>
 <div class="wrapper">
 <nav bind:this={nav} style="height:{nav_h}">
-    <img id="logo" src="/images/KogvetHuvet.svg" alt="det är ju loggan hummer" />
+    <img id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     <ul class="transition-swipe">
         {#each Object.values(pages) as pageData}
         <li class="navBtn" id="{pageData.btnName}">
-            <div class="ddbutton" class:active="{active === pageData.url}"><a href="{baseURL + pageData.url}">{pageData.btnName}</a>
+            <div class="ddbutton" class:active="{active === pageData.url}"><a href="{baseUrl + pageData.url}">{pageData.btnName}</a>
                 <div class="dot"></div>
                 <div class="ddcontent" id="{pageData.btnName}" style = "background-color: {active === pageData.url ? '#D1F2D5' : '#F3F3F4'};">
                 {#each Object.values(pageData.childPages) as pageData2}
-                    <a href="{baseURL +pageData2.url}">{pageData2.btnName}</a>
+                    <a href="{baseUrl +pageData2.url}">{pageData2.btnName}</a>
                 {/each}
                 </div>
                 <div class="pad"></div>
