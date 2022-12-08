@@ -29,11 +29,10 @@ const { title } = Astro.props;
 	<BaseHead title={title}/>
 
 	<body>
-		<script defer type="module" src="/static/swupApp.js"></script>
-		
+		<script defer type="module" src="/swupApp.js"></script>
 		<div class="wrapper" id="swup" >
 			<div class="">
-			<Navbar client:load active={active} pages={pages}/>
+			<Navbar client:load active={active} pages={pages} URLOrigin={Astro.url.origin}/>
 			<Mobilnavbar client:load />
 			</div>
 		<main class="transition-fade">
