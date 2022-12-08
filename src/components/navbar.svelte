@@ -1,8 +1,8 @@
 <script>
     import { afterUpdate, beforeUpdate, onMount } from "svelte";
-    export let URLOrigin;
+    export let baseURL;
     export let pages;
-    console.log("inuti navbar-komponenten:", URLOrigin)
+    console.log("inuti navbar-komponenten:", baseURL)
     export let active;
     let y;
     let nav;
@@ -44,11 +44,11 @@
     <ul class="transition-swipe">
         {#each Object.values(pages) as pageData}
         <li class="navBtn" id="{pageData.btnName}">
-            <div class="ddbutton" class:active="{active === pageData.url}"><a href="{URLOrigin + pageData.url}">{pageData.btnName}</a>
+            <div class="ddbutton" class:active="{active === pageData.url}"><a href="{baseURL + pageData.url}">{pageData.btnName}</a>
                 <div class="dot"></div>
                 <div class="ddcontent" id="{pageData.btnName}" style = "background-color: {active === pageData.url ? '#D1F2D5' : '#F3F3F4'};">
                 {#each Object.values(pageData.childPages) as pageData2}
-                    <a href="{URLOrigin +pageData2.url}">{pageData2.btnName}</a>
+                    <a href="{baseURL +pageData2.url}">{pageData2.btnName}</a>
                 {/each}
                 </div>
                 <div class="pad"></div>
