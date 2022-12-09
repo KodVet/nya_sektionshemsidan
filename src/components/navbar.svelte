@@ -21,34 +21,39 @@
         }
     }
 
-    beforeUpdate(() => {
-	nav_scroll()
-});
     onMount(() =>{
+        console.log("nu skapas jag")
         scroll_funcs()
     });
+
+    afterUpdate(() => {
+        console.log("nu har jag uppdaterat")
+    })
+
+    beforeUpdate(() => {
+        console.log("nu ska jag uppdatera")
+	nav_scroll()
+    });
+
 
     function scroll_funcs() {
         nav_scroll();
     }
 
-    // console.log("javascript funkar")
-    // console.log(pages)
-
 </script>
 
 <svelte:window on:scroll={scroll_funcs} bind:scrollY={y}/>
-<div class="wrapper">
+<div id="navbarElement" class="container">
 <nav bind:this={nav} style="height:{nav_h}">
-    <img id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
-    <ul class="transition-swipe">
-        {#each Object.values(pages) as pageData}
-        <li class="navBtn" id="{pageData.btnName}">
-            <div class="ddbutton" class:active="{active === pageData.url}"><a href="{baseUrl + pageData.url}">{pageData.btnName}</a>
+    <img  id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
+    <ul>
+        {#each Object.values(pages) as { url, btnName, childPages }}
+        <li class="navBtn" id="{btnName}">
+            <div  class="ddbutton" class:active={active === (baseUrl + url)}><a on:click={() => active = (baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 <div class="dot"></div>
-                <div class="ddcontent" id="{pageData.btnName}" style = "background-color: {active === pageData.url ? '#D1F2D5' : '#F3F3F4'};">
-                {#each Object.values(pageData.childPages) as pageData2}
-                    <a href="{baseUrl +pageData2.url}">{pageData2.btnName}</a>
+                <div class="ddcontent" id="{btnName}" style = "background-color: {active === baseUrl + url ? '#D1F2D5' : '#F3F3F4'};">
+                {#each Object.values(childPages) as { url, btnName }}
+                    <a href="{baseUrl + url}">{btnName}</a>
                 {/each}
                 </div>
                 <div class="pad"></div>
@@ -61,6 +66,17 @@
 
 
 <style>
+.transition-nav {
+	z-index: 5;
+	opacity: 1;
+	transition: .5s;
+}
+
+html.is-animating .transition-nav {
+	opacity: 0;
+	z-index: 5;
+}
+
     #logo {
         padding: 15px;
         padding-left: 60px;
@@ -111,7 +127,7 @@
         background-color: rgba(3, 125, 79, 1);
         display: none;
         justify-content: space-between;
-        transition: 20ms;
+        transition: height 20ms;
         top: 0%;
         z-index: 1;
     }
@@ -124,7 +140,7 @@
     
     /* Animation och interaktivitet med knapparna och dropdowns */
     .ddbutton {
-        transition: color ease-in-out .5s;
+        transition: all ease-in-out .5s;
         height: 100%;
         display: flex;
         justify-content: center;
@@ -162,6 +178,7 @@
 
     .active .ddcontent {
         opacity: 100%;
+        background-color: aquamarine;
         /* transition: none; */
         transform: translateY(0%);
         clip-path: inset(0 0 0 0);
@@ -225,6 +242,8 @@
         position: fixed !important;
         top: 0px;
     }
+
+
 
 @media (min-width: 577px)
 {nav {
