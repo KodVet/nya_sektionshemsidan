@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'Gill Sans MT';
+    src: url('/fonts/gill-sans-mt.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  :root{
+    --koggis-grön: #037d4f;
+    --valla-grön: #16a654;
+    --limejuice: #d1f2d5;
+    --finvins-röd: #7D0331;
+    --ovveblues: #036E7D;
+    --bubblegum: #EAC0D8;
+    --buckethat-svart: #221e1f;
+    --kiss-efter-för-mycket-öl-gul: #CA8112;
+    --reflex-vit: #F3F3F4;
+  }

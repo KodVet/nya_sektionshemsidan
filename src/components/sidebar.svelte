@@ -12,26 +12,24 @@
 </ul>
 
 <style lang="scss">
-
-    ul {
-        position: fixed;
-        li {
-            margin-bottom: 50px;
-            color: black;
-            h1 {
-                    a {
-                        text-decoration: none;
-                        color: black;
-                        transition: ease-in-out .1s;
-                        display: block;
-                        &:hover {
-                            color: rgb(152, 152, 152);
-                        }
+ul {
+    position: sticky;
+    top: 300px;
+    z-index: 10;
+    li {
+        margin-bottom: 50px;
+        color: black;
+        h1 {
+                a {
+                    text-decoration: none;
+                    color: black;
+                    transition: ease-in-out .1s;
+                    display: block;
+                    &:hover {
+                        color: rgb(152, 152, 152);
                     }
-                    
                 }
             }
         }
-    
-    
+    }
 </style>

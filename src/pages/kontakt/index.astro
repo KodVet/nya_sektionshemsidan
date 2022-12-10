@@ -13,26 +13,24 @@ export let pageData = {
 // 	console.log('post här ', post)
 // })
 ---
-
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
-	<main>
-		<Sidebar frontmatters={posts.map((post) => post.frontmatter)}/>
+	<Sidebar frontmatters={posts.map((post) => post.frontmatter)}/>
+	<div class="container">
 		<section id="inlägg">
 			{posts.map(async (Post) =>
-			<div class="anchor" id={Post.frontmatter.title}></div>
-			<div class="container">
+			<div class="scrollAnchor" id={Post.frontmatter.title}></div>
+			<div class="post">
 			<h1>{Post.frontmatter.title}</h1>
 			<Post.Content/>
 			</div>)}
 		</section>
-		
-	</main>
+	</div>
 </Layout>
 
 <style>
 
 	/* dessa funkar som "ankare" för att autoscrolla till */
-	.anchor {
+	.scrollAnchor {
     display: block;
     position: relative;
     top: -125px;
@@ -44,7 +42,7 @@ export let pageData = {
 		margin-top: 50px;
 		gap: 100px;
 	}
-	.container {
+	.post {
 		align-self: center;
 		background-color: gainsboro;
 		border-radius: 20px;

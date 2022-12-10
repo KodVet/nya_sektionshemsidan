@@ -11,47 +11,32 @@ export let pageData = {
 };
 
 const människor = {människa1: {namn: 'människa1', post: 'kung', kontakt: 'mailen@mailservice.com'},
- människa2: {namn: 'människa2', post: 'fis', kontakt: 'mailen@mailservice.com'}, 
- människa3: {namn: 'människa3', post: 'kung', kontakt: 'mailen@mailservice.com'}}
+människa2: {namn: 'människa2', post: 'fis', kontakt: 'mailen@mailservice.com'}, 
+människa3: {namn: 'människa3', post: 'kung', kontakt: 'mailen@mailservice.com'}}
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 console.log("index/: ", baseUrl)
 
-//  function row_reverse(index){
-// 	if (index % 2==0) {
-// 		return "right"
-// 	}
-// 	else{
-// 		return "left"
-// 	}
-//  }
 ---
 
 
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
-	<main>
+	<div class="container">
 		<Hero />
 		{Object.values(människor).map((människa, index) => (
 			<MänniskaCard 
 			namn={människa.namn}
 			post={människa.post} 
 			kontakt={människa.kontakt} 
-			bild={baseUrl + "/Sektionslogga 1.png"}
+			bild={baseUrl + "/images/Sektionslogga 1.png"}
 			direction={((index % 2==0) ? 'right' : 'left')} />
 			))}
-	</main>
+	</div>
 </Layout>
 
 <style>
-	:root {
-		--astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
-	}
 
-	h1 {
-		margin: 2rem 0;
-	}
-
-	main {
+	.container {
 		margin-top: -60px;
 	}
 

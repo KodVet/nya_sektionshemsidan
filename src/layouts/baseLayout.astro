@@ -3,9 +3,9 @@ import Navbar from '../components/navbar.svelte'
 import Sidebar from '../components/sidebar.svelte'
 import Grid from '../components/grid.svelte'
 import Mobilnavbar from '../components/mobilnavbar.svelte'
-import BaseHead from '../components/baseHead.astro'
-import BaseFooter from '../components/baseFooter.astro'
-
+import BaseHead from '../components/BaseComponents/baseHead.astro'
+import BaseFooter from '../components/BaseComponents/baseFooter.astro'
+import '../globalStyles.css'
 
 const pages = import.meta.glob('../pages/**/index.astro', { import: "pageData", eager: true})
 
@@ -30,15 +30,11 @@ const { title } = Astro.props;
 	<body>
 		<header>
 			<Navbar client:visible active={active} pages={pages} baseUrl={baseUrl}/>
-			<Mobilnavbar client:load />
+			<!-- <Mobilnavbar client:load /> -->
 		</header>
-		<div class="wrapper" id="swup" >
-		<main class="transition-fade">
-			<div>
-				<slot />
-			</div>
+		<main class="transition-fade" id="swup">
+			<slot />
 		</main>
-		</div>
 		<!-- <div class = "container">
 			<Grid direction = "left" text={"Här kan man ha text"} link={}/>
 			<Grid direction ="right" text={"Här kan man också ha text"} link={}/>
@@ -47,28 +43,14 @@ const { title } = Astro.props;
 	</body>
 </html>
 <style lang="scss">
-	@font-face {
-		font-family: 'Gill Sans MT';
-		src: url('gill-sans-mt.ttf');
-		font-weight: normal;
-		font-style: normal;
-  	}
 
 	.container{
 		margin: 10%;
 		margin-top: 10%;
-		width: 8 em;
-
+		width: 8em;
 	}
-
-	#sida {
-		display: flex;
-		flex-direction: row;
-	}
-
 	html {
 		font-family: 'Gill Sans MT';
-		background: transparent;
 	}
 
 	body {
@@ -76,8 +58,6 @@ const { title } = Astro.props;
 		height: 2000px;
 		margin: 0;
 		margin-top: 175px; // höjd av navbaren + dropdownen
-		background-color: white;
-		background: transparent;
 
 	}
 
@@ -88,7 +68,7 @@ const { title } = Astro.props;
 		display: flex;
 		justify-content: flex-start;
 		flex-direction: column;
-
+		height: 100%;
 	}
 
 	body::-webkit-scrollbar {
@@ -106,17 +86,14 @@ const { title } = Astro.props;
 	}
 	
 	/* page transition med swup */
-	body {
-  overflow-x: hidden;
-}
 
 .transition-main{
 	opacity: 1;
-	transition: 1s;
+	transition: .5s;
 }
 .transition-fade {
   opacity: 1;
-  transition: 500ms;
+  transition: 250ms;
   transform: translateX(0);
   transform-origin: left;
 }
@@ -124,7 +101,7 @@ const { title } = Astro.props;
 .transition-nav {
 	z-index: 5;
 	opacity: 1;
-	transition: .5s;
+	transition: 250ms;
 }
 
 html.is-animating .transition-nav {
@@ -143,7 +120,7 @@ html.is-leaving .transition-fade {
 }
 
 .transition-swipe {
-  transition: 500ms;
+  transition: 250ms;
   transform: translateY(0);
 }
 
@@ -158,6 +135,7 @@ html.is-animating .transition-swipe {
 		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
 			Bitstream Vera Sans Mono, Courier New, monospace;
 	}
+
 </style>
 
 <script>	
