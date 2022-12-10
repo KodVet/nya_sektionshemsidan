@@ -37,13 +37,28 @@
         }
     }
 
+    function newActive(href) {
+        active = href
+    }
+
+    function dotWasActive() {
+        const activeDot = document.querySelector('.active .dot')
+        activeDot.style.transition = "ease-in .2s"
+        console.log(activeDot)
+        setTimeout(() => {
+            activeDot.style.transition = ""
+            console.log(activeDot)
+        }, 500)
+        
+    }
+
     function handleScroll() {
         navHeight();
     }
 
-    function handleNavigation() {
-        const dots = document.getElementsByClassName("dot")
-
+    function handleNavigation(href) {
+        newActive(href);
+        dotWasActive();
     }
 
 </script>
@@ -55,7 +70,8 @@
     <ul id="navList">
         {#each Object.values(pages) as { url, btnName, childPages }}
         <li class="navBtn" id="{btnName}">
-            <div  class="ddbutton" class:active={active === (baseUrl + url)}><a on:click={() => active = (baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
+            <div  class="ddbutton" class:active={active === (baseUrl + url)}>
+            <a on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 <div class="dot"></div>
                 <div class="ddcontent" id={btnName}>
                 {#each Object.values(childPages) as { url, btnName }}
@@ -126,13 +142,11 @@ nav {
             align-items: center;
             .dot {
                 position: relative;
-                width: 0;
+                width: 5px;
                 height: 5px;
-                border-radius: 20px;
                 background: white;
                 transform: translateY(5px);
-                transition: .5s ease-in-out;
-                transition-property: width, border-radius;
+                border-radius: 20px;
             }
                 & > a {
                 text-decoration: none;
@@ -177,14 +191,27 @@ nav {
 nav {
 #navList {
 .navBtn{
+    .ddcontent:has(a) {
+        /* det som animeras */
+        clip-path: inset(60px 0 0px 0);
+        transform: translateY(-100%);
+        opacity: 0%;
+        transition: ease-in-out .4s;
+        transition-property: opacity, transform, clip-path, background-color;
+    }
+    .dot {
+        transition: .4s ease-in-out;
+        /* det som animeras */
+        clip-path: inset(0px 2.5px 0px 2.5px);
+    }
     filter: drop-shadow(0px 110px 10px 10px #888888);
     a:hover {
         color: rgb(152, 152, 152);
     }
     &:hover {
         .dot {
+        clip-path: inset(0 0 0 0);
         width: 50%;
-        height: 5px;
         }
         .ddcontent {
         opacity: 100%;
@@ -212,17 +239,10 @@ nav {
         pointer-events: all;
         }
         .dot {
-        width: 5px;
+        clip-path: inset(0 0 0 0);
         }
     }
-    .ddcontent:has(a) {
-        /* det som animeras */
-        clip-path: inset(60px 0 0px 0);
-        transform: translateY(-100%);
-        opacity: 0%;
-        transition: ease-in-out .5s;
-        transition-property: opacity, transform, clip-path, background-color;
-    }
+
 }}}
 
 
