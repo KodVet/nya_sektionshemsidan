@@ -3,10 +3,10 @@
 </script>
 
 <ul>
-    {#each frontmatters as frontmatter}
+    {#each frontmatters as { date, title }}
     <li>
-        <h1><a href={'#' + frontmatter.title}>{frontmatter.title}</a></h1>
-        <h3>{frontmatter.date}</h3>
+        <h1><a href={'#' + title}>{title}</a></h1>
+        <h3>{date}</h3>
     </li>
     {/each}
 </ul>
