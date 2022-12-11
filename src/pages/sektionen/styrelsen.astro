@@ -1,7 +1,20 @@
 ---
-export let pageData = {
-	btnName: "Styrelsen",
-	url: "/sektionen/styrelsen"
-};
+import Layout from '../../layouts/baseLayout.astro';
+import MänniskaCard from '../../components/kontakt/människaCard.astro';
+
+
+const medlemmar = await Astro.glob('./styrelsemedlemmar/*.md')
+const medlemmarInfo = medlemmar.map(({ frontmatter }) => frontmatter)
+// console.log(medlemmar)
+// console.log(medlemmarInfo, "kör")
 ---
-<div></div>
+<Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
+
+</Layout>
+
+<style>
+	.container {
+		padding: 1em;
+		max-width: 60ch;
+	}
+</style>

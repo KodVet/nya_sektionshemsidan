@@ -1,20 +1,10 @@
 ---
+
 import Layout from '../../layouts/baseLayout.astro';
-import MänniskaCard from '../../components/kontakt/människaCard.astro'
-export let pageData = {
-	btnName: "Om sektionen",
-	url: "/sektionen",
-	childPages: import.meta.glob('./*.astro', { import: "pageData", eager: true})
-};
 
-const medlemmar = await Astro.glob('./styrelsemedlemmar/*.md')
 ---
-
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<div class="container">
-		{medlemmar.map(({frontmatter: {post, namn}}, index) =>
-		<MänniskaCard post={post} namn={namn} direction={((index % 2==0) ? 'right' : 'left')}/>
-		)}
 	</div>
 </Layout>
 

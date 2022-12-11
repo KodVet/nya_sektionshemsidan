@@ -1,10 +1,7 @@
 ---
+
 import Layout from '../../layouts/baseLayout.astro'; 
-export let pageData = {
-	btnName: "Student",
-	url: "/student",
-	childPages: import.meta.glob('./*.astro', { import: "pageData", eager: true})
-};
+
 
 ---
 

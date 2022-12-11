@@ -1,9 +1,6 @@
 ---
 import Layout from "../../layouts/baseLayout.astro";
-export let pageData = {
-	btnName: "Inlägg",
-	url: "/medlemmar"
-};
+
 export async function getStaticPaths() {
 	const posts = await Astro.glob('./*.md');
 	return posts.map((post) => {

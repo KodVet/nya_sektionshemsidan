@@ -2,11 +2,6 @@
 import Sidebar from '../../components/sidebar.svelte';
 import Layout from '../../layouts/baseLayout.astro';
 const posts = await Astro.glob('./*.md')
-export let pageData = {
-	btnName: "Kontakt",
-	url: "/kontakt",
-	childPages: (import.meta.glob('./*.astro', { import: "pageData", eager: true}))
-};
 
 // log om man vill kolla
 // posts.map((post) => {

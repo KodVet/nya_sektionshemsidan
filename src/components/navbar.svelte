@@ -1,10 +1,10 @@
 <script>
     import { afterUpdate, beforeUpdate, onMount } from "svelte";
     export let baseUrl;
-    export let pages;
-    console.log("inuti navbar-komponenten:", baseUrl)
     export let active;
+    import { pages } from '../pageStructure'
 
+    // console.log("inuti navbar-komponenten:", baseUrl, pages)
 
     onMount(() =>{
         console.log("nu skapas jag")
@@ -68,13 +68,13 @@
 <nav bind:this={nav} style="height:{nav_h}">
     <img  id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     <ul id="navList">
-        {#each Object.values(pages) as { url, btnName, childPages }}
+        {#each pages as { url, btnName, childPages }}
         <li class="navBtn" id="{btnName}">
             <div  class="ddbutton" class:active={active === (baseUrl + url)}>
             <a on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 <div class="dot"></div>
                 <div class="ddcontent" id={btnName}>
-                {#each Object.values(childPages) as { url, btnName }}
+                {#each childPages as { url, btnName }}
                     <a href="{baseUrl + url}">{btnName}</a>
                 {/each}
                 </div>
