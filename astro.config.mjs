@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
-
 import svelte from "@astrojs/svelte";
+
+import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,5 +18,5 @@ export default defineConfig({
   // for the build output. So in deviation from the defaults we're using a folder
   // called `static` instead.
   publicDir: 'static',
-  integrations: [svelte()]
+  integrations: [svelte(), mdx()]
 });
