@@ -2,22 +2,23 @@
     import { afterUpdate, beforeUpdate, onMount } from "svelte";
     export let baseUrl;
     export let active;
-    import { pages } from '../pageStructure'
+    import { pages } from '../pageStructure.json'
 
     // console.log("inuti navbar-komponenten:", baseUrl, pages)
 
     onMount(() =>{
-        console.log("nu skapas jag")
+        console.log("nu är active: ", active)
+        console.log("och splittad är den: ", active.split('/'))
         handleScroll()
     });
 
     beforeUpdate(() => {
-        console.log("nu ska jag uppdatera")
+        
 	    navHeight()
     });
 
     afterUpdate(() => {
-        console.log("nu har jag uppdaterat")
+        
 
     })
 
@@ -58,7 +59,11 @@
 
     function handleNavigation(href) {
         newActive(href);
-        dotWasActive();
+        // dotWasActive();
+        console.log("nu är active: ", active)
+        console.log("och splittad är den: ", active.split('/'))
+        console.log("och länken: ", href)
+        console.log("splittad: ", href.split('/'))
     }
 
 </script>
@@ -69,13 +74,13 @@
     <img  id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     <ul id="navList">
         {#each pages as { url, btnName, childPages }}
-        <li class="navBtn" id="{btnName}">
-            <div  class="ddbutton" class:active={active === (baseUrl + url)}>
-            <a on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
+        <li  class="navBtn" id="{btnName}">
+            <div  class="ddbutton" class:active={active.split('/')[2] === (baseUrl+url).split('/')[2]}>
+            <a tabindex="0" on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 <div class="dot"></div>
                 <div class="ddcontent" id={btnName}>
                 {#each childPages as { url, btnName }}
-                    <a href="{baseUrl + url}">{btnName}</a>
+                    <a tabindex={'0'} class:active={active.split('/')[3] && (active.split('/')[3] === (baseUrl+url).split('/')[3])} on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 {/each}
                 </div>
                 <div class="pad"></div>
@@ -237,6 +242,9 @@ nav {
         transform: translateY(0%);
         clip-path: inset(0 0 0 0);
         pointer-events: all;
+        a.active {
+            color:#ff0000 !important;
+        }
         }
         .dot {
         clip-path: inset(0 0 0 0);
