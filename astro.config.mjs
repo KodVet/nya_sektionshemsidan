@@ -24,7 +24,7 @@ export default defineConfig({
           name: 'git-gateway',
           branch: 'main',
         },
-        media_folder: 'public/assets/blog',
+        media_folder: 'static/assets/blog',
         public_folder: '/assets/blog',
         collections: [
           // Content collections
