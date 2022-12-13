@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import svelte from "@astrojs/svelte";
-import NetlifyCMS from 'astro-netlify-cms';
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
@@ -18,28 +17,5 @@ export default defineConfig({
   // for the build output. So in deviation from the defaults we're using a folder
   // called `static` instead.
   publicDir: 'static',
-  integrations: [NetlifyCMS({
-      config: {
-        backend: {
-          name: 'git-gateway',
-          branch: 'main',
-        },
-        media_folder: 'static/assets/blog',
-        public_folder: '/assets/blog',
-        collections: [
-          // Content collections
-          {
-      name: 'posts',
-      label: 'Blog Posts',
-      folder: 'src/pages/posts',
-      create: true,
-      delete: true,
-      fields: [
-        { name: 'title', widget: 'string', label: 'Post Title' },
-        { name: 'body', widget: 'markdown', label: 'Post Body' },
-      ],
-    }
-        ],
-      },
-    }), svelte(), mdx()]
+  integrations: [svelte(), mdx()]
 });
