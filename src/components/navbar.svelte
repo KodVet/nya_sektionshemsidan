@@ -75,12 +75,12 @@
     <ul id="navList">
         {#each pages as { url, btnName, childPages }}
         <li  class="navBtn" id="{btnName}">
-            <div  class="ddbutton" class:active={active.split('/')[2] === (baseUrl+url).split('/')[2]}>
+            <div  class="ddbutton" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
             <a tabindex="0" on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 <div class="dot"></div>
                 <div class="ddcontent" id={btnName}>
                 {#each childPages as { url, btnName }}
-                    <a tabindex={'0'} class:active={active.split('/')[3] && (active.split('/')[3] === (baseUrl+url).split('/')[3])} on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
+                    <a tabindex={'0'} class:active={active.split('/')[3] && (active.split('/')[2] === (baseUrl+url).split('/')[2])} on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 {/each}
                 </div>
                 <div class="pad"></div>
