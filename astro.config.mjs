@@ -1,12 +1,12 @@
 import { defineConfig } from 'astro/config';
 import svelte from "@astrojs/svelte";
-
+import NetlifyCMS from 'astro-netlify-cms';
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://kodvet.gitlab-pages.liu.se/',
-  base: '/sektionshemsidan',
+  site: 'https://sektionshemsidangitlabliu.netlify.app/',
+  base: '',
   // Your public domain, e.g.: https://my-site.dev/. Used to generate sitemaps and canonical URLs.
   // base: 'kvit/',
   sitemap: true,
@@ -18,5 +18,28 @@ export default defineConfig({
   // for the build output. So in deviation from the defaults we're using a folder
   // called `static` instead.
   publicDir: 'static',
-  integrations: [svelte(), mdx()]
+  integrations: [NetlifyCMS({
+      config: {
+        backend: {
+          name: 'git-gateway',
+          branch: 'main',
+        },
+        media_folder: 'public/assets/blog',
+        public_folder: '/assets/blog',
+        collections: [
+          // Content collections
+          {
+      name: 'posts',
+      label: 'Blog Posts',
+      folder: 'src/pages/posts',
+      create: true,
+      delete: true,
+      fields: [
+        { name: 'title', widget: 'string', label: 'Post Title' },
+        { name: 'body', widget: 'markdown', label: 'Post Body' },
+      ],
+    }
+        ],
+      },
+    }), svelte(), mdx()]
 });
