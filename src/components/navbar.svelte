@@ -77,7 +77,9 @@
         <li  class="navBtn" id="{btnName}">
             <div  class="ddbutton" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
             <a tabindex="0" on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
-                <div class="dot"></div>
+                <div class="wrapper">
+                    <div class="dot"></div>
+                </div>
                 <div class="ddcontent" id={btnName}>
                 {#each childPages as { url, btnName }}
                     <a tabindex={'0'} class:active={active.split('/')[2] && (active.split('/')[2] === (baseUrl+url).split('/')[2])} on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
@@ -145,14 +147,18 @@ nav {
             justify-content: center;
             flex-direction: column;
             align-items: center;
-            .dot {
-                position: relative;
-                width: 5px;
+            .wrapper {
+                z-index: 20;
+                width: 100%;
                 height: 5px;
-                background: white;
-                transform: translateY(5px);
-                border-radius: 20px;
+                opacity: 100%;
+                .dot {
+                    position: relative;
+                    margin: auto;
+                    background: white;
+                }
             }
+
                 & > a {
                 text-decoration: none;
                 color: var(--reflex-vit);
@@ -204,19 +210,26 @@ nav {
         transition: ease-in-out .4s;
         transition-property: opacity, transform, clip-path, background-color;
     }
-    .dot {
-        transition: .4s ease-in-out;
+    .wrapper .dot {
+        transition: all .4s ease-in-out;
         /* det som animeras */
+        transform: translateY(0px);
         clip-path: inset(0px 2.5px 0px 2.5px);
+        width: 5px;
+        height: 3px;
+        transform: translateY(1px);
     }
     filter: drop-shadow(0px 110px 10px 10px #888888);
     a:hover {
         color: rgb(152, 152, 152);
     }
     &:hover {
-        .dot {
+        .wrapper .dot {
         clip-path: inset(0 0 0 0);
-        width: 50%;
+        width: 98%;
+        transform: translateY(0px);
+        height: 3px;
+        border-radius: 0px;
         }
         .ddcontent {
         opacity: 100%;
@@ -248,6 +261,10 @@ nav {
         }
         .dot {
         clip-path: inset(0 0 0 0);
+        transform: translateY(5px);
+        border-radius: 5px;
+        width: 5px;
+        height: 5px;
         }
     }
 
