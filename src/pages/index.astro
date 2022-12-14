@@ -1,10 +1,7 @@
 ---
-
 import Layout from '../layouts/baseLayout.astro';
 import Hero from '../components/hero.astro';
 import MänniskaCard from '../components/kontakt/människaCard.astro'
-
-
 
 const människor = {människa1: {namn: 'människa1', post: 'kung', kontakt: 'mailen@mailservice.com'},
 människa2: {namn: 'människa2', post: 'fis', kontakt: 'mailen@mailservice.com'}, 
@@ -13,20 +10,6 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 
 ---
-
-
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-	if (window.netlifyIdentity) {
-	  window.netlifyIdentity.on("init", user => {
-		if (!user) {
-		  window.netlifyIdentity.on("login", () => {
-			document.location.href = "/admin/";
-		  });
-		}
-	  });
-	}
-  </script>
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<div class="container">
 		<Hero />
