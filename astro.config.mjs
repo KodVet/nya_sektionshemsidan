@@ -1,12 +1,11 @@
 import { defineConfig } from 'astro/config';
 import svelte from "@astrojs/svelte";
-
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://kodvet.gitlab-pages.liu.se/',
-  base: '/sektionshemsidan',
+  site: 'https://sektionshemsidan.netlify.app/',
+  base: '',
   // Your public domain, e.g.: https://my-site.dev/. Used to generate sitemaps and canonical URLs.
   // base: 'kvit/',
   sitemap: true,

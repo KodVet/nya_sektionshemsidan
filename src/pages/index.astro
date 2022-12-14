@@ -15,7 +15,18 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 
-
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+	if (window.netlifyIdentity) {
+	  window.netlifyIdentity.on("init", user => {
+		if (!user) {
+		  window.netlifyIdentity.on("login", () => {
+			document.location.href = "/admin/";
+		  });
+		}
+	  });
+	}
+  </script>
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<div class="container">
 		<Hero />
@@ -27,6 +38,8 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 			bild={baseUrl + "/images/Sektionslogga 1.png"}
 			direction={((index % 2==0) ? 'right' : 'left')} />
 			))}
+		<script defer src="https://cdn.commento.io/js/commento.js"></script>
+		<div id="commento"></div>
 	</div>
 </Layout>
 
