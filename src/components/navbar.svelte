@@ -80,7 +80,7 @@
                 <div class="dot"></div>
                 <div class="ddcontent" id={btnName}>
                 {#each childPages as { url, btnName }}
-                    <a tabindex={'0'} class:active={active.split('/')[3] && (active.split('/')[2] === (baseUrl+url).split('/')[2])} on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
+                    <a tabindex={'0'} class:active={active.split('/')[2] && (active.split('/')[2] === (baseUrl+url).split('/')[2])} on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 {/each}
                 </div>
                 <div class="pad"></div>
