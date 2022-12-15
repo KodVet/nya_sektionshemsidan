@@ -213,11 +213,9 @@ nav {
     .wrapper .dot {
         transition: all .4s ease-in-out;
         /* det som animeras */
-        transform: translateY(0px);
         clip-path: inset(0px 2.5px 0px 2.5px);
         width: 5px;
         height: 3px;
-        transform: translateY(1px);
     }
     filter: drop-shadow(0px 110px 10px 10px #888888);
     a:hover {
@@ -228,7 +226,7 @@ nav {
         clip-path: inset(0 0 0 0);
         width: 98%;
         transform: translateY(0px);
-        height: 3px;
+        height: 2px;
         border-radius: 0px;
         }
         .ddcontent {
@@ -263,8 +261,8 @@ nav {
         clip-path: inset(0 0 0 0);
         transform: translateY(5px);
         border-radius: 5px;
-        width: 5px;
-        height: 5px;
+        width: 6px;
+        height: 6px;
         }
     }
 
