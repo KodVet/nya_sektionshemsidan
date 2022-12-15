@@ -10,8 +10,6 @@ backend:
 
 local_backend: false
 
-publish_mode: editorial_workflow
-
 media_folder: "static/images"
 public_folder: "/images"
 
