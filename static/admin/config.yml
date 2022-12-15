@@ -2,7 +2,7 @@ backend:
   name: gitlab
   repo: Kodvet/sektionshemsidan # Path to your GitLab repository
   auth_type: pkce # Required for implicit grant
-  app_id: c039731dd225e1e5e64fa83e9d25ace3ae50753a48273c0e95279bc0f66ee9c7 # Application ID from your GitLab settings
+  app_id: 1fd03c5ff044c3a3abff03589e28d67bce9b3ccb0ff2ad39764fd46e4dbf0c38 # Application ID from your GitLab settings
   api_root: https://gitlab.liu.se/api/v4
   base_url: https://gitlab.liu.se/
   auth_endpoint: oauth/authorize
