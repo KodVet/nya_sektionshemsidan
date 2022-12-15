@@ -1,14 +1,14 @@
 backend:
-  name: gitlab
+  name: proxy
   repo: Kodvet/sektionshemsidan # Path to your GitLab repository
-  auth_type: pkce # Required for implicit grant
+  auth_type: implicit # Required for implicit grant
   app_id: 1fd03c5ff044c3a3abff03589e28d67bce9b3ccb0ff2ad39764fd46e4dbf0c38 # Application ID from your GitLab settings
   api_root: https://gitlab.liu.se/api/v4
   base_url: https://gitlab.liu.se/
   auth_endpoint: oauth/authorize
   branch: main
 
-local_backend: false
+local_backend: true
 
 media_folder: "static/images"
 public_folder: "/images"
@@ -118,6 +118,8 @@ collections: # A list of collections the CMS should be able to edit
     label: 'Kitchen Sink'
     folder: '_sink'
     create: true
+    extension: 'json'
+    format: 'json'
     fields:
       - label: 'Related Post'
         name: 'post'
