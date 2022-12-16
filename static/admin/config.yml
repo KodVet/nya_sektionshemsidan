@@ -8,12 +8,47 @@ backend:
   auth_endpoint: oauth/authorize
   branch: main
 
-local_backend: true
+local_backend: false
 
 media_folder: "static/images"
 public_folder: "/images"
 
 collections: # A list of collections the CMS should be able to edit
+
+  - name: 'medlemmar'
+    label: 'Medlemmar'
+    label_singular: 'Medlem'
+    folder: 'src/pages/sektionen/styrelsemedlemmar'
+    create: true
+    fields:
+    - { label: 'Namn', name: 'namn', widget: 'string'}
+    - { label: 'Post', name: 'post', widget: 'string'}
+    - { label: 'Kogvet mail', name: 'kontakt', widget: 'string'}
+    - { label: 'Bild', name: 'bild', widget: 'image'}
+    - { label: 'Om mig', name: 'body', widget: 'markdown', description: 'Här kan du skriva lite kort om dig själv, varför du valde kogvet, bästa med din post, din favoritfärg, fan vet jag.'}
+
+
+  - name: pages
+    label: Pages
+    label_singular: 'Page'
+    folder: content/pages
+    create: true
+    # adding a nested object will show the collection folder structure
+    nested:
+      depth: 100 # max depth to show in the collection tree
+      summary: '{{title}}' # optional summary for a tree node, defaults to the inferred title field
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Body
+        name: body
+        widget: markdown
+    # adding a meta object with a path property allows editing the path of entries
+    # moving an existing entry will move the entire sub tree of the entry to the new location
+    meta: { path: { widget: select, options: ['/sektionen/kodvet', 'sektionen/styrelsen'], label: 'Path', index_file: 'index' } }
+
+
 
 
   - name: 'posts' # Used in routes, ie.: /admin/collections/:slug/edit
@@ -277,13 +312,3 @@ collections: # A list of collections the CMS should be able to edit
               - { label: 'Date', name: 'date', widget: 'date' }
               - { label: 'Image', name: 'image', widget: 'image' }
               - { label: 'File', name: 'file', widget: 'file' }
-  - name: 'medlemmar'
-    label: 'Medlemmar'
-    label_singular: 'Medlem'
-    folder: 'src/pages/sektionen/styrelsemedlemmar'
-    create: true
-    fields:
-    - { label: 'Namn', name: 'namn', widget: 'string'}
-    - { label: 'Post', name: 'post', widget: 'string'}
-    - { label: 'Kogvet mail', name: 'kontakt', widget: 'string'}
-    - { label: 'Bild', name: 'bild', widget: 'image'}
