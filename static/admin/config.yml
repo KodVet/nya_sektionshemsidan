@@ -8,7 +8,7 @@ backend:
   auth_endpoint: oauth/authorize
   branch: main
 
-local_backend: true
+local_backend: false
 
 media_folder: "static/images"
 public_folder: "/images"
