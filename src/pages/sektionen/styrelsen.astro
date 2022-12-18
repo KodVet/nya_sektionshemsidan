@@ -1,22 +1,24 @@
 ---
 import Layout from '../../layouts/baseLayout.astro';
-import MänniskaCard from '../../components/kontakt/människaCard.astro';
+import MänniskaCard from '../../components/kontakt/människaCard.svelte';
 
 
-const medlemmar = await Astro.glob('./styrelsemedlemmar/*.md')
-const medlemmarInfo = medlemmar.map(({ frontmatter }) => frontmatter)
+const medlemmar = await Astro.glob('./medlemmar/*.md')
 // console.log(medlemmar)
 // console.log(medlemmarInfo, "kör")
 ---
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<div class="container">
-		{medlemmarInfo.map(({ post, namn, kontakt, bild }, index) =>
-		<MänniskaCard 
+		{medlemmar.map(({ frontmatter: {post, namn, kontakt, bild}, Content }, index) =>
+		<MänniskaCard client:visible
 		post={post}
 		namn={namn}
 		kontakt={kontakt} 
 		bild={bild}
-		direction={((index % 2==0) ? 'right' : 'left')}/>
+		direction={((index % 2==0) ? 'right' : 'left')}
+		index={index}>
+			<Content/>
+		</MänniskaCard>
 		)}
 	</div>
 </Layout>

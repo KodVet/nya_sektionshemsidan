@@ -1,0 +1,108 @@
+
+<script>
+    export let namn;
+    export let post;
+    export let kontakt;
+    export let bild;
+    export let direction;
+    export let index;
+    let expanded = false;
+    let collapsible;
+    let root;
+    let rootFontSize;
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        root = document.querySelector(':root')
+        if (root.style.fontSize) {
+            rootFontSize = root.style.fontSize
+        }
+        else {
+            rootFontSize = 16
+        }
+    });
+    
+    function collapse(){
+        console.log(collapsible.scrollHeight)
+        console.log(collapsible.style.maxHeight)
+        console.log(root.style.fontSize)
+        if (!expanded){
+            collapsible.style.maxHeight = String(collapsible.scrollHeight - rootFontSize) + 'px'
+        }
+        else {
+            collapsible.style.maxHeight = 0
+        }
+        expanded=!expanded
+    };
+</script>
+
+
+<div class={direction + " wrapper"} class:expanded="{expanded}">
+    <img src={bild} alt="en fin bild på en person">
+    <div class="txt">
+    <p><b>{post}:</b> {namn}</p> 
+    <p><b>Kontakt:</b> {kontakt}</p>
+    </div>
+    <button on:click={collapse}>Läs mer</button>
+    <div bind:this={collapsible} class='content' >
+        <slot></slot>
+    </div>
+</div>
+
+
+<style>
+.wrapper {
+    width: 500px;
+    margin-top:40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding: 10px;
+    border-radius: 20px;
+}
+.right{
+    flex-direction: row;
+    background: linear-gradient(119deg, var(--valla-grön) 0%, var(--ovveblues) 100%);
+}
+
+.left{
+    flex-direction: row-reverse;
+    background: linear-gradient(286deg, var(--kiss-efter-för-mycket-öl-gul), var(--finvins-röd));  /*vinkeln = vinkelkn av 360 - (vinkeln av .right - 45)*/
+}
+
+.txt{
+    margin:auto;
+    max-width: 40%;
+}
+.content{
+    width:100%;
+    overflow: hidden;
+    transition: ease-in-out .4s;
+    max-height: 0;
+}
+
+p {
+    margin: 1px;
+}
+
+
+img{
+    width: 200px;
+    height: 200px;
+    clip-path: circle(90px); /*behövs tillfälligt då bilderna är kvadratiska med vit ram runt cirkeln med den faktiska bilden*/
+}
+
+button{
+    height: 30px;
+    margin:auto;
+    margin-bottom:5px;
+    border-radius: 100%;
+    background-color: transparent;
+    color:black;
+    border: 2px solid;
+    pointer-events: all;
+    
+}
+</style>
