@@ -11,21 +11,36 @@
     let root;
     let rootFontSize;
     import { onMount } from 'svelte';
+    
+    
+    const getDefaultFontSize = () => {
+    const element = document.createElement('div');
+    element.style.width = '1rem';
+    element.style.display = 'none';
+    document.body.append(element);
+
+    const widthMatch = window
+        .getComputedStyle(element)
+        .getPropertyValue('width')
+        .match(/\d+/);
+
+    element.remove();
+
+    if (!widthMatch || widthMatch.length < 1) {
+        return null;
+    }
+
+    const result = Number(widthMatch[0]);
+    return !isNaN(result) ? result : null;
+    };
+
 
     onMount(() => {
-        root = document.querySelector(':root')
-        if (root.style.fontSize) {
-            rootFontSize = root.style.fontSize
-        }
-        else {
-            rootFontSize = 16
-        }
+        rootFontSize = getDefaultFontSize()
+
     });
-    
+
     function collapse(){
-        console.log(collapsible.scrollHeight)
-        console.log(collapsible.style.maxHeight)
-        console.log(root.style.fontSize)
         if (!expanded){
             collapsible.style.maxHeight = String(collapsible.scrollHeight - rootFontSize) + 'px'
         }
