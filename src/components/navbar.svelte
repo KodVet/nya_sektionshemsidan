@@ -3,6 +3,9 @@
     export let baseUrl;
     export let active;
     import { pages } from '../pageStructure.json'
+    const urls = import.meta.glob('../pages/**/*.astro', {import: 'url', eager:true}) 
+    console.log("const urls = import.meta.glob('../pages/**/*.astro')", urls)
+    
 
     // console.log("inuti navbar-komponenten:", baseUrl, pages)
 
@@ -113,6 +116,7 @@ nav {
     width: 100%;    
     background-color: var(--koggis-grön);
     display: none;
+    visibility: hidden;
     justify-content: space-between;
     transition: height 20ms;
     top: 0%;
@@ -124,8 +128,7 @@ nav {
     }
     #navList{
         display: flex;
-        justify-content: flex-start;
-        width: 1100px;
+        justify-content: flex-end;
         list-style: none;
         align-items: center;
         padding: 0%;
@@ -137,16 +140,14 @@ nav {
         font: bold;
         height: 100%;
         padding-inline: 30px;
-            &:first-child {
-                padding-left: 200px;
-            }
+
             .ddbutton {
             transition: all ease-in-out .5s;
             height: 100%;
+            width: 100%;
             display: flex;
-            justify-content: center;
             flex-direction: column;
-            align-items: center;
+            justify-content: center;
             .wrapper {
                 z-index: 20;
                 width: 100%;
@@ -167,13 +168,14 @@ nav {
 
                 .ddcontent:has(a) {
                     position: absolute;
-                    height: 60px;
+                    min-height: 60px;
                     /* pixel-värdet är bredden av scrollbaren */
                     width: calc(100vw - 16px);
                     right: 0;
                     box-shadow: 0px 110px 10px 10px #888888;
                     background-color: var(--reflex-vit);
                     display: flex;
+                    flex-wrap: wrap;
                     justify-content: center;
                     top: 100%;
                     a {
@@ -204,7 +206,7 @@ nav {
 .navBtn{
     .ddcontent:has(a) {
         /* det som animeras */
-        clip-path: inset(60px 0 0px 0);
+        clip-path: inset(100% 0 0px 0);
         transform: translateY(-100%);
         opacity: 0%;
         transition: ease-in-out .4s;
@@ -244,7 +246,7 @@ nav {
     &:has(~ .navBtn:hover) .active .ddcontent {
         opacity: 0%;
         transform: translateY(-100%);
-        clip-path: inset(60px 0 0 0);
+        clip-path: inset(100% 0 0 0);
     }
     .active {
         .ddcontent:has(a) {
@@ -273,6 +275,7 @@ nav {
 
 @media (min-width: 577px)
 {nav {
+    visibility: visible;
     display: flex;
     margin: auto;
     width: 100%; }
