@@ -1,6 +1,7 @@
 ---
 import Sidebar from '../../components/sidebar.svelte';
 import Layout from '../../layouts/baseLayout.astro';
+const posts = await Astro.glob('./nyheter/*.md')
 
 // log om man vill kolla
 // posts.map((post) => {
@@ -8,7 +9,17 @@ import Layout from '../../layouts/baseLayout.astro';
 // })
 ---
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
-
+    <Sidebar frontmatters={posts.map(({ frontmatter }) => frontmatter)}/>
+        <div class="container">
+            <section id="inlägg">
+                {posts.map(async ({ frontmatter, Content }) =>
+                <div class="scrollAnchor" id={frontmatter.title}></div>
+                <div class="post">
+                <h1>{frontmatter.title}</h1>
+                <Content/>
+                </div>)}
+            </section>
+        </div>
 </Layout>
 
 <style>
@@ -34,3 +45,5 @@ import Layout from '../../layouts/baseLayout.astro';
 		width: 20%;
 	}
 </style>
+
+
