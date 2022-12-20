@@ -1,9 +1,9 @@
 <script>
-    export let frontmatters;
+    export let posts;
 </script>
 
 <ul>
-    {#each frontmatters as { date, title }}
+    {#each posts as { date, title }}
     <li>
         <h1><a href={'#' + title}>{title}</a></h1>
         <h3>{date}</h3>
@@ -14,7 +14,7 @@
 <style lang="scss">
 ul {
     position: sticky;
-    top: 300px;
+    top: 50px;
     z-index: 10;
     li {
         margin-bottom: 50px;

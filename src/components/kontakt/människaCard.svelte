@@ -5,7 +5,6 @@
     export let kontakt;
     export let bild;
     export let direction;
-    export let index;
     let expanded = false;
     let collapsible;
     let root;
@@ -14,24 +13,24 @@
     
     
     const getDefaultFontSize = () => {
-    const element = document.createElement('div');
-    element.style.width = '1rem';
-    element.style.display = 'none';
-    document.body.append(element);
+        const element = document.createElement('div');
+        element.style.width = '1rem';
+        element.style.display = 'none';
+        document.body.append(element);
 
-    const widthMatch = window
-        .getComputedStyle(element)
-        .getPropertyValue('width')
-        .match(/\d+/);
+        const widthMatch = window
+            .getComputedStyle(element)
+            .getPropertyValue('width')
+            .match(/\d+/);
 
-    element.remove();
+        element.remove();
 
-    if (!widthMatch || widthMatch.length < 1) {
-        return null;
-    }
+        if (!widthMatch || widthMatch.length < 1) {
+            return null;
+        }
 
-    const result = Number(widthMatch[0]);
-    return !isNaN(result) ? result : null;
+        const result = Number(widthMatch[0]);
+        return !isNaN(result) ? result : null;
     };
 
 
@@ -96,6 +95,8 @@
     overflow: hidden;
     transition: ease-in-out .4s;
     max-height: 0;
+    margin: .6rem;
+    margin-top: 0;
 }
 
 p {

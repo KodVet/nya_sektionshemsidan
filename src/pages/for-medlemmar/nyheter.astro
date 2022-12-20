@@ -9,17 +9,16 @@ const posts = await Astro.glob('./nyheter/*.md')
 // })
 ---
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
-    <Sidebar frontmatters={posts.map(({ frontmatter }) => frontmatter)}/>
-        <div class="container">
+	<Sidebar posts={posts.map(({frontmatter}) => frontmatter)}/>
             <section id="inlägg">
-                {posts.map(async ({ frontmatter, Content }) =>
+                {posts.map(({ frontmatter, Content }) =>
                 <div class="scrollAnchor" id={frontmatter.title}></div>
                 <div class="post">
-                <h1>{frontmatter.title}</h1>
-                <Content/>
-                </div>)}
+					<h1>{frontmatter.title}</h1>
+					<Content/>
+                </div>
+				)}
             </section>
-        </div>
 </Layout>
 
 <style>

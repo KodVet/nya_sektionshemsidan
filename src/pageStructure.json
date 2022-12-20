@@ -33,73 +33,73 @@
     },
     {
       "btnName": "För sökande",
-      "url": "/för-sökande",
+      "url": "/for-sökande",
       "childPages": [
         {
           "btnName": "Boende",
-          "url": "/för-sökande/boende"
+          "url": "/for-sökande/boende"
         },
         {
           "btnName": "Om programmet",
-          "url": "/för-sökande/omprogrammet"
+          "url": "/for-sökande/omprogrammet"
         },
         {
           "btnName": "Studentliv",
-          "url": "/för-sökande/för-sökandeliv"
+          "url": "/for-sökande/studentliv"
         },
         {
           "btnName": "FAQ",
-          "url": "/för-sökande/faq"
+          "url": "/for-sökande/faq"
         }
       ]
     },
     {
       "btnName": "För medlemmar",
-      "url": "/för-medlemmar",
+      "url": "/for-medlemmar",
       "childPages": [
         {
           "btnName": "Nyheter",
-          "url": "/för-medlemmar/nyheter"
+          "url": "/for-medlemmar/nyheter"
         },
         {
           "btnName": "Anslagstavlan",
-          "url": "/för-medlemmar/anslagstavlan"
+          "url": "/for-medlemmar/anslagstavlan"
         },
         {
           "btnName": "Arbetsmiljö",
-          "url": "/för-medlemmar/arbetsmiljö"
+          "url": "/for-medlemmar/arbetsmiljö"
         },
         {
           "btnName": "kalender",
-          "url": "/för-medlemmar/kalender"
+          "url": "/for-medlemmar/kalender"
         },
         {
           "btnName": "Klagolådan",
-          "url": "/för-medlemmar/klagolådan"
+          "url": "/for-medlemmar/klagolådan"
         },
         {
           "btnName": "Koggidoren",
-          "url": "/för-medlemmar/koggidoren"
+          "url": "/for-medlemmar/koggidoren"
         },
         {
           "btnName": "Kurser",
-          "url": "/för-medlemmar/kurser"
+          "url": "/for-medlemmar/kurser"
         },
         {
           "btnName": "Mötesdokument",
-          "url": "/för-medlemmar/mötesdokument"
+          "url": "/for-medlemmar/mötesdokument"
         },
         {
           "btnName": "STUFF",
-          "url": "/för-medlemmar/stuff"
+          "url": "/for-medlemmar/stuff"
         },
         {
           "btnName": "Utbyte",
-          "url": "/för-medlemmar/utbyte"
+          "url": "/for-medlemmar/utbyte"
         },
         {
           "btnName": "Dokument",
-          "url": "/för-medlemmar/dokument"
+          "url": "/for-medlemmar/dokument"
         }
       ]
     },
@@ -110,11 +110,11 @@
     },
     {
       "btnName": "Ny sida",
-      "url": "#",
+      "url": "/#",
       "childPages": [
         {
           "btnName": "sida under sidan",
-          "url": "#"
+          "url": "/#"
         }
       ]
     }

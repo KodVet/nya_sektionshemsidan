@@ -16,8 +16,7 @@
     });
 
     beforeUpdate(() => {
-        
-	    navHeight()
+
     });
 
     afterUpdate(() => {
@@ -27,18 +26,21 @@
 
     let y;
     let nav;
-    let min_h = 60;
-    let max_h = 115;
+    let min_height = 50;
+    let max_height = 100;
     let max_scroll = 200;
-    let nav_h = String(max_h) + "px";
+    let nav_height = String(max_height) + "px";
     function navHeight() {
-        if(0<=y && max_scroll>=y){
-            nav_h = String(max_h - ((max_h-min_h)/max_scroll)*y) + "px"
-            console.log("navHeight", nav_h, y, nav.offsetTop)
-        }
-        else{
-            nav_h = String(min_h) + "px"
-        }
+            nav_height = String(max_height - ((max_height-min_height)/max_scroll)*y) + "px"
+
+    }
+
+    const maxFontSize = 24
+    const minFontSize = 20
+    let navFontSize;
+    function animateFontSize() {
+            navFontSize = String(maxFontSize - ((maxFontSize-minFontSize)/max_scroll)*y) + "px"
+            console.log("navFontSize", navFontSize)
     }
 
     function newActive(href) {
@@ -47,22 +49,30 @@
 
     function dotWasActive() {
         const activeDot = document.querySelector('.active .dot')
-        activeDot.style.transition = "ease-in .2s"
+        activeDot.style.transition ="300ms ease-in-out"
+        activeDot.style.transform = "translateY(3px)"
+        activeDot.style.height = "5px"
+        activeDot.style.clipPath = "inset(2.5px 2.5px 2.5px 2.5px)"
         console.log(activeDot)
         setTimeout(() => {
-            activeDot.style.transition = ""
+            activeDot.style.transition =""
+            activeDot.style.transform = ""
+            activeDot.style.height = ""
+            activeDot.style.clipPath = ""
             console.log(activeDot)
-        }, 500)
+        }, 300)
         
     }
 
     function handleScroll() {
+        console.log(max_scroll, y)
         navHeight();
+        animateFontSize();
     }
 
     function handleNavigation(href) {
         newActive(href);
-        // dotWasActive();
+        dotWasActive();
         console.log("nu är active: ", active)
         console.log("och splittad är den: ", active.split('/'))
         console.log("och länken: ", href)
@@ -71,14 +81,14 @@
 
 </script>
 
-<svelte:window on:scroll={handleScroll} bind:scrollY={y}/>
+<svelte:window on:scroll={() =>{if (0<=y && max_scroll>=y) {handleScroll()}}} bind:scrollY={y}/>
 <div id="navbarElement" class="container">
-<nav bind:this={nav} style="height:{nav_h}">
+<nav bind:this={nav} style="height:{nav_height}">
     <img  id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     <ul id="navList">
         {#each pages as { url, btnName, childPages }}
         <li  class="navBtn" id="{btnName}">
-            <div  class="ddbutton" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
+            <div  class="ddbutton" style="font-size:{navFontSize}" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
             <a tabindex="0" on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 <div class="wrapper">
                     <div class="dot"></div>
@@ -99,17 +109,7 @@
 
 <style lang="scss">
 
-/* swup relaterat */
-.transition-nav {
-	z-index: 5;
-	opacity: 1;
-	transition: .5s;
-}
 
-html.is-animating .transition-nav {
-	opacity: 0;
-	z-index: 5;
-}
 nav {
     opacity: 100%;
     position: fixed;
@@ -118,7 +118,7 @@ nav {
     display: none;
     visibility: hidden;
     justify-content: space-between;
-    transition: height 20ms;
+    transition: height 15ms;
     top: 0%;
     z-index: 1;
     
@@ -148,6 +148,7 @@ nav {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            transition: font-size 15ms;
             .wrapper {
                 z-index: 20;
                 width: 100%;
@@ -157,6 +158,7 @@ nav {
                     position: relative;
                     margin: auto;
                     background: white;
+                    
                 }
             }
 
@@ -168,10 +170,11 @@ nav {
 
                 .ddcontent:has(a) {
                     position: absolute;
-                    min-height: 60px;
+                    min-height: 45px;
                     /* pixel-värdet är bredden av scrollbaren */
-                    width: calc(100vw - 16px);
+                    width: 100vw;
                     right: 0;
+                    font-size: 1.125rem;
                     box-shadow: 0px 110px 10px 10px #888888;
                     background-color: var(--reflex-vit);
                     display: flex;
@@ -215,9 +218,9 @@ nav {
     .wrapper .dot {
         transition: all .4s ease-in-out;
         /* det som animeras */
-        clip-path: inset(0px 2.5px 0px 2.5px);
-        width: 5px;
-        height: 3px;
+        width: 0px;
+        height: 2px;
+
     }
     filter: drop-shadow(0px 110px 10px 10px #888888);
     a:hover {
@@ -230,6 +233,7 @@ nav {
         transform: translateY(0px);
         height: 2px;
         border-radius: 0px;
+
         }
         .ddcontent {
         opacity: 100%;
@@ -255,18 +259,21 @@ nav {
         transform: translateY(0%);
         clip-path: inset(0 0 0 0);
         pointer-events: all;
-        a.active {
-            color:#ff0000 !important;
+            a.active {
+                color:#ff0000 !important;
+            }
         }
-        }
+
         .dot {
-        clip-path: inset(0 0 0 0);
-        transform: translateY(5px);
-        border-radius: 5px;
-        width: 6px;
-        height: 6px;
+            clip-path: inset(0 0 0 0);
+            transform: translateY(3px);
+            border-radius: 5px;
+            width: 5px;
+            height: 5px;
         }
+
     }
+
 
 }}}
 

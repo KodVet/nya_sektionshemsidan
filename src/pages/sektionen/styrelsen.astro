@@ -15,9 +15,8 @@ const medlemmar = await Astro.glob('./medlemmar/*.md')
 		namn={namn}
 		kontakt={kontakt} 
 		bild={bild}
-		direction={((index % 2==0) ? 'right' : 'left')}
-		index={index}>
-			<Content/>
+		direction={((index % 2==0) ? 'right' : 'left')}>
+			<Content />
 		</MänniskaCard>
 		)}
 	</div>
