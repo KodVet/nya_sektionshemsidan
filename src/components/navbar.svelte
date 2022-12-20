@@ -12,7 +12,6 @@
     onMount(() =>{
         console.log("nu är active: ", active)
         console.log("och splittad är den: ", active.split('/'))
-        handleScroll()
     });
 
     beforeUpdate(() => {
