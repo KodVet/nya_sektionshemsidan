@@ -71,7 +71,7 @@
 
     function handleNavigation(href) {
         newActive(href);
-        dotWasActive();
+       // dotWasActive();
         console.log("nu är active: ", active)
         console.log("och splittad är den: ", active.split('/'))
         console.log("och länken: ", href)
