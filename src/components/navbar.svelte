@@ -3,8 +3,7 @@
     export let baseUrl;
     export let active;
     import { pages } from '../pageStructure.json'
-    const urls = import.meta.glob('../pages/**/*.astro', {import: 'url', eager:true}) 
-    console.log("const urls = import.meta.glob('../pages/**/*.astro')", urls)
+
     
 
     // console.log("inuti navbar-komponenten:", baseUrl, pages)
