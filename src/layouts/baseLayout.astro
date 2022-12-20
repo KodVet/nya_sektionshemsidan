@@ -23,7 +23,7 @@ const { customHead = false } = Astro.props;
 	{!customHead && <BaseHead title={title}/>}
 	<body>
 		<header>
-			<Navbar client:load active={active} baseUrl={baseUrl}/>
+			<Navbar client:visible active={active} baseUrl={baseUrl}/>
 			<!-- <Mobilnavbar client:load /> -->
 		</header>
 		<main class="transition-fade" id="swup">
