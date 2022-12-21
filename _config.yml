@@ -8,6 +8,9 @@ collections:
   uploads:
     title: Uploads
     output: true
+  inlagg:
+    title: inlägg
+    output: true
   medlemmar:
     title: medlemmar
     output: true
