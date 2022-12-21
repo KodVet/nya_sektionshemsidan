@@ -3,18 +3,24 @@
     export let baseUrl;
     export let active;
     import { pages } from '../pageStructure.json'
-
+    let navbar;
+    let yScrollPosition;
     
 
     // console.log("inuti navbar-komponenten:", baseUrl, pages)
-
+    let lines
     onMount(() =>{
         console.log("nu är active: ", active)
         console.log("och splittad är den: ", active.split('/'))
+        lines = document.getElementsByClassName('line')
+        const observer = new ResizeObserver((entries) => {
+            console.log(entries)
+        })
+        observer.observe(navbar)
     });
 
     beforeUpdate(() => {
-
+        
     });
 
     afterUpdate(() => {
@@ -22,22 +28,21 @@
 
     })
 
-    let y;
-    let nav;
+
     let min_height = 50;
     let max_height = 100;
     let max_scroll = 200;
     let nav_height = String(max_height) + "px";
     function navHeight() {
-            nav_height = String(max_height - ((max_height-min_height)/max_scroll)*y) + "px"
+            nav_height = String(max_height - ((max_height-min_height)/max_scroll)*yScrollPosition) + "px"
 
     }
 
     const maxFontSize = 24
-    const minFontSize = 20
+    const minFontSize = 18
     let navFontSize;
     function animateFontSize() {
-            navFontSize = String(maxFontSize - ((maxFontSize-minFontSize)/max_scroll)*y) + "px"
+            navFontSize = String(maxFontSize - ((maxFontSize-minFontSize)/max_scroll)*yScrollPosition) + "px"
             console.log("navFontSize", navFontSize)
     }
 
@@ -50,54 +55,72 @@
         activeDot.style.transition ="300ms ease-in-out"
         activeDot.style.transform = "translateY(3px)"
         activeDot.style.height = "5px"
-        activeDot.style.clipPath = "inset(2.5px 2.5px 2.5px 2.5px)"
-        console.log(activeDot)
+        activeDot.style.clipPath = "inset(2.5px 2.5px 2.5px 2.5px)" 
         setTimeout(() => {
             activeDot.style.transition =""
             activeDot.style.transform = ""
             activeDot.style.height = ""
             activeDot.style.clipPath = ""
-            console.log(activeDot)
         }, 300)
         
     }
 
     function handleScroll() {
-        console.log(max_scroll, y)
-        navHeight();
-        animateFontSize();
+        if (0<=yScrollPosition && max_scroll>=yScrollPosition) {
+            console.log(max_scroll, yScrollPosition)
+            navHeight();
+            animateFontSize();
+        }
+        
     }
 
     function handleNavigation(href) {
-        newActive(href);
-        dotWasActive();
-        console.log("nu är active: ", active)
-        console.log("och splittad är den: ", active.split('/'))
-        console.log("och länken: ", href)
-        console.log("splittad: ", href.split('/'))
+        // console.log("active var: ", active)
+        // console.log("och splittad är den: ", active.split('/'))
+        let href_topPath = href.split('/')[1]
+        let active_topPath = active.split('/')[1]
+        if (href_topPath != active_topPath) {
+                // console.log('kör')
+                dotWasActive();
+            }
+        
+        newActive(href)
+        
+        
+        
+        // console.log("och länken: ", href)
+        // console.log("splittad: ", href.split('/'))
+        console.log(lines)
+        
     }
 
 </script>
 
-<svelte:window on:scroll={() =>{if (0<=y && max_scroll>=y) {handleScroll()}}} bind:scrollY={y}/>
+<svelte:window on:scroll={handleScroll} bind:scrollY={yScrollPosition}/>
 <div id="navbarElement" class="container">
-<nav bind:this={nav} style="height:{nav_height}">
+<nav bind:this={navbar} style="height:{nav_height}">
     <img  id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     <ul id="navList">
         {#each pages as { url, btnName, childPages }}
         <li  class="navBtn" id="{btnName}">
-            <div  class="ddbutton" style="font-size:{navFontSize}" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
+            <span  class="ddbutton" style="font-size:{navFontSize}" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
             <a tabindex="0" on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
-                <div class="wrapper">
+                <span class="wrapper">
                     <div class="dot"></div>
-                </div>
+                </span>
                 <div class="ddcontent" id={btnName}>
-                {#each childPages as { url, btnName }}
-                    <a tabindex={'0'} class:active={active.split('/')[2] && (active.split('/')[2] === (baseUrl+url).split('/')[2])} on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
-                {/each}
+                    <ul>
+                    {#each childPages as { url, btnName }, index}
+                        <li class="button" class:active={active.split('/')[2] && (active.split('/')[2] === (baseUrl+url).split('/')[2])}>
+                            <div class="dot"></div>
+                            <a tabindex={'0'} on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
+                        </li>
+                        <li class="line"></li>
+                    {/each}
+                    </ul>
                 </div>
                 <div class="pad"></div>
-            </div>
+            </span>
         </li>
         {/each}
     </ul>
@@ -152,11 +175,10 @@ nav {
                 width: 100%;
                 height: 5px;
                 opacity: 100%;
-                .dot {
+                &>.dot {
                     position: relative;
                     margin: auto;
                     background: white;
-                    
                 }
             }
 
@@ -168,24 +190,60 @@ nav {
 
                 .ddcontent:has(a) {
                     position: absolute;
-                    min-height: 45px;
+                    padding: 8px;
                     /* pixel-värdet är bredden av scrollbaren */
-                    width: 100vw;
+                    width: 100%;
                     right: 0;
                     font-size: 1.125rem;
                     box-shadow: 0px 110px 10px 10px #888888;
                     background-color: var(--reflex-vit);
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: center;
                     top: 100%;
-                    a {
-                        color: var(--buckethat-svart);
-                        padding: 12px 16px;
+                    
+                    ul {
                         text-decoration: none;
+                        list-style: none;
+                        display: flex;
+                        flex-wrap: wrap;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-content: center;
+                        align-items: center;
+                        gap: 18px;
+                        width: 85%;
+                        margin: auto;
+                    }
+
+                    .button {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        margin-left: -4px;
+                        a {
+                            color: var(--buckethat-svart);
+                        }
+                        .dot {
+                            height: 5px;
+                            width: 5px;
+                            clip-path: inset(2.5px 2.5px 2.5px 2.5px);
+                            position: relative;
+                            background-color: var(--buckethat-svart);
+                            transform: none;
+                            right: 4px;
+                            transition: clip-path ease-in-out .2s;
+                            
+                        }    
+                    }
+
+                    .line {
+                        height: 1.3em;
+                        border: var(--buckethat-svart) .4px solid; /*Fattar inte varför, men med width:1px så får de olika bredd, ser megakonstigt ut*/
+                        &:last-child {
+                            height: 0;
+                            border: none;
+                        }
                     }
                 }
-                &:has(a) .pad {
+                &:has(.ddcontent:has(a)) .pad {
                     pointer-events: none;
                     right: 0;
                     width: 100vw;
@@ -207,8 +265,8 @@ nav {
 .navBtn{
     .ddcontent:has(a) {
         /* det som animeras */
-        clip-path: inset(100% 0 0px 0);
-        transform: translateY(-100%);
+        clip-path: inset(0 0 100% 0);
+
         opacity: 0%;
         transition: ease-in-out .4s;
         transition-property: opacity, transform, clip-path, background-color;
@@ -236,7 +294,6 @@ nav {
         .ddcontent {
         opacity: 100%;
         pointer-events: all;
-        transform: translateY(0%);
         clip-path: inset(0 0 0 0);
         }
         .ddbutton:has(a) .pad {
@@ -247,18 +304,16 @@ nav {
     &:hover ~ .navBtn .active .ddcontent,
     &:has(~ .navBtn:hover) .active .ddcontent {
         opacity: 0%;
-        transform: translateY(-100%);
-        clip-path: inset(100% 0 0 0);
+        clip-path: inset(0 0 100% 0);
     }
     .active {
         .ddcontent:has(a) {
         opacity: 100%;
         background-color: var(--limejuice);
-        transform: translateY(0%);
         clip-path: inset(0 0 0 0);
         pointer-events: all;
-            a.active {
-                color:#ff0000 !important;
+        .button.active .dot {
+                clip-path: inset(0 0 0 0);
             }
         }
 
