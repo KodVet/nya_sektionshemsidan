@@ -14,8 +14,9 @@
         console.log("och splittad är den: ", active.split('/'))
         lines = document.getElementsByClassName('line')
         const observer = new ResizeObserver((entries) => {
-            console.log(entries)
+            // console.log(entries)
         })
+        handleScroll
         observer.observe(navbar)
     });
 
@@ -32,19 +33,27 @@
     let min_height = 50;
     let max_height = 100;
     let max_scroll = 200;
-    let nav_height = String(max_height) + "px";
-    function navHeight() {
-            nav_height = String(max_height - ((max_height-min_height)/max_scroll)*yScrollPosition) + "px"
-
+    let navHeight = String(max_height) + "px";
+    function animateNavHeight(breakpoint, totalBreakpoints) {
+            navHeight = String(max_height - ((max_height-min_height)/totalBreakpoints)*breakpoint) + "px"
     }
 
     const maxFontSize = 24
     const minFontSize = 18
     let navFontSize;
-    function animateFontSize() {
-            navFontSize = String(maxFontSize - ((maxFontSize-minFontSize)/max_scroll)*yScrollPosition) + "px"
+    function animateFontSize(breakpoint, totalBreakpoints) {
+            navFontSize = String(maxFontSize - (((maxFontSize-minFontSize)/totalBreakpoints))*breakpoint) + "px"
             console.log("navFontSize", navFontSize)
     }
+      
+    function generateBreakpoints(total){
+                for (let i = 0; i <= total; i++) {
+                    if (((i*max_scroll)/total)<=yScrollPosition) {
+                        animateNavHeight(i, total);
+                        animateFontSize(i, total);
+                    }
+                }
+            }
 
     function newActive(href) {
         active = href
@@ -64,41 +73,45 @@
         }, 300)
         
     }
+    
+    //handleScroll
+    let previousScrollPosition
+    $: {
+        previousScrollPosition = yScrollPosition;
+        const scrollDelta = Math.abs(yScrollPosition - previousScrollPosition); 
 
-    function handleScroll() {
-        if (0<=yScrollPosition && max_scroll>=yScrollPosition) {
-            console.log(max_scroll, yScrollPosition)
-            navHeight();
-            animateFontSize();
+        function handleScroll(){
+            generateBreakpoints(30-Math.floor(scrollDelta/10))
         }
+        handleScroll()
+
+        console.log("previousScrollPosition innan: ", previousScrollPosition);
+        if (scrollDelta>100) {
+            setTimeout(handleScroll, 100)
+        };
+        console.log("previousScrollPosition efter : ", previousScrollPosition);
         
     }
 
     function handleNavigation(href) {
         // console.log("active var: ", active)
         // console.log("och splittad är den: ", active.split('/'))
-        let href_topPath = href.split('/')[1]
-        let active_topPath = active.split('/')[1]
+        const href_topPath = href.split('/')[1]
+        const active_topPath = active.split('/')[1]
         if (href_topPath != active_topPath) {
-                // console.log('kör')
                 dotWasActive();
             }
         
         newActive(href)
-        
-        
-        
-        // console.log("och länken: ", href)
-        // console.log("splittad: ", href.split('/'))
         console.log(lines)
         
     }
 
 </script>
 
-<svelte:window on:scroll={handleScroll} bind:scrollY={yScrollPosition}/>
-<div id="navbarElement" class="container">
-<nav bind:this={navbar} style="height:{nav_height}">
+<svelte:window bind:scrollY={yScrollPosition}/>
+
+<nav bind:this={navbar} style="height:{navHeight}">
     <img  id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     <ul id="navList">
         {#each pages as { url, btnName, childPages }}
@@ -125,7 +138,7 @@
         {/each}
     </ul>
 </nav>
-</div>
+
 
 
 <style lang="scss">
@@ -139,7 +152,7 @@ nav {
     display: none;
     visibility: hidden;
     justify-content: space-between;
-    transition: height 15ms;
+    transition: height 50ms;
     top: 0%;
     z-index: 1;
     
@@ -157,19 +170,18 @@ nav {
         margin: 0px;
 
         .navBtn{
-        font-size: x-large;
         font: bold;
+        font-size: x-large;
         height: 100%;
         padding-inline: 30px;
 
             .ddbutton {
-            transition: all ease-in-out .5s;
             height: 100%;
             width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            transition: font-size 15ms;
+            transition: font-size 50ms;
             .wrapper {
                 z-index: 20;
                 width: 100%;
@@ -210,7 +222,11 @@ nav {
                         align-items: center;
                         gap: 18px;
                         width: 85%;
+                        height: 100%;
                         margin: auto;
+                        * {
+                            text-decoration: none;
+                        }
                     }
 
                     .button {
@@ -218,6 +234,7 @@ nav {
                         flex-direction: row;
                         align-items: center;
                         margin-left: -4px;
+                        height: 100%;
                         a {
                             color: var(--buckethat-svart);
                         }
