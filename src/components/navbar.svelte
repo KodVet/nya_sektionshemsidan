@@ -110,7 +110,7 @@
 </script>
 
 <svelte:window bind:scrollY={yScrollPosition}/>
-
+<div id="staticBackground" style="height: {max_height}px; background-color: green;"></div>
 <nav bind:this={navbar} style="height:{navHeight}">
     <img  id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     <ul id="navList">
