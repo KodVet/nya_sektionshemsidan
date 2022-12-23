@@ -5,6 +5,9 @@
     import { pages } from '../pageStructure.json'
     let navbar;
     let yScrollPosition;
+    let viewportWidth;
+    let ddcontentWidth
+    // $: console.log(ddcontentWidth)
     
 
     // console.log("inuti navbar-komponenten:", baseUrl, pages)
@@ -13,11 +16,7 @@
         console.log("nu är active: ", active)
         console.log("och splittad är den: ", active.split('/'))
         lines = document.getElementsByClassName('line')
-        const observer = new ResizeObserver((entries) => {
-            // console.log(entries)
-        })
         handleScroll
-        observer.observe(navbar)
     });
 
     beforeUpdate(() => {
@@ -29,20 +28,19 @@
 
     })
 
-
     let min_height = 50;
     let max_height = 100;
     let max_scroll = 200;
-    let navHeight = String(max_height) + "px";
+    let navHeight = max_height;
     function animateNavHeight(breakpoint, totalBreakpoints) {
-            navHeight = String(max_height - ((max_height-min_height)/totalBreakpoints)*breakpoint) + "px"
+            navHeight = max_height - ((max_height-min_height)/totalBreakpoints)*breakpoint
     }
 
     const maxFontSize = 24
     const minFontSize = 18
-    let navFontSize;
-    function animateFontSize(breakpoint, totalBreakpoints) {
-            navFontSize = String(maxFontSize - (((maxFontSize-minFontSize)/totalBreakpoints))*breakpoint) + "px"
+    let navFontSize = maxFontSize;
+    function getFontSize(breakpoint, totalBreakpoints, eager=false) {
+            navFontSize = (maxFontSize - (((maxFontSize-minFontSize)/totalBreakpoints))*breakpoint)
             console.log("navFontSize", navFontSize)
     }
       
@@ -50,7 +48,7 @@
                 for (let i = 0; i <= total; i++) {
                     if (((i*max_scroll)/total)<=yScrollPosition) {
                         animateNavHeight(i, total);
-                        animateFontSize(i, total);
+                        getFontSize(i, total);
                     }
                 }
             }
@@ -77,6 +75,7 @@
     //handleScroll
     let previousScrollPosition
     $: {
+        console.log(viewportWidth)
         previousScrollPosition = yScrollPosition;
         const scrollDelta = Math.abs(yScrollPosition - previousScrollPosition); 
 
@@ -104,24 +103,32 @@
         
         newActive(href)
         console.log(lines)
-        
+    }
+    let ddbutton;
+    $: {
+        viewportWidth = viewportWidth
+        if (viewportWidth<=976) {
+            console.log("vw diff", 976-viewportWidth)
+            ddbutton.style.fontSize = `calc(${navFontSize}-${976-viewportWidth}px) !important`
+            console.log(`calc(${navFontSize}-${976-viewportWidth}px)`)
+        }
     }
 
 </script>
 
-<svelte:window bind:scrollY={yScrollPosition}/>
-<div id="staticBackground" style="height: {max_height}px; background-color: green;"></div>
-<nav bind:this={navbar} style="height:{navHeight}">
+<svelte:window bind:scrollY={yScrollPosition} bind:innerWidth={viewportWidth}/>
+<div id="staticBackground" style="height:{max_height}px"></div>
+<nav bind:this={navbar} style="height:{navHeight}px">
     <img  id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     <ul id="navList">
         {#each pages as { url, btnName, childPages }}
         <li  class="navBtn" id="{btnName}">
-            <span  class="ddbutton" style="font-size:{navFontSize}" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
+            <span bind:this={ddbutton} class="ddbutton" style="font-size:{navFontSize}px" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
             <a tabindex="0" on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 <span class="wrapper">
                     <div class="dot"></div>
                 </span>
-                <div class="ddcontent" id={btnName}>
+                <div class="ddcontent" id={btnName} bind:clientWidth={ddcontentWidth}>
                     <ul>
                     {#each childPages as { url, btnName }, index}
                         <li class="button" class:active={active.split('/')[2] && (active.split('/')[2] === (baseUrl+url).split('/')[2])}>
@@ -143,7 +150,10 @@
 
 <style lang="scss">
 
-
+.staticBackground {
+    display: none;
+    background-color: var(--koggis-grön);
+}
 nav {
     opacity: 100%;
     position: fixed;
@@ -155,29 +165,44 @@ nav {
     transition: height 50ms;
     top: 0%;
     z-index: 1;
+
     
     #logo {
-        padding: 15px;
-        padding-left: 60px;
+        padding: 10px;
+        padding-left: clamp(10px, 3vw, 60px);
+        overflow: visible;
     }
     #navList{
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         list-style: none;
         align-items: center;
-        padding: 0%;
+        width: 100%;
+        padding-left: 0;
         height: 100%;
         margin: 0px;
 
         .navBtn{
-        font: bold;
-        font-size: x-large;
+        display: flex;
+        justify-content: flex-end;
         height: 100%;
-        padding-inline: 30px;
+        // padding-inline: clamp(1px, calc(12vw - 85px), 30px);
+        margin-inline: clamp(1px, .3%, 5px);
+        flex-grow: 1;
+        // padding-inline: clamp(0px, calc(3%), 30px);
+        
+        &:first-child {
+            flex-grow: 5;
+            // margin-left: clamp(5px, calc(18vw - 120px), 300px);
+        }
+        &:last-child {
+            margin-right: 30px;
+            
+        }
 
             .ddbutton {
             height: 100%;
-            width: 100%;
+            width: max-content;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -350,11 +375,15 @@ nav {
 
 
 
-@media (min-width: 577px)
-{nav {
-    visibility: visible;
-    display: flex;
-    margin: auto;
-    width: 100%; }
+@media (min-width: 577px) {
+    nav {
+        visibility: visible;
+        display: flex;
+        margin: auto;
+        width: 100%; 
+    }
+    .staticBackground {
+        display: block;
+    }
 }
 </style>
