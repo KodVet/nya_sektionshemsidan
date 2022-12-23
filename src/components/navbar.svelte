@@ -252,7 +252,6 @@ nav {
 
                 .ddcontent:has(a) {
                     position: absolute;
-                    padding: 8px;
                     height: min-content;
                     /* pixel-värdet är bredden av scrollbaren */
                     width: 100%;
@@ -271,10 +270,14 @@ nav {
                         justify-content: center;
                         align-content: center;
                         align-items: center;
-                        gap: 18px;
+                        gap: 15px;
+                        margin-top: 5px;
+                        margin-bottom: 5px;
                         width: 85%;
                         height: 100%;
-                        margin: auto;
+                        margin-left: auto;
+                        margin-right: auto;
+                        padding: 0;
                         * {
                             text-decoration: none;
                         }
@@ -288,6 +291,7 @@ nav {
                         height: 100%;
                         a {
                             color: var(--buckethat-svart);
+                           padding: 5px;
                         }
                         .dot {
                             height: 5px;
