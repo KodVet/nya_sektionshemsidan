@@ -107,16 +107,7 @@
       "btnName": "Kontakt",
       "url": "/kontakt",
       "childPages": []
-    },
-    {
-      "btnName": "Ny sida",
-      "url": "/#",
-      "childPages": [
-        {
-          "btnName": "sida under sidan",
-          "url": "/#"
-        }
-      ]
     }
+    
   ]
 }

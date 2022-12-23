@@ -11,12 +11,13 @@
     
 
     // console.log("inuti navbar-komponenten:", baseUrl, pages)
-    let lines
+    let lines = [[],[],[],[], []]
     onMount(() =>{
-        console.log("nu är active: ", active)
-        console.log("och splittad är den: ", active.split('/'))
-        lines = document.getElementsByClassName('line')
+        // console.log("nu är active: ", active)
+        // console.log("och splittad är den: ", active.split('/'))
+        // lines = document.getElementsByClassName('line')
         handleScroll
+        console.log("lines:", lines)
     });
 
     beforeUpdate(() => {
@@ -41,7 +42,7 @@
     let navFontSize = maxFontSize;
     function getFontSize(breakpoint, totalBreakpoints, eager=false) {
             navFontSize = (maxFontSize - (((maxFontSize-minFontSize)/totalBreakpoints))*breakpoint)
-            console.log("navFontSize", navFontSize)
+            
     }
       
     function generateBreakpoints(total){
@@ -75,7 +76,7 @@
     //handleScroll
     let previousScrollPosition
     $: {
-        console.log(viewportWidth)
+        // console.log(viewportWidth)
         previousScrollPosition = yScrollPosition;
         const scrollDelta = Math.abs(yScrollPosition - previousScrollPosition); 
 
@@ -84,11 +85,11 @@
         }
         handleScroll()
 
-        console.log("previousScrollPosition innan: ", previousScrollPosition);
+        // console.log("previousScrollPosition innan: ", previousScrollPosition);
         if (scrollDelta>100) {
             setTimeout(handleScroll, 100)
         };
-        console.log("previousScrollPosition efter : ", previousScrollPosition);
+        // console.log("previousScrollPosition efter : ", previousScrollPosition);
         
     }
 
@@ -106,13 +107,37 @@
     }
     let ddbutton;
     $: {
-        viewportWidth = viewportWidth
-        if (viewportWidth<=976) {
-            console.log("vw diff", 976-viewportWidth)
-            ddbutton.style.fontSize = `calc(${navFontSize}-${976-viewportWidth}px) !important`
-            console.log(`calc(${navFontSize}-${976-viewportWidth}px)`)
-        }
+        let _ = viewportWidth
+            for (let i = 0; i<(lines.length); i++) {
+                for (let j=0;j<(lines[i].length-1); j++) {
+                    function checkTrailingLines(){
+                        if (lines[i][j].offsetLeft > lines[i][j+1].offsetLeft && lines[i][j].offsetLeft > lines[i][j].nextSibling.offsetLeft) {
+                            lines[i][j].style.visibility = "hidden"
+                    }
+                    
+                        else {
+                            lines[i][j].style.visibility = "visible"
+                        }
+                    }
+                    checkTrailingLines()
+                    function checkLeadingLines(){
+                        if (j!=0){
+                            console.log(`j är inte 0`)
+                            if (lines[i][j].offsetLeft < lines[i][j-1].offsetLeft && lines[i][j-1].nextSibling.offsetTop < lines[i][j].nextSibling.offsetTop) {
+                                lines[i][j].style.visibility = "hidden"
+                            }
+                        }
+                    
+                        else {
+                            lines[i][j].style.visibility = "visible"
+                        }
+                    }
+                    checkLeadingLines()
+                }
+            }
     }
+
+        
 
 </script>
 
@@ -121,9 +146,9 @@
 <nav bind:this={navbar} style="height:{navHeight}px">
     <img  id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     <ul id="navList">
-        {#each pages as { url, btnName, childPages }}
+        {#each pages as { url, btnName, childPages }, topIndex}
         <li  class="navBtn" id="{btnName}">
-            <span bind:this={ddbutton} class="ddbutton" style="font-size:{navFontSize}px" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
+            <span bind:this={ddbutton} class="ddbutton" style="font-size:clamp(0px, {navFontSize}px, 3.1vw)" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
             <a tabindex="0" on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                 <span class="wrapper">
                     <div class="dot"></div>
@@ -135,7 +160,7 @@
                             <div class="dot"></div>
                             <a tabindex={'0'} on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
                         </li>
-                        <li class="line"></li>
+                        <li bind:this={lines[topIndex][index]} class="line"></li>
                     {/each}
                     </ul>
                 </div>
@@ -150,7 +175,7 @@
 
 <style lang="scss">
 
-.staticBackground {
+#staticBackground {
     display: none;
     background-color: var(--koggis-grön);
 }
@@ -228,6 +253,7 @@ nav {
                 .ddcontent:has(a) {
                     position: absolute;
                     padding: 8px;
+                    height: min-content;
                     /* pixel-värdet är bredden av scrollbaren */
                     width: 100%;
                     right: 0;
@@ -280,8 +306,8 @@ nav {
                         height: 1.3em;
                         border: var(--buckethat-svart) .4px solid; /*Fattar inte varför, men med width:1px så får de olika bredd, ser megakonstigt ut*/
                         &:last-child {
-                            height: 0;
-                            border: none;
+                            display: none;
+                            // margin-right: -20px;    
                         }
                     }
                 }
@@ -382,7 +408,7 @@ nav {
         margin: auto;
         width: 100%; 
     }
-    .staticBackground {
+    #staticBackground {
         display: block;
     }
 }
