@@ -4,7 +4,7 @@ import Layout from '../../layouts/baseLayout.astro';
 const pdfsPaths = (import.meta.glob('/static/dokument/*', {eager: true, import: 'default'}))
 
 const pdfs = Object.fromEntries(Object.entries(pdfsPaths).map(([key, value]) => 
-[key.replace('static/', ''), String(value).split('/')[3].replace(/-/g,' ').replace(/.pdf/,'')]));
+[key.replace('static/', ''), String(value).split('/')[2].replace(/-/g,' ').replace(/\..*/,'')]));
 console.log(pdfs)
 console.log(pdfsPaths)
 ---
