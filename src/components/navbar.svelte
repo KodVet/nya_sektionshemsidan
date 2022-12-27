@@ -122,7 +122,6 @@
                     checkTrailingLines()
                     function checkLeadingLines(){
                         if (j!=0){
-                            console.log(`j är inte 0`)
                             if (lines[i][j].offsetLeft < lines[i][j-1].offsetLeft && lines[i][j-1].nextSibling.offsetTop < lines[i][j].nextSibling.offsetTop) {
                                 lines[i][j].style.visibility = "hidden"
                             }

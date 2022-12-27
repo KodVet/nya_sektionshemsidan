@@ -5,6 +5,8 @@
     export let kontakt;
     export let bild;
     export let direction;
+    let hasContent;
+    let slot;
     let expanded = false;
     let collapsible;
     let rootFontSize;
@@ -35,6 +37,7 @@
 
     onMount(() => {
         rootFontSize = getDefaultFontSize()
+        hasContent = Boolean(collapsible.innerText)
     });
 
     function collapse(){
@@ -46,6 +49,7 @@
         }
         expanded=!expanded
     };
+    
 </script>
 
 
@@ -55,8 +59,10 @@
     <p><b>{post}:</b> {namn}</p> 
     <p><b>Kontakt:</b> {kontakt}</p>
     </div>
+    {#if hasContent}
     <button on:click={collapse}>Läs mer</button>
-    <div bind:this={collapsible} class='content' >
+    {/if}
+    <div bind:this={collapsible} class='content'>
         <slot></slot>
     </div>
 </div>
