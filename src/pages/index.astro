@@ -13,21 +13,14 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<div class="container">
 		<Hero />
-		{Object.values(människor).map((människa, index) => (
-			<MänniskaCard 
-			namn={människa.namn}
-			post={människa.post} 
-			kontakt={människa.kontakt} 
-			bild={baseUrl + "/images/Sektionslogga 1.png"}
-			direction={((index % 2==0) ? 'right' : 'left')} />
-			))}
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, harum nisi magni alias dolores, nulla quis suscipit eaque soluta omnis, illum vel eveniet consequatur fugit. Quia fuga voluptate expedita quod?
 		<script defer src="https://cdn.commento.io/js/commento.js"></script>
 		<div id="commento"></div>
 	</div>
 </Layout>
 
 <style>
-	.container {
-		margin-top: -45px;
+	.cardContainer {
+		width: 40vw;
 	}
 </style>

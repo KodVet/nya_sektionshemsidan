@@ -7,7 +7,6 @@
     export let direction;
     let expanded = false;
     let collapsible;
-    let root;
     let rootFontSize;
     import { onMount } from 'svelte';
     
@@ -36,7 +35,6 @@
 
     onMount(() => {
         rootFontSize = getDefaultFontSize()
-
     });
 
     function collapse(){
@@ -66,13 +64,10 @@
 
 <style>
 .wrapper {
-    width: 500px;
-    margin-top:40px;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-left: 35%;
-    margin-right: 35%;
     padding: 10px;
     border-radius: 20px;
 }
