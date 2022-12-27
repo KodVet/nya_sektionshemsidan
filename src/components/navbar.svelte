@@ -144,7 +144,10 @@
 <svelte:window bind:scrollY={yScrollPosition} bind:innerWidth={viewportWidth}/>
 <div id="staticBackground" style="height:{max_height}px"></div>
 <nav bind:this={navbar} style="height:{navHeight}px">
-    <img  id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
+        <a href="/" on:click={()=>handleNavigation("/")}>
+        </a>
+    <img id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
+    
     <ul id="navList">
         {#each pages as { url, btnName, childPages }, topIndex}
         <li  class="navBtn" id="{btnName}">
@@ -191,7 +194,14 @@ nav {
     top: 0%;
     z-index: 1;
 
-    
+    &>a{
+        position: absolute;
+        height: 80%;
+        width: 7%;
+        padding: 10px;
+        padding-left: clamp(10px, 3vw, 60px);
+    }
+
     #logo {
         padding: 10px;
         padding-left: clamp(10px, 3vw, 60px);
@@ -201,18 +211,18 @@ nav {
         display: flex;
         justify-content: center;
         list-style: none;
-        align-items: center;
         width: 100%;
         padding-left: 0;
         height: 100%;
         margin: 0px;
+        // gap: clamp(10px, 4%, 50px);
 
         .navBtn{
         display: flex;
         justify-content: flex-end;
         height: 100%;
         // padding-inline: clamp(1px, calc(12vw - 85px), 30px);
-        margin-inline: clamp(1px, .3%, 5px);
+        margin-inline: clamp(1px, .4%, 5px);
         flex-grow: 1;
         // padding-inline: clamp(0px, calc(3%), 30px);
         
@@ -292,6 +302,7 @@ nav {
                         a {
                             color: var(--buckethat-svart);
                            padding: 5px;
+                           pointer-events: all;
                         }
                         .dot {
                             height: 5px;
@@ -355,7 +366,7 @@ nav {
         color: rgb(152, 152, 152);
     }
     &:hover {
-        .wrapper .dot {
+        &:not(:has(.active .ddcontent:hover)) .wrapper .dot {
         clip-path: inset(0 0 0 0);
         width: 98%;
         transform: translateY(0px);
@@ -383,7 +394,6 @@ nav {
         opacity: 100%;
         background-color: var(--limejuice);
         clip-path: inset(0 0 0 0);
-        pointer-events: all;
         .button.active .dot {
                 clip-path: inset(0 0 0 0);
             }
