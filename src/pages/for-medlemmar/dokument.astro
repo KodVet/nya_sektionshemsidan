@@ -12,7 +12,7 @@ const pdfs = Object.values(import.meta.glob('/static/dokument/*', {eager: true, 
 		<ul>
 			{pdfs.map((pdf)=>
 			<li>
-				<a href={pdf}>{String(pdf).split('/')[3].replace(/-/g,' ').replace('.pdf','')}</a>
+				<a href={pdf}>{pdf}</a>
 			</li>
 			)}
 		</ul>
