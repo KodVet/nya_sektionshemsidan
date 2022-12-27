@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/mdx": "^0.12.1",
     "@astrojs/svelte": "^1.0.0",
+    "@swup/preload-plugin": "^1.0.5",
     "@swup/scripts-plugin": "^1.1.0",
     "@swup/scroll-plugin": "^1.3.2",
     "@swup/slide-theme": "^1.0.5",
