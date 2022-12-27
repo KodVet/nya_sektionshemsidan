@@ -1,18 +1,19 @@
 ---
 import Layout from '../../layouts/baseLayout.astro';
 
-const pdfs = Object.values(import.meta.glob('/static/dokument/*', {eager: true, import: 'default'}))
+const pdfsPaths = (import.meta.glob('/static/dokument/*', {eager: true, import: 'default'}))
 
-// console.log('filerna: ', pdfs)
+const pdfs = Object.fromEntries(Object.entries(pdfsPaths).map(([key, value]) => 
+[key, String(value).split('/')[3].replace(/-/g,' ').replace('.pdf','')]));
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<div class="container">
         <h1>här är dem</h1>
 		<ul>
-			{pdfs.map((pdf)=>
+			{Object.entries(pdfs).map(([filepath, cleanedName])=>
 			<li>
-				<a href={pdf}>{pdf}</a>
+				<a href={filepath}>{cleanedName}</a>
 			</li>
 			)}
 		</ul>
