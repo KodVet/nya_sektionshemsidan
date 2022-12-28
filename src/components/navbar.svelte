@@ -6,7 +6,8 @@
     let navbar;
     let yScrollPosition;
     let viewportWidth;
-    let ddcontentWidth
+    let ddcontentWidth;
+    let staticBackground;
     // $: console.log(ddcontentWidth)
     
 
@@ -25,8 +26,10 @@
     });
 
     afterUpdate(() => {
+        const activeDdcontentHeight = document.querySelector('.ddbutton.active .ddcontent').clientHeight
+        console.log("activeDdcontentHeight: ", activeDdcontentHeight)
+        staticBackground.style.marginBottom = `${activeDdcontentHeight}px`
         
-
     })
 
     let min_height = 50;
@@ -141,7 +144,7 @@
 </script>
 
 <svelte:window bind:scrollY={yScrollPosition} bind:innerWidth={viewportWidth}/>
-<div id="staticBackground" style="height:{max_height}px"></div>
+<div id="staticBackground" bind:this={staticBackground} style="height:{max_height}px"></div>
 <nav bind:this={navbar} style="height:{navHeight}px">
         <a href="/" on:click={()=>handleNavigation("/")}>
         </a>
@@ -180,6 +183,7 @@
 #staticBackground {
     display: none;
     background-color: var(--koggis-grön);
+    transition: all .8s;
 }
 nav {
     opacity: 100%;
