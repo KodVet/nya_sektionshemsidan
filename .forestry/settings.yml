@@ -8,7 +8,7 @@ sections:
   path: ''
   label: Medlemmar
   create: all
-  match: src/pages/sektionen/medlemmar
+  match: src/pages/sektionen/medlemmar/*.md
   exclude: "*.astro"
 upload_dir: static
 public_path: "/static"
