@@ -5,11 +5,10 @@ admin_path: "/static/forestry/admin"
 webhook_url: 
 sections:
 - type: directory
-  path: ''
+  path: src/pages/sektionen/medlemmar
   label: Medlemmar
   create: all
-  match: src/pages/sektionen/medlemmar/*.md
-  exclude: "*.astro"
+  match: "*.md"
 upload_dir: static
 public_path: "/static"
 front_matter_path: ''
