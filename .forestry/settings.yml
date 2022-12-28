@@ -4,11 +4,15 @@ auto_deploy: false
 admin_path: "/static/forestry/admin"
 webhook_url: 
 sections:
+- type: heading
+  label: Medlemmar
 - type: directory
   path: src/pages/sektionen/medlemmar
-  label: Medlemmar
-  create: all
-  match: "/*.md"
+  label: Styrelsen
+  create: documents
+  match: "*.md"
+  templates:
+  - medlem
 upload_dir: static
 public_path: "/static"
 front_matter_path: ''
