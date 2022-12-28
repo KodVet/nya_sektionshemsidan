@@ -4,12 +4,15 @@ auto_deploy: false
 admin_path: "/static/forestry/admin"
 webhook_url: 
 sections:
-- type: directory
-  path: ''
+- type: heading
   label: Medlemmar
-  create: all
-  match: src/pages/medlemmar/*
-  exclude: "*.astro"
+- type: directory
+  path: src/pages/sektionen/medlemmar
+  label: Styrelsen
+  create: documents
+  match: "*.md"
+  templates:
+  - medlem
 upload_dir: static
 public_path: "/static"
 front_matter_path: ''
@@ -18,7 +21,7 @@ file_template: ":filename:"
 build:
   preview_output_directory: public
   install_dependencies_command: npm install
-  preview_docker_image: forestryio/node:12
+  preview_docker_image: forestryio/node:16
   mount_path: "/srv"
   working_dir: "/srv"
   instant_preview_command: npm run dev
