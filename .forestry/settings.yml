@@ -4,9 +4,6 @@ auto_deploy: false
 admin_path: "/static/forestry/admin"
 webhook_url: 
 sections:
-- type: document
-  path: src/pageStructure.json
-  label: Navbar
 - type: directory
   path: src/pages/sektionen/medlemmar
   label: Medlemmar
@@ -17,6 +14,9 @@ sections:
   - medlem
 - type: heading
   label: Inställningar
+- type: document
+  path: src/pageStructure.json
+  label: Navbar
 upload_dir: static
 public_path: "/static"
 front_matter_path: ''
