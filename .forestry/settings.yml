@@ -7,7 +7,6 @@ sections:
 - type: document
   path: src/pageStructure.json
   label: Navbar
-  match: "**/*"
 - type: directory
   path: src/pages/sektionen/medlemmar
   label: Medlemmar
