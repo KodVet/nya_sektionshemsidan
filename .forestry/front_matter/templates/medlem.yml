@@ -37,3 +37,5 @@ fields:
       format: markdown
   label: Om mig
   description: Skriv lite om dig, vrf du valde kogvet, jadijada
+pages:
+- src/pages/sektionen/medlemmar/kodvet/Gustaf.md
