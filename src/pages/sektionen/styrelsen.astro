@@ -3,7 +3,7 @@ import Layout from '../../layouts/baseLayout.astro';
 import MänniskaCard from '../../components/kontakt/människaCard.svelte';
 
 
-const medlemmar = await Astro.glob('./medlemmar/*.md')
+const medlemmar = await Astro.glob('./medlemmar/styrelsen/*.md')
 ---
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<div class="container">
