@@ -11,7 +11,6 @@ sections:
   match: "**/*"
   templates:
   - medlem
-  - medlem
 - type: heading
   label: Inställningar
 - type: document
