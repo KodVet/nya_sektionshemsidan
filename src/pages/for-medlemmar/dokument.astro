@@ -15,7 +15,7 @@ console.log(pdfsPaths)
 		<ul>
 			{Object.entries(pdfs).map(([filepath, cleanedName])=>
 			<li>
-				<a href={filepath}>{cleanedName}</a>
+				<a data-no-swup href={filepath}>{cleanedName}</a>
 			</li>
 			)}
 		</ul>
