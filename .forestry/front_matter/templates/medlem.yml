@@ -1,14 +1,39 @@
 ---
 label: medlem
-hide_body: false
+hide_body: true
+display_field: namn
 fields:
-- name: bio
+- name: namn
+  type: text
+  config:
+    required: false
+  label: Namn
+  description: "Vad heter du \U0001F440"
+- name: post
+  type: text
+  config:
+    required: false
+  label: Post
+  description: post???????
+- name: kontakt
+  type: text
+  config:
+    required: false
+  label: Kontakt
+  description: Din kogvetmail
+- name: bild
+  type: file
+  config:
+    maxSize: 64
+  description: Ditt fejs
+  label: Bild
+- name: om_mig
   type: textarea
   default: ''
   config:
     required: false
-    wysiwyg: true
+    wysiwyg: false
     schema:
       format: markdown
-  label: Bio
-  description: Skriv lite om dig själv
+  label: Om mig
+  description: Skriv lite om dig, vrf du valde kogvet, jadijada
