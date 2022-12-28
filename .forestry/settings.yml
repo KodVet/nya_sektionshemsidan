@@ -8,7 +8,7 @@ sections:
   path: src/pages/sektionen/medlemmar
   label: Medlemmar
   create: all
-  match: "*.md"
+  match: "/*.md"
 upload_dir: static
 public_path: "/static"
 front_matter_path: ''
