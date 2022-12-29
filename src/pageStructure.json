@@ -27,7 +27,11 @@
         },
         {
           "btnName": "Utbildningsutskottet",
-          "url": "/sektionen/utbildningsutskottet"
+          "url": "/sektionen/utbildnings-utskottet"
+        },
+        {
+          "btnName": "MAFU",
+          "url": "/sektionen/mafu"
         }
       ]
     },
