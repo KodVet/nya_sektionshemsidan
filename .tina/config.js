@@ -20,6 +20,59 @@ export default defineConfig({
   schema: {
     collections: [
       {
+        name: "medlemmar",
+        label: "Medlemmar",
+        path: "src/pages/sektionen/medlemmar",
+        fields: [
+          {
+            type: "string",
+            name: "namn",
+            label: "Namn",
+            isTitle: true,
+            required: true
+          },
+          {
+            type: "string",
+            name: "post",
+            label: "Post",
+            required: true
+          },
+          {
+            type: "string",
+            name: "kontakt",
+            label: "Mail",
+            required: true
+          },
+          {
+            type: "image",
+            name: "bild",
+            label: "Bild",
+            required: true
+          },
+          {
+            type: "rich-text",
+            name: "body",
+            Label: "Om mig",
+            required: false,
+            isBody: true
+          },
+          {
+            type: "string",
+            name: "utskott",
+            label: "Utskott",
+            required: true,
+            options: ["Styrelsen", "Kodvet", "Kognitivet"]
+          }
+        ],
+        ui: {
+          filename: {
+            slugify: values => {
+              return `${values?.utskott?.toLowerCase()}/${values?.namn}`
+            }
+          }
+        }
+      },
+      {
         name: "post",
         label: "Posts",
         path: "content/posts",
