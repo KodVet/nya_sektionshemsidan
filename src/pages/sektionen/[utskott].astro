@@ -11,10 +11,12 @@ import MänniskaCard from '../../components/content/människaCard.svelte'
 export async function getStaticPaths() {
 	const utskott = await Astro.glob('../../content/sidor/utskott/*.md')
 	const medlemmar = await Astro.glob('../../content/medlemmar/*.md')
+	
 	return utskott.map(utskott => {
+		const filteredMedlemmar = medlemmar.filter(medlem => medlem.frontmatter.utskott === utskott.frontmatter.titel)
 		return {
-			params: { sida: utskott.frontmatter.titel.toLowerCase().replace(' ','-') },
-			props: { utskott: utskott, medlemmar: medlemmar },
+			params: { utskott: utskott.frontmatter.titel.toLowerCase().replace(' ','-') },
+			props: { utskott: utskott, medlemmar: filteredMedlemmar },
 		}
 	})
 	// return [{params:{utskott:'styrelsen'}}]
@@ -26,6 +28,7 @@ medlemmar.map(medlem => console.log(medlem.frontmatter.namn))
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
+	<h1>{utskott.frontmatter.titel}</h1>
 	<div class="container">
 		<Content/>
 		{medlemmar.map(({ frontmatter: {post, namn, kontakt, bild}, Content }, index) =>
