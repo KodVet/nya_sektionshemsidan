@@ -329,7 +329,7 @@ nav {
                         }
                     }
                 }
-                &:has(.ddcontent:has(a)) .pad {
+                &:has(a) .pad {
                     pointer-events: none;
                     right: 0;
                     width: 100vw;
