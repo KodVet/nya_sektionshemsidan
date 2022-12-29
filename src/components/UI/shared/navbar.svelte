@@ -3,7 +3,7 @@
     import { null_to_empty } from "svelte/internal";
     export let baseUrl;
     export let active;
-    import { pages } from '../pageStructure.json'
+    import { pages } from '../../../pageStructure.json'
     let navbar;
     let yScrollPosition;
     let viewportWidth;
