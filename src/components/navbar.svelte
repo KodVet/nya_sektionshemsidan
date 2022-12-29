@@ -1,5 +1,6 @@
 <script>
     import { afterUpdate, beforeUpdate, onMount } from "svelte";
+    import { null_to_empty } from "svelte/internal";
     export let baseUrl;
     export let active;
     import { pages } from '../pageStructure.json'
@@ -7,18 +8,27 @@
     let yScrollPosition;
     let viewportWidth;
     let ddcontentWidth;
+    let ddcontentHeight;
     let staticBackground;
+    let ddbuttons
     // $: console.log(ddcontentWidth)
     
 
     // console.log("inuti navbar-komponenten:", baseUrl, pages)
     let lines = [[],[],[],[], []]
     onMount(() =>{
-        // console.log("nu är active: ", active)
-        // console.log("och splittad är den: ", active.split('/'))
-        // lines = document.getElementsByClassName('line')
-        handleScroll
+        lines = document.getElementsByClassName('line')
+        generateBreakpoints(15)
         console.log("lines:", lines)
+        ddbuttons = Object.values(document.getElementsByClassName('ddbutton')).map(ddbutton => {
+            if (ddbutton.querySelector('.ddcontent').querySelector('a')) {
+                return ddbutton
+            }
+        })
+        // navbar.style.backgroundColor = "black"
+        // document.getElementsByTagName("nav").style.backgroundColor = "black"
+        // console.log("ddbuttons: HALLÅ DITT FANSKAP", ddbuttons)
+        // console.log("logga då jävla sopa")
     });
 
     beforeUpdate(() => {
@@ -27,8 +37,20 @@
 
     afterUpdate(() => {
         const activeDdcontentHeight = document.querySelector('.ddbutton.active .ddcontent').clientHeight
-        console.log("activeDdcontentHeight: ", activeDdcontentHeight)
+        // console.log("activeDdcontentHeight: ", activeDdcontentHeight)
         staticBackground.style.marginBottom = `${activeDdcontentHeight}px`
+
+        
+        
+        for (ddbutton of ddbuttons) {
+            if (!ddbutton) continue
+            const pad = ddbutton.querySelector('.pad')
+            const ddcontent = ddbutton.querySelector('.ddcontent')
+            pad.style.height = `${ddcontent.clientHeight + 40}px`
+            // console.log(ddbutton)
+        };
+        // const ddcontentPad = document.querySelector('.ddbutton.active .pad')
+        // ddcontentPad.style.height = `${activeDdcontentHeight + 50}px`
         
     })
 
@@ -158,7 +180,7 @@
                 <span class="wrapper">
                     <div class="dot"></div>
                 </span>
-                <div class="ddcontent" id={btnName} bind:clientWidth={ddcontentWidth}>
+                <div class="ddcontent" id={btnName} bind:clientWidth={ddcontentWidth} bind:clientHeight={ddcontentHeight}>
                     <ul>
                     {#each childPages as { url, btnName }, index}
                         <li class="button" class:active={active.split('/')[2] && (active.split('/')[2] === (baseUrl+url).split('/')[2])}>
@@ -329,7 +351,7 @@ nav {
                         }
                     }
                 }
-                &:has(a) .pad {
+                &:has(.ddcontent a) .pad {
                     pointer-events: none;
                     right: 0;
                     width: 100vw;
