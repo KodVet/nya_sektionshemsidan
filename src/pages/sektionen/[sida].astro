@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/baseLayout.astro';
+// const utskott = await Astro.glob('../../content/sidor/utskott/*.md')
+// const objektet = utskott.map(utskott => {
+// 	return {
+// 		params: { utskott: utskott.frontmatter.titel.toLowerCase() }
+// 	}
+// })
+// console.log("objektet: ", objektet)
+export async function getStaticPaths() {
+	const utskott = await Astro.glob('../../content/sidor/utskott/*.md')
+
+	return utskott.map(utskott => {
+		return {
+			params: { sida: utskott.frontmatter.titel.toLowerCase().replace(' ','-') },
+			props: { utskott },
+		}
+	})
+	// return [{params:{utskott:'styrelsen'}}]
+}
+const { utskott } = Astro.props
+const { Content } = utskott
+---
+
+<Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
+	<div class="container">
+		<Content/>
+	</div>
+</Layout>
+
+<style>
+	.container {
+		margin: auto;
+		padding: 1em;
+		max-width: 60ch;
+	}
+
+</style>
