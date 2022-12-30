@@ -1,5 +1,5 @@
 ---
-titel: 'MAFU'
+titel: MAFU
 ---
 
 # Marknadsföringsutskottet

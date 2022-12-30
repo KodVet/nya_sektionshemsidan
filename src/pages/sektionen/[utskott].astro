@@ -1,13 +1,7 @@
 ---
-import Layout from '../../layouts/baseLayout.astro';
+import Layout from '../../layouts/Basic.astro';
 import MänniskaCard from '../../components/content/människaCard.svelte'
-// const utskott = await Astro.glob('../../content/sidor/utskott/*.md')
-// const objektet = utskott.map(utskott => {
-// 	return {
-// 		params: { utskott: utskott.frontmatter.titel.toLowerCase() }
-// 	}
-// })
-// console.log("objektet: ", objektet)
+
 export async function getStaticPaths() {
 	const utskott = await Astro.glob('../../content/sidor/utskott/*.md')
 	const medlemmar = await Astro.glob('../../content/medlemmar/*.md')
@@ -28,31 +22,31 @@ medlemmar.map(medlem => console.log(medlem.frontmatter.namn))
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
-	<h1>{utskott.frontmatter.titel}</h1>
-	<div class="container">
-		<Content/>
-		{medlemmar.map(({ frontmatter: {post, namn, kontakt, bild}, Content }, index) =>
-		<div class="cardContainer">
-			<MänniskaCard client:visible
-			post={post}
-			namn={namn}
-			kontakt={kontakt} 
-			bild={bild}
-			direction={((index % 2==0) ? 'right' : 'left')}>
-				<Content />
-			</MänniskaCard>
-		</div>
-		)}
-
+	<div class="container" slot="content">
+			<Content/>
+			{medlemmar.map(({ frontmatter: {post, namn, kontakt, bild}, Content }, index) =>
+			<div class="cardContainer">
+				<MänniskaCard client:visible
+				post={post}
+				namn={namn}
+				kontakt={kontakt} 
+				bild={bild}
+				direction={((index % 2==0) ? 'right' : 'left')}>
+					<Content />
+				</MänniskaCard>
+			</div>
+			)}
 	</div>
 </Layout>
 
 <style>
-	.container {
+	/* .container {
 		margin: auto;
 		padding: 1em;
-		max-width: 60ch;
-	}
+		margin-bottom: 50px;
+		/* max-width: 100ch; */
+
+
 	.cardContainer {
 		width: clamp(400px, 40vw, 900px);
 		margin-bottom: 20px;
