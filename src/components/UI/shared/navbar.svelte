@@ -35,6 +35,9 @@
         // document.getElementsByTagName("nav").style.backgroundColor = "black"
         // console.log("ddbuttons: HALLÅ DITT FANSKAP", ddbuttons)
         // console.log("logga då jävla sopa")
+        if (!isOpaque) {
+            navbar.style.backgroundColor = 'var(--koggis-grön)'
+        }
     });
 
     beforeUpdate(() => {
@@ -137,7 +140,11 @@
         // console.log(lines)
         if (active === '/') {
             isOpaque = true
-        } else isOpaque = false
+        } 
+        else {
+            setTimeout(()=>navbar.style.backgroundColor = 'var(--koggis-grön)', 400)
+            isOpaque = false
+        }
     }
     let ddbutton;
     $: {
@@ -237,13 +244,11 @@ nav {
     opacity: 100%;
     position: fixed;
     width: 100%;    
-    // background-color: var(--koggis-grön);
-    background-color: transparent;
     display: none;
     visibility: hidden;
     justify-content: space-between;
     transition: height 10ms;
-    // transition: background-color 2000ms;
+    // transition: background-color 1000ms cubic-bezier(1, 0.01, 1,-0.15);
     top: 0%;
     z-index: 1;
 
