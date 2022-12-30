@@ -1,10 +1,10 @@
 ---
-import Navbar from '../components/navbar.svelte'
-import Sidebar from '../components/sidebar.svelte'
-import Grid from '../components/grid.svelte'
-import Mobilnavbar from '../components/mobilnavbar.svelte'
-import BaseHead from '../components/BaseComponents/baseHead.astro'
-import BaseFooter from '../components/BaseComponents/baseFooter.astro'
+import Navbar from '../components/UI/shared/navbar.svelte'
+// import Sidebar from '../components/UI/Shared/sidebar.svelte'
+import Grid from '../components/content/grid.svelte'
+import Mobilnavbar from '../components/UI/shared/mobilnavbar.svelte'
+import BaseHead from '../components/base/baseHead.astro'
+import BaseFooter from '../components/base/baseFooter.astro'
 import '../globalStyles.css'
 
 
@@ -13,7 +13,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 
 const { active } = Astro.props;
-const { title = "Kogvet Sektionen på Linköpings Universitet"} = Astro.props;
+const { title = "Kogvet Sektionen på Linköpings Universitet" } = Astro.props;
 const { customHead = false } = Astro.props;
 ---
 
@@ -46,15 +46,16 @@ const { customHead = false } = Astro.props;
 		justify-content: space-between;
 		margin: 0;
 		overflow: overlay;
+		overflow-x: hidden;
 	}
 
-	main {
-		max-width: 100%;
-		display: flex;
-		justify-content: flex-start;
-		flex-direction: column;
-		height: 100%;
-	}
+	// main {
+	// 	max-width: 100%;
+	// 	display: flex;
+	// 	justify-content: flex-start;
+	// 	flex-direction: column;
+	// 	height: 100%;
+	// }
 	*::-webkit-scrollbar-thumb {
   background-color: #00000000;
   border: 5px solid transparent;

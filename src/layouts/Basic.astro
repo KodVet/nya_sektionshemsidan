@@ -1,0 +1,52 @@
+---
+import Base from './baseLayout.astro'
+import Contentbox from '../components/content/Contentbox.astro'
+
+const { active = Astro.url.pathname } = Astro.props;
+const { title = "Kogvet Sektionen på Linköpings Universitet" } = Astro.props;
+const { customHead = false } = Astro.props;
+const { Content } = Astro.props
+---
+<Base active={Astro.url.pathname}>
+    <div id="line"></div>
+    <div id="container">
+        <div id="left-panel">
+            <Contentbox>
+                <slot name="left">Genvääääägar</slot>
+            </Contentbox>
+        </div>
+        <div id="main">
+            <Contentbox>
+                <slot name="content"></slot>
+                <slot>Här var det tomt</slot> <!--- I denna slot som ej har ett namn
+                                                    injekteras markdownen från markdown sidor-->
+            </Contentbox>
+        </div>
+        <div id="right-panel">
+            <Contentbox>
+                <slot name="right">Sponsoooooorer</slot>
+            </Contentbox>
+        </div>
+    </div>
+</Base>
+
+<style>
+
+    #container {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+        justify-content: center;
+        margin: 30px;
+
+    }
+
+    #container > div {
+        flex-grow: 1;
+    }
+    #main {
+        margin: auto;
+        justify-self: center;
+        max-width: 50%;
+    }
+</style>

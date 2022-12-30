@@ -1,0 +1,57 @@
+---
+import Layout from '../../layouts/Basic.astro';
+import MänniskaCard from '../../components/content/människaCard.svelte'
+
+export async function getStaticPaths() {
+	const utskott = await Astro.glob('../../data/sidor/utskott/*.md')
+	const medlemmar = await Astro.glob('../../data/medlemmar/*.md')
+	
+	return utskott.map(utskott => {
+		const filteredMedlemmar = medlemmar.filter(medlem => medlem.frontmatter.utskott === utskott.frontmatter.titel)
+		return {
+			params: { utskott: utskott.frontmatter.titel.toLowerCase().replace(' ','-') },
+			props: { utskott: utskott, medlemmar: filteredMedlemmar },
+		}
+	})
+	// return [{params:{utskott:'styrelsen'}}]
+}
+const { utskott, medlemmar } = Astro.props
+const { Content } = utskott
+// console.log("medlemmar: ", medlemmar)
+medlemmar.map(medlem => console.log(medlem.frontmatter.namn))
+---
+
+<Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
+	<div class="container" slot="content">
+			<Content/>
+			{medlemmar.map(({ frontmatter: {post, namn, kontakt, bild}, Content }, index) =>
+			<div class="cardContainer">
+				<MänniskaCard client:visible
+				post={post}
+				namn={namn}
+				kontakt={kontakt} 
+				bild={bild}
+				direction={((index % 2==0) ? 'right' : 'left')}>
+					<Content />
+				</MänniskaCard>
+			</div>
+			)}
+	</div>
+</Layout>
+
+<style>
+	/* .container {
+		margin: auto;
+		padding: 1em;
+		margin-bottom: 50px;
+		/* max-width: 100ch; */
+
+
+	.cardContainer {
+		width: clamp(400px, 40vw, 900px);
+		margin-bottom: 20px;
+		
+	}
+
+
+</style>

@@ -27,7 +27,11 @@
         },
         {
           "btnName": "Utbildningsutskottet",
-          "url": "/sektionen/utbildningsutskottet"
+          "url": "/sektionen/utbildnings-utskottet"
+        },
+        {
+          "btnName": "MAFU",
+          "url": "/sektionen/mafu"
         }
       ]
     },
@@ -41,7 +45,7 @@
         },
         {
           "btnName": "Om programmet",
-          "url": "/for-sökande/omprogrammet"
+          "url": "/for-sökande/om-programmet"
         },
         {
           "btnName": "Studentliv",
@@ -84,10 +88,6 @@
         {
           "btnName": "Kurser",
           "url": "/for-medlemmar/kurser"
-        },
-        {
-          "btnName": "Mötesdokument",
-          "url": "/for-medlemmar/mötesdokument"
         },
         {
           "btnName": "STUFF",
