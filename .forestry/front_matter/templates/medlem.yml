@@ -37,5 +37,8 @@ fields:
     required: false
   label: Kontakt
   description: Din kogvetmail
-pages:
-- src/pages/sektionen/medlemmar/kodvet/Gustaf.md
+- name: utskott
+  type: text
+  config:
+    required: false
+  label: Utskott
