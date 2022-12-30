@@ -378,6 +378,9 @@ nav {
         opacity: 0%;
         transition: ease-in-out .4s;
         transition-property: opacity, transform, clip-path, background-color;
+        a:hover {
+            text-decoration: underline;
+        }
     }
     .wrapper .dot {
         transition: all .4s ease-in-out;
@@ -386,12 +389,12 @@ nav {
         height: 2px;
 
     }
-    filter: drop-shadow(0px 110px 10px 10px #888888);
+    filter: box-shadow(0px 110px 10px 10px #888888);
     a:hover {
         color: rgb(152, 152, 152);
     }
     &:hover {
-        &:not(:has(.active .ddcontent:hover)) .wrapper .dot {
+        &:not(:has(.active .ddcontent:hover, .pad:hover)) .wrapper .dot {
         clip-path: inset(0 0 0 0);
         width: 98%;
         transform: translateY(0px);
