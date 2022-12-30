@@ -56,7 +56,7 @@
 
     let min_height = 50;
     let max_height = 100;
-    let max_scroll = 200;
+    let max_scroll = 100;
     let navHeight = max_height;
     function animateNavHeight(breakpoint, totalBreakpoints) {
             navHeight = max_height - ((max_height-min_height)/totalBreakpoints)*breakpoint
@@ -128,7 +128,7 @@
             }
         
         newActive(href)
-        console.log(lines)
+        // console.log(lines)
     }
     let ddbutton;
     $: {
@@ -215,7 +215,7 @@ nav {
     display: none;
     visibility: hidden;
     justify-content: space-between;
-    transition: height 50ms;
+    transition: height 10ms;
     top: 0%;
     z-index: 1;
 
@@ -326,7 +326,7 @@ nav {
                         height: 100%;
                         a {
                             color: var(--buckethat-svart);
-                           padding: 5px;
+                           padding: 9px;
                            pointer-events: all;
                         }
                         .dot {
@@ -336,7 +336,7 @@ nav {
                             position: relative;
                             background-color: var(--buckethat-svart);
                             transform: none;
-                            right: 4px;
+                            right: -5px;
                             transition: clip-path ease-in-out .2s;
                             
                         }    
