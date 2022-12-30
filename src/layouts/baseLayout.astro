@@ -12,27 +12,30 @@ import '../globalStyles.css'
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 
-const { active } = Astro.props;
-const { title = "Kogvet Sektionen på Linköpings Universitet" } = Astro.props;
-const { customHead = false } = Astro.props;
+const { title = "Kogvet Sektionen på Linköpings Universitet", customHead = false, isOpaque = false } = Astro.props;
+// const { customHead = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
 	<script src="../swupApp.js"></script>
 	{!customHead && <BaseHead title={title}/>}
-	<body>
+	<!-- <body id="swup" class="transition-fade"> -->
+		<body>
 		<header>
-			<Navbar client:visible active={active} baseUrl={baseUrl}/>
+			<Navbar isOpaque={isOpaque} client:visible active={Astro.url.pathname} baseUrl={baseUrl}/>
 			<!-- <Mobilnavbar client:load /> -->
 		</header>
-		<main class="transition-fade" id="swup">
+		<main id="swup" class="transition-slide">
 			<slot />
 		</main>
-		<BaseFooter />
+		
+			<BaseFooter />
+		
 	</body>
 </html>
 <style lang="scss">
+
 
 	html {
 		font-family: 'Gill Sans MT';
@@ -41,9 +44,9 @@ const { customHead = false } = Astro.props;
 	body {
 		min-height: 100vh;
 		max-width: 100vw;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
+		// display: flex;
+		// flex-direction: column;
+		// justify-content: space-between;
 		margin: 0;
 		overflow: overlay;
 		overflow-x: hidden;

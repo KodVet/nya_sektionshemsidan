@@ -2,10 +2,8 @@
 import Base from './baseLayout.astro'
 import Contentbox from '../components/content/Contentbox.astro'
 
-const { active = Astro.url.pathname } = Astro.props;
 const { title = "Kogvet Sektionen på Linköpings Universitet" } = Astro.props;
-const { customHead = false } = Astro.props;
-const { Content } = Astro.props
+const { frontmatter } = Astro.props
 ---
 <Base active={Astro.url.pathname}>
     <div id="line"></div>
@@ -17,8 +15,8 @@ const { Content } = Astro.props
         </div>
         <div id="main">
             <Contentbox>
-                <slot name="content"></slot>
-                <slot>Här var det tomt</slot> <!--- I denna slot som ej har ett namn
+                <slot name="content">Här var det tomt</slot>
+                {frontmatter && <slot>Här var det tomt</slot>} <!--- I denna slot som ej har ett namn
                                                     injekteras markdownen från markdown sidor-->
             </Contentbox>
         </div>

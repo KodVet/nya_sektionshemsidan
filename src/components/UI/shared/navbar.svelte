@@ -11,12 +11,18 @@
     let ddcontentHeight;
     let staticBackground;
     let ddbuttons
+    export let isOpaque = false 
     // $: console.log(ddcontentWidth)
     
 
     // console.log("inuti navbar-komponenten:", baseUrl, pages)
     let lines = [[],[],[],[], []]
     onMount(() =>{
+        // if (isOpaque) {
+        //     console.log("opaque yep")
+        //     navbar.style.backgroundColor = 'transparent'
+        //     staticBackground.style.display = 'none'
+        // }
         lines = document.getElementsByClassName('line')
         generateBreakpoints(15)
         console.log("lines:", lines)
@@ -129,11 +135,14 @@
         
         newActive(href)
         // console.log(lines)
+        if (active === '/') {
+            isOpaque = true
+        } else isOpaque = false
     }
     let ddbutton;
     $: {
         let _ = viewportWidth
-            for (let i = 0; i<(lines.length); i++) {
+            for (let i = 0; i<(lines?.length); i++) {
                 for (let j=0;j<(lines[i].length-1); j++) {
                     function checkTrailingLines(){
                         if (lines[i][j].offsetLeft > lines[i][j+1].offsetLeft && lines[i][j].offsetLeft > lines[i][j].nextSibling.offsetLeft) {
@@ -166,8 +175,10 @@
 </script>
 
 <svelte:window bind:scrollY={yScrollPosition} bind:innerWidth={viewportWidth}/>
-<div id="staticBackground" bind:this={staticBackground} style="height:{max_height}px"></div>
-<nav bind:this={navbar} style="height:{navHeight}px">
+<div id="staticBackground" bind:this={staticBackground} 
+style="height:{isOpaque ? '0' : max_height}px"></div>
+<nav bind:this={navbar} 
+style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : ''}">
         <a href="/" on:click={()=>handleNavigation("/")}>
         </a>
     <img id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
@@ -175,20 +186,35 @@
     <ul id="navList">
         {#each pages as { url, btnName, childPages }, topIndex}
         <li  class="navBtn" id="{btnName}">
-            <span bind:this={ddbutton} class="ddbutton" style="font-size:clamp(0px, {navFontSize}px, 3.1vw)" class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
-            <a tabindex="0" on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
+            <span bind:this={ddbutton} class="ddbutton"
+             style="font-size:clamp(0px, {navFontSize}px, 3.1vw)" 
+             class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
+            <a tabindex="0" 
+            on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} 
+            href="{baseUrl + url}">{btnName}
+            </a>
                 <span class="wrapper">
                     <div class="dot"></div>
                 </span>
-                <div class="ddcontent" id={btnName} bind:clientWidth={ddcontentWidth} bind:clientHeight={ddcontentHeight}>
+                <div class="ddcontent" 
+                style="background-color: {isOpaque ? 'transparent' : ''};" id={btnName} bind:clientWidth={ddcontentWidth} bind:clientHeight={ddcontentHeight}>
                     <ul>
                     {#each childPages as { url, btnName }, index}
-                        <li class="button" class:active={active.split('/')[2] && (active.split('/')[2] === (baseUrl+url).split('/')[2])}>
+                        <li class="button" 
+                        class:active={active.split('/')[2] && (active.split('/')[2] === (baseUrl+url).split('/')[2])}>
                             <div class="dot"></div>
-                            <a tabindex={'0'} on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} href="{baseUrl + url}">{btnName}</a>
+                            <a 
+                            style="color: {isOpaque ? 'white' : ''};" 
+                            tabindex={'0'} 
+                            on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} 
+                            href="{baseUrl + url}">{btnName}</a>
                         </li>
-                        <li bind:this={lines[topIndex][index]} class="line"></li>
-                    {/each}
+                         <li 
+                         bind:this={lines[topIndex][index]}
+                         class="line"
+                         style="display: {isOpaque ? 'none' : ''}"></li>
+                        
+                        {/each}
                     </ul>
                 </div>
                 <div class="pad"></div>
@@ -205,17 +231,19 @@
 #staticBackground {
     display: none;
     background-color: var(--koggis-grön);
-    transition: all .8s;
+    transition: all .3s;
 }
 nav {
     opacity: 100%;
     position: fixed;
     width: 100%;    
-    background-color: var(--koggis-grön);
+    // background-color: var(--koggis-grön);
+    background-color: transparent;
     display: none;
     visibility: hidden;
     justify-content: space-between;
     transition: height 10ms;
+    // transition: background-color 2000ms;
     top: 0%;
     z-index: 1;
 
