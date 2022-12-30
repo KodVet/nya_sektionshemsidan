@@ -19,7 +19,7 @@ collections: # A list of collections the CMS should be able to edit
   - name: 'medlemmar'
     label: 'Medlemmar'
     label_singular: 'Medlem'
-    folder: 'src/content/medlemmar'
+    folder: 'src/data/medlemmar'
     create: true
     editor:
       preview: false
@@ -34,12 +34,22 @@ collections: # A list of collections the CMS should be able to edit
 
   - name: 'utskott'
     label: 'Utskott'
-    folder: 'src/content/sidor/utskott'
+    folder: 'src/data/sidor/utskott'
     create: true
     fields:
       - { label: 'Titel', name: 'titel', widget: 'string', required: true }
       - { label: 'Innehåll', name: 'body', widget: 'markdown', hint: 'Detta är det som kommer stå i mitten-rutan på sidan'}
-
+  - name: 'pages'
+    label: 'Sidor'
+    label_singular: 'Sida'
+    folder: 'src/pages'
+    nested:
+      depth: 2
+    identifier_field: '{{filename}}'
+    create: true
+    fields: 
+      - { label: 'Mall', name: 'layout', widget: 'string' }
+  
   - name: 'kitchenSink' # all the things in one entry, for documentation and quick testing
     label: 'Kitchen Sink'
     folder: '_sink'

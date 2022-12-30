@@ -3,8 +3,8 @@ import Layout from '../../layouts/Basic.astro';
 import MänniskaCard from '../../components/content/människaCard.svelte'
 
 export async function getStaticPaths() {
-	const utskott = await Astro.glob('../../content/sidor/utskott/*.md')
-	const medlemmar = await Astro.glob('../../content/medlemmar/*.md')
+	const utskott = await Astro.glob('../../data/sidor/utskott/*.md')
+	const medlemmar = await Astro.glob('../../data/medlemmar/*.md')
 	
 	return utskott.map(utskott => {
 		const filteredMedlemmar = medlemmar.filter(medlem => medlem.frontmatter.utskott === utskott.frontmatter.titel)

@@ -2,7 +2,7 @@
 import Base from './baseLayout.astro'
 import Contentbox from '../components/content/Contentbox.astro'
 
-const { active } = Astro.props;
+const { active = Astro.url.pathname } = Astro.props;
 const { title = "Kogvet Sektionen på Linköpings Universitet" } = Astro.props;
 const { customHead = false } = Astro.props;
 ---
