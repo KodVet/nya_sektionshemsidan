@@ -1,3 +1,3 @@
 ---
-layout: ../../layouts/Basic.asro
+layout: ../../layouts/Basic.astro
 ---

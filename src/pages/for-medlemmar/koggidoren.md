@@ -1,3 +1,4 @@
 ---
-layout: ../../layout/Basic.astro
+layout: ../../layouts/Basic.astro
 ---
+Koggidoren kan man bo i
