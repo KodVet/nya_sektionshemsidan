@@ -32,6 +32,14 @@ collections: # A list of collections the CMS should be able to edit
     - { label: 'Bild', name: 'bild', widget: 'image'}
     - { label: 'Om mig', name: 'body', widget: 'markdown', hint: 'Skriv lite om dig själv, varförd du valde kogvet, linköping. Varför du sökte till din post. Eller bara något roligt, fan vet jag'}
 
+  - name: 'utskott'
+    label: 'Utskott'
+    folder: 'src/content/sidor/utskott'
+    create: true
+    fields:
+      - { label: 'Titel', name: 'titel', widget: 'string', required: true }
+      - { label: 'Innehåll', name: 'body', widget: 'markdown', hint: 'Detta är det som kommer stå i mitten-rutan på sidan'}
+
   - name: 'kitchenSink' # all the things in one entry, for documentation and quick testing
     label: 'Kitchen Sink'
     folder: '_sink'
