@@ -5,6 +5,11 @@ admin_path: "/static/forestry/admin"
 webhook_url: 
 sections:
 - type: directory
+  path: src/pages
+  label: Sidor
+  create: all
+  match: "**/*"
+- type: directory
   path: src/data/medlemmar
   label: Medlemmar
   create: documents
