@@ -5,9 +5,9 @@ admin_path: "/static/forestry/admin"
 webhook_url: 
 sections:
 - type: directory
-  path: src/pages/sektionen/medlemmar
+  path: src/data/medlemmar
   label: Medlemmar
-  create: all
+  create: documents
   match: "**/*"
   templates:
   - medlem
