@@ -182,8 +182,10 @@
 </script>
 
 <svelte:window bind:scrollY={yScrollPosition} bind:innerWidth={viewportWidth}/>
-<div id="staticBackground" bind:this={staticBackground} 
-style="height:{isOpaque ? '0' : max_height}px"></div>
+<div id="staticBackground"
+bind:this={staticBackground} 
+class:isOpaque={isOpaque}
+style="height:{isOpaque ? navHeight : max_height}px"></div>
 <nav bind:this={navbar} 
 style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : ''}">
         <a href="/" on:click={()=>handleNavigation("/")}>
@@ -204,7 +206,10 @@ style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : ''}">
                     <div class="dot"></div>
                 </span>
                 <div class="ddcontent" 
-                style="background-color: {isOpaque ? 'transparent' : ''};" id={btnName} bind:clientWidth={ddcontentWidth} bind:clientHeight={ddcontentHeight}>
+                style="opacity: {isOpaque ? '0' : ''}" 
+                id={btnName} 
+                bind:clientWidth={ddcontentWidth} 
+                bind:clientHeight={ddcontentHeight}>
                     <ul>
                     {#each childPages as { url, btnName }, index}
                         <li class="button" 
@@ -239,6 +244,12 @@ style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : ''}">
     display: none;
     background-color: var(--koggis-grön);
     transition: all .3s;
+    width: 100%;
+    &.isOpaque {
+        position: fixed;
+        top: 0%;
+        z-index: 0;
+    }
 }
 nav {
     opacity: 100%;
@@ -251,6 +262,7 @@ nav {
     // transition: background-color 1000ms cubic-bezier(1, 0.01, 1,-0.15);
     top: 0%;
     z-index: 1;
+
 
     &>a{
         position: absolute;
