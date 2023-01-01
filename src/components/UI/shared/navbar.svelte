@@ -18,11 +18,8 @@
     // console.log("inuti navbar-komponenten:", baseUrl, pages)
     let lines = [[],[],[],[], []]
     onMount(() =>{
-        // if (isOpaque) {
-        //     console.log("opaque yep")
-        //     navbar.style.backgroundColor = 'transparent'
-        //     staticBackground.style.display = 'none'
-        // }
+
+        handleNavigation(active)
         lines = document.getElementsByClassName('line')
         generateBreakpoints(15)
         console.log("lines:", lines)
@@ -31,10 +28,7 @@
                 return ddbutton
             }
         })
-        // navbar.style.backgroundColor = "black"
-        // document.getElementsByTagName("nav").style.backgroundColor = "black"
-        // console.log("ddbuttons: HALLÅ DITT FANSKAP", ddbuttons)
-        // console.log("logga då jävla sopa")
+
         if (!isOpaque) {
             navbar.style.backgroundColor = 'var(--koggis-grön)'
         }
@@ -139,10 +133,14 @@
         newActive(href)
         // console.log(lines)
         if (active === '/') {
+            console.log("staticbackground ska bli opaque yep", staticBackground)
             isOpaque = true
+            setTimeout(()=>staticBackground.classList.add('isOpaque'),600)
+            // setTimeout(()=>staticBackground.style.clipPath = 'inset(0 0 0 0)', 900)
         } 
         else {
             setTimeout(()=>navbar.style.backgroundColor = 'var(--koggis-grön)', 400)
+            staticBackground.classList.remove('isOpaque')
             isOpaque = false
         }
     }
@@ -184,8 +182,7 @@
 <svelte:window bind:scrollY={yScrollPosition} bind:innerWidth={viewportWidth}/>
 <div id="staticBackground"
 bind:this={staticBackground} 
-class:isOpaque={isOpaque}
-style="height:{isOpaque ? navHeight : max_height}px"></div>
+style="height:{isOpaque ? '0' : max_height}px; --navHeight: {navHeight}px"></div>
 <nav bind:this={navbar} 
 style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : ''}">
         <a href="/" on:click={()=>handleNavigation("/")}>
@@ -246,6 +243,7 @@ style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : ''}">
     transition: all .3s;
     width: 100%;
     &.isOpaque {
+        height: var(--navHeight) !important;
         position: fixed;
         top: 0%;
         z-index: 0;
