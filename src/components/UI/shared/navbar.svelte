@@ -20,7 +20,6 @@
     onMount(() =>{
 
         handleNavigation(active)
-        lines = document.getElementsByClassName('line')
         generateBreakpoints(15)
         console.log("lines:", lines)
         ddbuttons = Object.values(document.getElementsByClassName('ddbutton')).map(ddbutton => {
