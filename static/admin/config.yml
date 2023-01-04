@@ -9,7 +9,8 @@ backend:
   branch: main
 
 local_backend: true
-
+logo_url: https://sektionshemsidan.netlify.app/images/Sektionslogga 1.png
+display_url: https://sektionshemsidan.netlify.app
 media_folder: "static/images"
 public_folder: "/images"
 
