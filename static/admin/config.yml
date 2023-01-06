@@ -16,6 +16,24 @@ public_folder: "/images"
 
 collections: # A list of collections the CMS should be able to edit
 
+  - name: config
+    label: Inställningar
+    editor:
+      preview: false
+    files:
+      - label: Färgschema
+        name: css-colors
+        file: src/CSSTheme.json
+        fields:
+          - label: Färger
+            name: :root
+            widget: object
+            fields:
+              - {label: Bakgrund, name: --background-color, widget: color, allowInput: true}
+              - {label: Navbar färg, name: --navbar-bg, widget: color, allowInput: true}
+              - {label: Navbar dropdown färg, name: --navbar-dropdown-bg, widget: color, allowInput: true}
+              - {label: Navbar aktiv dropdown färg, name: --navbar-active-dropdown-bg, widget: color, allowInput: true}
+              - {label: Sidfot-färg, name: --footer-bg, widget: color, allowInput: true}
 
   - name: 'medlemmar'
     label: 'Medlemmar'
@@ -24,7 +42,7 @@ collections: # A list of collections the CMS should be able to edit
     create: true
     editor:
       preview: false
-      sortable_fields: ['utskott', 'namn']
+      sortable_fields: ['utskott', 'namn', 'post']
     fields:
     - { label: 'Namn', name: 'namn', widget: 'string'}
     - { labek: 'Utskott', name: 'utskott', widget: 'select', options: [
@@ -97,6 +115,14 @@ collections: # A list of collections the CMS should be able to edit
           { label: Basic, value: ../../layouts/Basic.astro },
         ]}
       - { label: Innehåll, name: body, widget: markdown}
+
+  - name: color-theme
+    label: Färg schema
+    folder: src/pages/index.astro
+    extension: astro
+    format: yaml
+    fields: 
+      - { label: Färger, name: :root, widget: object}
   
   - name: 'kitchenSink' # all the things in one entry, for documentation and quick testing
     label: 'Kitchen Sink'
