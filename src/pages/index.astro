@@ -12,9 +12,10 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname} isOpaque={true}>
 	<div class="container">
-		<Hero />
+		<Hero />		
+	</div>
+	<div class="content">
 		Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, harum nisi magni alias dolores, nulla quis suscipit eaque soluta omnis, illum vel eveniet consequatur fugit. Quia fuga voluptate expedita quod?
-		
 	</div>
 </Layout>
 
@@ -22,5 +23,8 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 	.container {
 		z-index: 2;
 		min-height: 200vh;
+	}
+	.content {
+		z-index: -1;
 	}
 </style>

@@ -11,23 +11,31 @@
     let ddcontentHeight;
     let staticBackground;
     let ddbuttons
+    let hero
     export let isOpaque = false 
     // $: console.log(ddcontentWidth)
     
 
     // console.log("inuti navbar-komponenten:", baseUrl, pages)
-    let lines = [[],[],[],[], []]
+    let lines = []
+    console.log("pages lenght", pages.length)
+    
     onMount(() =>{
-
-        handleNavigation(active)
-        generateBreakpoints(15)
+        //Alla DOM-element som binds enklast här istället för med bind:this i markupen
+        hero = document.getElementById('heroimg')
+        ddbuttons = Object.values(document.getElementsByClassName('ddbutton'))
+        for (let i=0; i<pages.length; i++) {
+            console.log("ddbutton i loop:", ddbuttons[i])
+            lines.push(Object.values(ddbuttons[i].getElementsByClassName('line')))
+        }
         console.log("lines:", lines)
-        ddbuttons = Object.values(document.getElementsByClassName('ddbutton')).map(ddbutton => {
-            if (ddbutton.querySelector('.ddcontent').querySelector('a')) {
-                return ddbutton
-            }
-        })
+        //Funktioner som körs för att rätta till variabler och utseende vid en reload
+        oberserver.observe(hero)
+        handleNavigation(active)
+        handleResize()
+        generateBreakpoints(15)
 
+        //Enksilda checkar
         if (!isOpaque) {
             navbar.style.backgroundColor = 'var(--koggis-grön)'
         }
@@ -38,24 +46,18 @@
     });
 
     afterUpdate(() => {
-        const activeDdcontentHeight = document.querySelector('.ddbutton.active .ddcontent').clientHeight
-        // console.log("activeDdcontentHeight: ", activeDdcontentHeight)
-        staticBackground.style.marginBottom = `${activeDdcontentHeight}px`
-
-        
-        
-        for (ddbutton of ddbuttons) {
-            if (!ddbutton) continue
-            const pad = ddbutton.querySelector('.pad')
-            const ddcontent = ddbutton.querySelector('.ddcontent')
-            pad.style.height = `${ddcontent.clientHeight + 40}px`
-            // console.log(ddbutton)
-        };
-        // const ddcontentPad = document.querySelector('.ddbutton.active .pad')
-        // ddcontentPad.style.height = `${activeDdcontentHeight + 50}px`
-        
+ 
     })
 
+
+    const oberserver = new IntersectionObserver(entries=>{
+        entries.forEach(entry => {
+            navbar.classList.toggle('intersectingHero', entry.isIntersecting)
+            staticBackground.classList.toggle('intersectingHero', entry.isIntersecting)
+        })
+        console.log(entries)
+    }, {rootMargin: `${-10}px`})
+    
     let min_height = 50;
     let max_height = 100;
     let max_scroll = 100;
@@ -99,25 +101,68 @@
         }, 300)
         
     }
+
+    function adjustPads() {
+        const activeDdcontentHeight = document.querySelector('.ddbutton.active .ddcontent')?.clientHeight
+        // console.log("activeDdcontentHeight: ", activeDdcontentHeight)
+        staticBackground.style.marginBottom = `${activeDdcontentHeight}px`
+
+        
+        
+        for (let ddbutton of ddbuttons) {
+            // console.log("ddbutton i loop:", ddbutton)
+            if (!ddbutton.querySelector('.ddcontent')) continue
+            const pad = ddbutton.querySelector('.pad')
+            const ddcontent = ddbutton.querySelector('.ddcontent')
+            pad.style.height = `${ddcontent.clientHeight + 40}px`
+        };
+    }
+     
+    function checkLines() {
+        for (let i = 0; i<(lines?.length); i++) {
+
+            if (!lines[i]) continue
+
+            for (let j=0;j<(lines[i].length - 1); j++) {
+
+                const line = lines[i][j]
+                const nextLine = lines[i][j+1]
+                const previousLine = lines[i][j-1]
+
+                if (!previousLine) continue
+
+                //Kolla efter linjer i början av rader
+                if (line.offsetLeft < previousLine.offsetLeft && previousLine.nextSibling.offsetTop < line.nextSibling.offsetTop) {
+                 line.style.visibility = "hidden"
+                }
+                else line.style.visibility = "visible"
+                
+                //Kolla efter linjer i slutet av rader
+                if (line.offsetLeft > nextLine.offsetLeft && line.offsetLeft > line.nextSibling.offsetLeft) {
+                    line.style.visibility = "hidden"
+                }
+                else line.style.visibility = "visible"
+                //Tror jag, det kanske va tvärt om
+            }
+        }
+    }
     
     //handleScroll
+    //Med denna variant kan jag lösa buggen med snabb skroll.
+    //Att namge kodstycke här till en funktionen och binda en event-listener funkar ej,
+    //vet inte vrf
     let previousScrollPosition
     $: {
         // console.log(viewportWidth)
         previousScrollPosition = yScrollPosition;
         const scrollDelta = Math.abs(yScrollPosition - previousScrollPosition); 
+        generateBreakpoints(30-Math.floor(scrollDelta/10))
 
-        function handleScroll(){
-            generateBreakpoints(30-Math.floor(scrollDelta/10))
+        //Detta är det som lägger på bl.a blur effekten på startsidan
+        if (isOpaque) {
+            navbar?.classList.toggle('scrolled', yScrollPosition >= max_scroll)
+            staticBackground?.classList.toggle('scrolled', yScrollPosition >= max_scroll) 
         }
-        handleScroll()
-
-        // console.log("previousScrollPosition innan: ", previousScrollPosition);
-        if (scrollDelta>100) {
-            setTimeout(handleScroll, 100)
-        };
-        // console.log("previousScrollPosition efter : ", previousScrollPosition);
-        
     }
 
     function handleNavigation(href) {
@@ -134,56 +179,46 @@
         if (active === '/') {
             console.log("staticbackground ska bli opaque yep", staticBackground)
             isOpaque = true
-            setTimeout(()=>staticBackground.classList.add('isOpaque'),600)
-            // setTimeout(()=>staticBackground.style.clipPath = 'inset(0 0 0 0)', 900)
+            setTimeout(()=>{hero = document.getElementById('heroimg')
+            console.log("hero", hero)
+            oberserver.observe(hero)},600)
+            setTimeout(()=> {
+                staticBackground?.classList.add('isOpaque')
+            }, 600)
         } 
         else {
-            setTimeout(()=>navbar.style.backgroundColor = 'var(--koggis-grön)', 400)
-            staticBackground.classList.remove('isOpaque')
             isOpaque = false
+            staticBackground?.classList.remove('isOpaque')
         }
     }
-    let ddbutton;
-    $: {
-        let _ = viewportWidth
-            for (let i = 0; i<(lines?.length); i++) {
-                for (let j=0;j<(lines[i].length-1); j++) {
-                    function checkTrailingLines(){
-                        if (lines[i][j].offsetLeft > lines[i][j+1].offsetLeft && lines[i][j].offsetLeft > lines[i][j].nextSibling.offsetLeft) {
-                            lines[i][j].style.visibility = "hidden"
-                    }
-                    
-                        else {
-                            lines[i][j].style.visibility = "visible"
-                        }
-                    }
-                    checkTrailingLines()
-                    function checkLeadingLines(){
-                        if (j!=0){
-                            if (lines[i][j].offsetLeft < lines[i][j-1].offsetLeft && lines[i][j-1].nextSibling.offsetTop < lines[i][j].nextSibling.offsetTop) {
-                                lines[i][j].style.visibility = "hidden"
-                            }
-                        }
-                    
-                        else {
-                            lines[i][j].style.visibility = "visible"
-                        }
-                    }
-                    checkLeadingLines()
-                }
-            }
-    }
 
-        
+    let lastCallms = 0
+    function handleResize () {
+        //En basic throttle. Begränsar funktionsanrop till max en gång varje 40ms
+        if ((Date.now() - lastCallms) < 40) {
+            console.log("throttle", Date.now())
+            return   
+        }
+
+        adjustPads()
+        checkLines()
+        lastCallms = Date.now() 
+    }
 
 </script>
 
-<svelte:window bind:scrollY={yScrollPosition} bind:innerWidth={viewportWidth}/>
+<svelte:window 
+    on:resize={handleResize}    
+    bind:scrollY={yScrollPosition} 
+    bind:innerWidth={viewportWidth}/>
 <div id="staticBackground"
-bind:this={staticBackground} 
-style="height:{isOpaque ? '0' : max_height}px; --navHeight: {navHeight}px"></div>
-<nav bind:this={navbar} 
-style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : ''}">
+    bind:this={staticBackground}
+    class:isOpaque={isOpaque} 
+    style="--maxHeight: {max_height}px; --navHeight: {navHeight}px"></div>
+<nav 
+    bind:this={navbar} 
+    id={isOpaque?'isOpaque':''}
+    style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : 'transparent'}">
         <a href="/" on:click={()=>handleNavigation("/")}>
         </a>
     <img id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
@@ -191,40 +226,40 @@ style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : ''}">
     <ul id="navList">
         {#each pages as { url, btnName, childPages }, topIndex}
         <li  class="navBtn" id="{btnName}">
-            <span bind:this={ddbutton} class="ddbutton"
-             style="font-size:clamp(0px, {navFontSize}px, 3.1vw)" 
-             class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
-            <a tabindex="0" 
-            on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} 
-            href="{baseUrl + url}">{btnName}
-            </a>
+            <span class="ddbutton"
+                style="font-size:clamp(0px, {navFontSize}px, 3.1vw)" 
+                class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
+                <a tabindex="0" 
+                    on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} 
+                    href="{baseUrl + url}">{btnName}
+                </a>
                 <span class="wrapper">
                     <div class="dot"></div>
                 </span>
+                {#if childPages.length > 1}
                 <div class="ddcontent" 
-                style="opacity: {isOpaque ? '0' : ''}" 
-                id={btnName} 
-                bind:clientWidth={ddcontentWidth} 
-                bind:clientHeight={ddcontentHeight}>
+                    class:isOpaque={isOpaque} 
+                    id={btnName} 
+                    bind:clientWidth={ddcontentWidth} 
+                    bind:clientHeight={ddcontentHeight}>
                     <ul>
                     {#each childPages as { url, btnName }, index}
                         <li class="button" 
                         class:active={active.split('/')[2] && (active.split('/')[2] === (baseUrl+url).split('/')[2])}>
                             <div class="dot"></div>
                             <a 
-                            style="color: {isOpaque ? 'white' : ''};" 
-                            tabindex={'0'} 
-                            on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} 
-                            href="{baseUrl + url}">{btnName}</a>
+                                tabindex={'0'} 
+                                on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} 
+                                href="{baseUrl + url}">
+                                {btnName}
+                            </a>
                         </li>
-                         <li 
-                         bind:this={lines[topIndex][index]}
-                         class="line"
-                         style="display: {isOpaque ? 'none' : ''}"></li>
+                         <li class="line"></li>
                         
                         {/each}
                     </ul>
                 </div>
+                {/if}
                 <div class="pad"></div>
             </span>
         </li>
@@ -235,18 +270,25 @@ style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : ''}">
 
 
 <style lang="scss">
-
+@mixin pseudoTemplate {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0;
+    transition: all .2s ease-out;
+}
+* {
+    transition: opacity .3s ease-in-out;
+}
 #staticBackground {
     display: none;
-    background-color: var(--koggis-grön);
+    height: var(--maxHeight);
+    background-color: var(--navbar-bg);
     transition: all .3s;
     width: 100%;
-    &.isOpaque {
-        height: var(--navHeight) !important;
-        position: fixed;
-        top: 0%;
-        z-index: 0;
-    }
+    // z-index: -1;
 }
 nav {
     opacity: 100%;
@@ -256,10 +298,16 @@ nav {
     visibility: hidden;
     justify-content: space-between;
     transition: height 10ms;
-    // transition: background-color 1000ms cubic-bezier(1, 0.01, 1,-0.15);
+    box-shadow: 0 -10px 50px black;
+    background-color: transparent;
+    
     top: 0%;
     z-index: 1;
-
+    &::after {
+        @include pseudoTemplate;
+        background-color: var(--navbar-bg);
+        opacity: 1;
+    }
 
     &>a{
         position: absolute;
@@ -309,6 +357,7 @@ nav {
             flex-direction: column;
             justify-content: center;
             transition: font-size 50ms;
+            
             .wrapper {
                 z-index: 20;
                 width: 100%;
@@ -334,10 +383,10 @@ nav {
                     width: 100%;
                     right: 0;
                     font-size: 1.125rem;
-                    box-shadow: 0px 110px 10px 10px #888888;
-                    background-color: var(--reflex-vit);
+                    box-shadow:0px 0px 10px black;
+                    background-color: var(--navbar-dropdown-bg);
                     top: 100%;
-                    
+
                     ul {
                         text-decoration: none;
                         list-style: none;
@@ -370,6 +419,7 @@ nav {
                             color: var(--buckethat-svart);
                            padding: 9px;
                            pointer-events: all;
+                           mix-blend-mode: darken;
                         }
                         .dot {
                             height: 5px;
@@ -415,8 +465,8 @@ nav {
 .navBtn{
     .ddcontent:has(a) {
         /* det som animeras */
-        clip-path: inset(0 0 100% 0);
-
+        clip-path: inset(100% 0 -100px 0);
+        transform: translateY(-100%);
         opacity: 0%;
         transition: ease-in-out .4s;
         transition-property: opacity, transform, clip-path, background-color;
@@ -431,13 +481,12 @@ nav {
         height: 2px;
 
     }
-    filter: box-shadow(0px 110px 10px 10px #888888);
     a:hover {
         color: rgb(152, 152, 152);
     }
     &:hover {
         &:not(:has(.active .ddcontent:hover, .pad:hover)) .wrapper .dot {
-        clip-path: inset(0 0 0 0);
+        clip-path: inset(0 0 -100px 0);
         width: 98%;
         transform: translateY(0px);
         height: 2px;
@@ -447,7 +496,8 @@ nav {
         .ddcontent {
         opacity: 100%;
         pointer-events: all;
-        clip-path: inset(0 0 0 0);
+        transform: translate3d(0,0,0);
+        clip-path: inset(0px 0 -100px 0);
         }
         .ddbutton:has(a) .pad {
         pointer-events: all;
@@ -457,13 +507,15 @@ nav {
     &:hover ~ .navBtn .active .ddcontent,
     &:has(~ .navBtn:hover) .active .ddcontent {
         opacity: 0%;
-        clip-path: inset(0 0 100% 0);
+        clip-path: inset(100% 0 -100px 0);
+        transform: translateY(-100%);
     }
     .active {
         .ddcontent:has(a) {
         opacity: 100%;
-        background-color: var(--limejuice);
-        clip-path: inset(0 0 0 0);
+        background-color: var(--navbar-active-dropdown-bg);
+        transform: translate3d(0, 0, 0);
+        clip-path: inset(0 0 -100px 0);
         .button.active .dot {
                 clip-path: inset(0 0 0 0);
             }
@@ -483,11 +535,95 @@ nav {
 }}}
 
 
+@keyframes ddCollapse {
 
+}
+
+//Styles för när den är genomskinlig
+#staticBackground:global(.isOpaque) {
+    height: 0;
+    &::after {
+
+    }
+    &:global(.scrolled)::after {
+        @include pseudoTemplate;
+        opacity: 1;
+        height: var(--navHeight);
+        position: fixed;
+        top: 0%;
+        z-index: -5;
+        background-color: var(--navbar-bg);
+    }
+}
+nav:global(#isOpaque) {
+
+    box-shadow: none;
+    &::after {
+        @include pseudoTemplate;
+        backdrop-filter: blur(15px);
+        background-color: transparent;
+    }
+    &::before {
+        @include pseudoTemplate;
+        box-shadow: 0 -10px 60px black;
+    }
+
+    #navList>.navBtn>.ddbutton>.ddcontent {
+        background-color: rgba(25, 253, 0, 0.03);
+        // background-color: transparent;
+        // box-shadow: inset -200px 0 30px var(--koggis-grön);
+        box-shadow: none;
+        backdrop-filter: blur(4px);
+        a {
+            transition: color .3s ease-in-out;
+        }
+        &::after {
+            @include pseudoTemplate;
+            // backdrop-filter: invert(100%);
+            box-shadow:  0 0 10px black;
+            top: 0;
+        }
+    }
+    
+    &:global(.scrolled) {
+        &::after, &::before {
+            opacity: 1 !important;
+        }
+        #navList>.navBtn>.ddbutton>.ddcontent::after {
+            opacity: 1 !important;         
+            // box-shadow: inset 0 0 10px black;
+        }
+    }
+
+    &:global(.intersectingHero) {
+        .ddcontent .line {
+            opacity: 0 !important;
+        }
+        .ddcontent a {
+            color: var(--reflex-vit) !important;
+        }
+    }
+    //Styles efter yScrollPosition har överskridit max_scroll och hero fortfarande syns
+    &:global(.scrolled.intersectingHero) {
+        
+    }
+
+    &:global(.scrolled):not(.intersectingHero) {
+        &::after {
+            opacity: 1;
+            background-color: var(--navbar-bg);
+            // backdrop-filter: none;
+            // box-shadow: none;
+        }
+        #navList>.navBtn>.ddbutton>.ddcontent {
+            background-color: var(--reflex-vit);
+        }
+    }
+}
 
 @media (min-width: 577px) {
     nav {
-        visibility: visible;
+        visibility: unset;
         display: flex;
         margin: auto;
         width: 100%; 
