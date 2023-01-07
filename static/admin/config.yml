@@ -9,19 +9,281 @@ backend:
   branch: static-CMS
 
 local_backend: false
-
+logo_url: https://sektionshemsidan.netlify.app/images/Sektionslogga 1.png
+display_url: https://sektionshemsidan.netlify.app
 media_folder: "static/images"
 public_folder: "/images"
 
 collections: # A list of collections the CMS should be able to edit
 
+  - name: config
+    label: Inställningar
+    editor:
+      preview: false
+    files:
+      - label: Färgschema
+        name: css-colors
+        file: src/CSSTheme.json
+        fields:
+          - label: Färger
+            name: :root
+            widget: object
+            fields:
+              - {label: Bakgrund, name: --background-color, widget: color, allowInput: true}
+              - {label: Navbar färg, name: --navbar-bg, widget: color, allowInput: true}
+              - {label: Navbar dropdown färg, name: --navbar-dropdown-bg, widget: color, allowInput: true}
+              - {label: Navbar aktiv dropdown färg, name: --navbar-active-dropdown-bg, widget: color, allowInput: true}
+              - {label: Sidfot-färg, name: --footer-bg, widget: color, allowInput: true}
+
   - name: 'medlemmar'
     label: 'Medlemmar'
     label_singular: 'Medlem'
-    folder: 'src/pages/sektionen/styrelsemedlemmar'
+    folder: 'src/data/medlemmar'
     create: true
+    editor:
+      preview: false
+      sortable_fields: ['utskott', 'namn', 'post']
     fields:
     - { label: 'Namn', name: 'namn', widget: 'string'}
+    - { labek: 'Utskott', name: 'utskott', widget: 'select', options: [
+      'Styrelsen', 'Kodvet', 'KVIT', 'Kognitivet', 'MAFU', 'Utbildnings-utskottet']}
     - { label: 'Post', name: 'post', widget: 'string'}
     - { label: 'Kogvet mail', name: 'kontakt', widget: 'string'}
     - { label: 'Bild', name: 'bild', widget: 'image'}
+    - { label: 'Om mig', name: 'body', widget: 'markdown', hint: 'Skriv lite om dig själv, varförd du valde kogvet, linköping. Varför du sökte till din post. Eller bara något roligt, fan vet jag'}
+
+  - name: 'utskott'
+    label: 'Utskott'
+    folder: 'src/data/sidor/utskott'
+    create: true
+    editor:
+      sortable_fields: [titel]
+    fields:
+      - { label: 'Titel', name: 'titel', widget: 'string', required: true }
+      - { label: 'Innehåll', name: 'body', widget: 'markdown', hint: 'Detta är det som kommer stå i mitten-rutan på sidan'}
+  
+  - name: 'sektionen'
+    label: 'Om sektionen'
+    label_singular: 'Sida'
+    folder: 'src/pages/sektionen'
+    identifier_field: '{{filename}}'
+    create: true
+    editor:
+      summary: '{{filename}}'
+    fields: 
+      - { label: 'Mall', name: 'layout', widget: 'select', options: [
+          { label: Basic, value: ../../layouts/Basic.astro },
+        ]}
+      - { label: Innehåll, name: body, widget: markdown}
+
+  - name: 'for-medlemmar'
+    label: 'För medlemmar'
+    label_singular: 'Sida'
+    folder: 'src/pages/for-medlemmar'
+    identifier_field: '{{filename}}'
+    create: true
+    editor:
+      summary: "sidan"
+      sortable_fields: ['title']
+    fields: 
+      - { label: 'Mall', name: 'layout', widget: 'select', options: [
+          { label: Basic, value: ../../layouts/Basic.astro },
+        ]}
+      - { widget: string, default: '{{filename}}', name: title}
+      - { label: Innehåll, name: body, widget: markdown}
+
+  - name: 'for-sökande'
+    label: 'För sökande'
+    label_singular: 'Sida'
+    folder: 'src/pages/for-sökande'
+    identifier_field: '{{filename}}'
+    create: true
+    fields: 
+      - { label: 'Mall', name: 'layout', widget: 'select', options: [
+          { label: Basic, value: ../../layouts/Basic.astro },
+        ]}
+      - { label: Innehåll, name: body, widget: markdown}
+
+  - name: 'kontakt'
+    label: 'Kontakt'
+    label_singular: 'Sida'
+    folder: 'src/pages/kontakt'
+    identifier_field: '{{filename}}'
+    create: true
+    fields: 
+      - { label: 'Mall', name: 'layout', widget: 'select', options: [
+          { label: Basic, value: ../../layouts/Basic.astro },
+        ]}
+      - { label: Innehåll, name: body, widget: markdown}
+
+  - name: color-theme
+    label: Färg schema
+    folder: src/pages/index.astro
+    extension: astro
+    format: yaml
+    fields: 
+      - { label: Färger, name: :root, widget: object}
+  
+  - name: 'kitchenSink' # all the things in one entry, for documentation and quick testing
+    label: 'Kitchen Sink'
+    folder: '_sink'
+    create: true
+    extension: 'json'
+    format: 'json'
+    fields:
+      - label: 'Related Post'
+        name: 'post'
+        widget: 'relationKitchenSinkPost'
+        collection: 'posts'
+        display_fields: ['title', 'date']
+        search_fields: ['title', 'body']
+        value_field: 'title'
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Boolean', name: 'boolean', widget: 'boolean', default: true }
+      - { label: 'Map', name: 'map', widget: 'map' }
+      - { label: 'Text', name: 'text', widget: 'text', hint: 'Plain text, not markdown' }
+      - { label: 'Number', name: 'number', widget: 'number', hint: 'To infinity and beyond!' }
+      - { label: 'Markdown', name: 'markdown', widget: 'markdown' }
+      - { label: 'Datetime', name: 'datetime', widget: 'datetime' }
+      - { label: 'Date', name: 'date', widget: 'date' }
+      - { label: 'Color', name: 'color', widget: 'color' }
+      - {
+          label: 'Color string editable and alpha enabled',
+          name: 'colorEditable',
+          widget: 'color',
+          enableAlpha: true,
+          allowInput: true,
+        }
+      - { label: 'Image', name: 'image', widget: 'image' }
+      - { label: 'File', name: 'file', widget: 'file' }
+      - { label: 'Select', name: 'select', widget: 'select', options: ['a', 'b', 'c'] }
+      - {
+          label: 'Select multiple',
+          name: 'select_multiple',
+          widget: 'select',
+          options: ['a', 'b', 'c'],
+          multiple: true,
+        }
+      - {
+          label: 'Select numeric',
+          name: 'select_numeric',
+          widget: 'select',
+          options:
+            [{ label: 'One', value: 1 }, { label: 'Two', value: 2 }, { label: 'Three', value: 3 }],
+        }
+      - { label: 'Hidden', name: 'hidden', widget: 'hidden', default: 'hidden' }
+      - label: 'Object'
+        name: 'object'
+        widget: 'object'
+        collapsed: true
+        fields:
+          - label: 'Related Post'
+            name: 'post'
+            widget: 'relationKitchenSinkPost'
+            collection: 'posts'
+            search_fields: ['title', 'body']
+            value_field: 'title'
+          - { label: 'String', name: 'string', widget: 'string' }
+          - { label: 'Boolean', name: 'boolean', widget: 'boolean', default: false }
+          - { label: 'Text', name: 'text', widget: 'text' }
+          - { label: 'Number', name: 'number', widget: 'number' }
+          - { label: 'Markdown', name: 'markdown', widget: 'markdown' }
+          - { label: 'Datetime', name: 'datetime', widget: 'datetime' }
+          - { label: 'Date', name: 'date', widget: 'date' }
+          - { label: 'Image', name: 'image', widget: 'image' }
+          - { label: 'File', name: 'file', widget: 'file' }
+          - { label: 'Select', name: 'select', widget: 'select', options: ['a', 'b', 'c'] }
+      - label: 'List'
+        name: 'list'
+        widget: 'list'
+        fields:
+          - { label: 'String', name: 'string', widget: 'string' }
+          - { label: 'Boolean', name: 'boolean', widget: 'boolean' }
+          - { label: 'Text', name: 'text', widget: 'text' }
+          - { label: 'Number', name: 'number', widget: 'number' }
+          - { label: 'Markdown', name: 'markdown', widget: 'markdown' }
+          - { label: 'Datetime', name: 'datetime', widget: 'datetime' }
+          - { label: 'Date', name: 'date', widget: 'date' }
+          - { label: 'Image', name: 'image', widget: 'image' }
+          - { label: 'File', name: 'file', widget: 'file' }
+          - { label: 'Select', name: 'select', widget: 'select', options: ['a', 'b', 'c'] }
+          - label: 'Object'
+            name: 'object'
+            widget: 'object'
+            fields:
+              - { label: 'String', name: 'string', widget: 'string' }
+              - { label: 'Boolean', name: 'boolean', widget: 'boolean' }
+              - { label: 'Text', name: 'text', widget: 'text' }
+              - { label: 'Number', name: 'number', widget: 'number' }
+              - { label: 'Markdown', name: 'markdown', widget: 'markdown' }
+              - { label: 'Datetime', name: 'datetime', widget: 'datetime' }
+              - { label: 'Date', name: 'date', widget: 'date' }
+              - { label: 'Image', name: 'image', widget: 'image' }
+              - { label: 'File', name: 'file', widget: 'file' }
+              - { label: 'Select', name: 'select', widget: 'select', options: ['a', 'b', 'c'] }
+              - label: 'List'
+                name: 'list'
+                widget: 'list'
+                fields:
+                  - label: 'Related Post'
+                    name: 'post'
+                    widget: 'relationKitchenSinkPost'
+                    collection: 'posts'
+                    search_fields: ['title', 'body']
+                    value_field: 'title'
+                  - { label: 'String', name: 'string', widget: 'string' }
+                  - { label: 'Boolean', name: 'boolean', widget: 'boolean' }
+                  - { label: 'Text', name: 'text', widget: 'text' }
+                  - { label: 'Number', name: 'number', widget: 'number' }
+                  - { label: 'Markdown', name: 'markdown', widget: 'markdown' }
+                  - { label: 'Datetime', name: 'datetime', widget: 'datetime' }
+                  - { label: 'Date', name: 'date', widget: 'date' }
+                  - { label: 'Image', name: 'image', widget: 'image' }
+                  - { label: 'File', name: 'file', widget: 'file' }
+                  - { label: 'Select', name: 'select', widget: 'select', options: ['a', 'b', 'c'] }
+                  - { label: 'Hidden', name: 'hidden', widget: 'hidden', default: 'hidden' }
+                  - label: 'Object'
+                    name: 'object'
+                    widget: 'object'
+                    fields:
+                      - { label: 'String', name: 'string', widget: 'string' }
+                      - { label: 'Boolean', name: 'boolean', widget: 'boolean' }
+                      - { label: 'Text', name: 'text', widget: 'text' }
+                      - { label: 'Number', name: 'number', widget: 'number' }
+                      - { label: 'Markdown', name: 'markdown', widget: 'markdown' }
+                      - { label: 'Datetime', name: 'datetime', widget: 'datetime' }
+                      - { label: 'Date', name: 'date', widget: 'date' }
+                      - { label: 'Image', name: 'image', widget: 'image' }
+                      - { label: 'File', name: 'file', widget: 'file' }
+                      - {
+                          label: 'Select',
+                          name: 'select',
+                          widget: 'select',
+                          options: ['a', 'b', 'c'],
+                        }
+      - label: 'Typed List'
+        name: 'typed_list'
+        widget: 'list'
+        types:
+          - label: 'Type 1 Object'
+            name: 'type_1_object'
+            widget: 'object'
+            fields:
+              - { label: 'String', name: 'string', widget: 'string' }
+              - { label: 'Boolean', name: 'boolean', widget: 'boolean' }
+              - { label: 'Text', name: 'text', widget: 'text' }
+          - label: 'Type 2 Object'
+            name: 'type_2_object'
+            widget: 'object'
+            fields:
+              - { label: 'Number', name: 'number', widget: 'number' }
+              - { label: 'Select', name: 'select', widget: 'select', options: ['a', 'b', 'c'] }
+              - { label: 'Datetime', name: 'datetime', widget: 'datetime' }
+              - { label: 'Markdown', name: 'markdown', widget: 'markdown' }
+          - label: 'Type 3 Object'
+            name: 'type_3_object'
+            widget: 'object'
+            fields:
+              - { label: 'Date', name: 'date', widget: 'date' }
+              - { label: 'Image', name: 'image', widget: 'image' }
+              - { label: 'File', name: 'file', widget: 'file' }

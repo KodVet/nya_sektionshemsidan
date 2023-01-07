@@ -1,0 +1,9 @@
+{
+  ":root": {
+    "--background-color": "var(--reflex-vit)",
+    "--navbar-bg": "var(--koggis-grön)",
+    "--navbar-dropdown-bg": "gainsboro",
+    "--navbar-active-dropdown-bg": "var(--limejuice)",
+    "--footer-bg": "var(--buckethat-svart)"
+  }
+}

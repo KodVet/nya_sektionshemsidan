@@ -1,0 +1,14 @@
+---
+label: medlem
+hide_body: false
+fields:
+- name: bio
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: true
+    schema:
+      format: markdown
+  label: Bio
+  description: Skriv lite om dig själv

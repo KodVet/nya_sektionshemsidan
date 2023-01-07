@@ -1,0 +1,49 @@
+---
+import Sidebar from '../../components/UI/sidebar.astro';
+import Layout from '../../layouts/baseLayout.astro';
+const posts = await Astro.glob('../../data/nyheter/*.md')
+
+// log om man vill kolla
+// posts.map((post) => {
+// 	console.log('post här ', post)
+// })
+---
+<Layout title="Kodvet är bäst" active={Astro.url.pathname}>
+	<Sidebar posts={posts.map(({frontmatter}) => frontmatter)} />
+            <section id="inlägg">
+                {posts.map(({ frontmatter, Content }) =>
+                <div class="scrollAnchor" id={frontmatter.title}></div>
+                <div class="post">
+					<Content/>
+                </div>
+				)}
+            </section>
+</Layout>
+
+<style>
+
+	/* dessa funkar som "ankare" för att autoscrolla till */
+	.scrollAnchor {
+    display: block;
+    position: relative;
+    top: -125px;
+    visibility: hidden;
+	}
+	#inlägg {
+		display: flex;
+		flex-direction: column;
+		margin: 50px;
+		gap: 300px;
+	}
+	.post {
+		font-size: 1.5rem;
+		align-self:center;
+		background-color: gainsboro;
+		border-radius: 8px;
+		padding: 10px;
+		width: clamp(300px, 70%, 1000px);
+		box-shadow: 5px 10px 20px grey;
+	}
+</style>
+
+

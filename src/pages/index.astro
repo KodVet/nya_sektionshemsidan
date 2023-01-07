@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/baseLayout.astro';
-import Hero from '../components/hero.astro';
-import MänniskaCard from '../components/kontakt/människaCard.astro'
+import Hero from '../components/content/hero.astro';
+
 
 const människor = {människa1: {namn: 'människa1', post: 'kung', kontakt: 'mailen@mailservice.com'},
 människa2: {namn: 'människa2', post: 'fis', kontakt: 'mailen@mailservice.com'}, 
@@ -10,26 +10,21 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 
 ---
-<Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
+<Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname} isOpaque={true}>
 	<div class="container">
-		<Hero />
-		{Object.values(människor).map((människa, index) => (
-			<MänniskaCard 
-			namn={människa.namn}
-			post={människa.post} 
-			kontakt={människa.kontakt} 
-			bild={baseUrl + "/images/Sektionslogga 1.png"}
-			direction={((index % 2==0) ? 'right' : 'left')} />
-			))}
-		<script defer src="https://cdn.commento.io/js/commento.js"></script>
-		<div id="commento"></div>
+		<Hero />		
+	</div>
+	<div class="content">
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, harum nisi magni alias dolores, nulla quis suscipit eaque soluta omnis, illum vel eveniet consequatur fugit. Quia fuga voluptate expedita quod?
 	</div>
 </Layout>
 
 <style>
-
 	.container {
-		margin-top: -60px;
+		z-index: 2;
+		min-height: 200vh;
 	}
-
+	.content {
+		z-index: -1;
+	}
 </style>
