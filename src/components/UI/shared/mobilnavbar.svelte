@@ -1,4 +1,6 @@
- let: motion whileHover
+<script>
+    import pages from '../../../pageStructure.json'
+</script>
  
  <nav>
         <ul>
@@ -44,7 +46,7 @@ ul{
 }
 
 nav:hover .dropdown-content {display: block;}
-nav:hover .dropbtn {background-color: #3e8e41;}
+nav:hover .dropbtn {background-color: var(--navbar-bg);}
 
 
 @media (max-width: 576px) 
