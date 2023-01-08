@@ -98,10 +98,18 @@ collections: # A list of collections the CMS should be able to edit
     create: true
   
 
-  # - name: kod
-  #   label: Kod
-  #   files: src/
+  - name: kod
+    label: Kod
+    format: frontmatter
+    description: Här finns lite rå kod. Tror inte ni har så många anledningar till att ändra här - om ni vill göra det kan ni lika gärna koda direkt på git, eller kontakta kodvet. Men det finns här iallafall
+    files: 
+      - name: css
+        label: Global CSS
+        file: src/globalStyles.css
+        fields:
+          - {name: body, label: kod, widget: code, default_language: css, output_code_only: true, hint: Dessa styles appliceras för hela sidan. Exempelvis kan det ju hända att ni skulle vilja justera nyanser av vårt standar-färgschema.}
   
+
   - name: 'kitchenSink' # all the things in one entry, for documentation and quick testing
     label: 'Kitchen Sink'
     folder: '_sink'
