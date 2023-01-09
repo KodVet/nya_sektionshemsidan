@@ -16,22 +16,20 @@
     let ddbuttons
     let hero
     export let isOpaque = false 
-    // $: console.log(ddcontentWidth)
     
 
-    // console.log("inuti navbar-komponenten:", baseUrl, pages)
     let lines = []
-    console.log("pages lenght", pages.length)
     
     onMount(() =>{
         //Alla DOM-element som binds enklast här istället för med bind:this i markupen
         hero = document.getElementById('heroimg')
         ddbuttons = Object.values(document.getElementsByClassName('ddbutton'))
+        
+        //Lines
         for (let i=0; i<pages.length; i++) {
-            console.log("ddbutton i loop:", ddbuttons[i])
             lines.push(Object.values(ddbuttons[i].getElementsByClassName('line')))
         }
-        console.log("lines:", lines)
+
         //Funktioner som körs för att rätta till variabler och utseende vid en reload
         if (hero) oberserver.observe(hero)
         handleNavigation(active)
@@ -86,9 +84,7 @@
             }
 
     function newActive(href) {
-        console.log(`nu är active: ${active}`)
         active = href
-        console.log(`nu är active: `, active.split('/'))
     }
 
     function dotWasActive() {
@@ -108,13 +104,11 @@
 
     function adjustPads() {
         const activeDdcontentHeight = document.querySelector('.ddbutton.active .ddcontent')?.clientHeight
-        // console.log("activeDdcontentHeight: ", activeDdcontentHeight)
         staticBackground.style.marginBottom = `${activeDdcontentHeight}px`
 
         
         
         for (let ddbutton of ddbuttons) {
-            // console.log("ddbutton i loop:", ddbutton)
             if (!ddbutton.querySelector('.ddcontent')) continue
             const pad = ddbutton.querySelector('.pad')
             const ddcontent = ddbutton.querySelector('.ddcontent')
@@ -166,7 +160,7 @@
     //vet inte vrf
     let previousScrollPosition
     $: {
-        // console.log(viewportWidth)
+        // (viewportWidth)
         previousScrollPosition = yScrollPosition;
         const scrollDelta = Math.abs(yScrollPosition - previousScrollPosition); 
         generateBreakpoints(30-Math.floor(scrollDelta/10))
@@ -179,8 +173,6 @@
     }
 
     function handleNavigation(href) {
-        // console.log("active var: ", active)
-        // console.log("och splittad är den: ", active.split('/'))
         const href_topPath = href.split('/')[1]
         const active_topPath = active.split('/')[1]
         if (href_topPath != active_topPath) {
@@ -188,12 +180,9 @@
             }
         
         newActive(href)
-        // console.log(lines)
         if (active === '/') {
-            console.log("staticbackground ska bli opaque yep", staticBackground)
             isOpaque = true
             setTimeout(()=>{hero = document.getElementById('heroimg')
-                console.log("hero", hero)
                 oberserver.observe(hero)
             },600)
         } 
