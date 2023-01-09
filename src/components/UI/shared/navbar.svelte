@@ -30,7 +30,7 @@
         }
         console.log("lines:", lines)
         //Funktioner som körs för att rätta till variabler och utseende vid en reload
-        oberserver.observe(hero)
+        if (hero) oberserver.observe(hero)
         handleNavigation(active)
         handleResize()
         generateBreakpoints(15)
@@ -195,11 +195,10 @@
     let lastCallms = 0
     function handleResize () {
         //En basic throttle. Begränsar funktionsanrop till max en gång varje 40ms
-        if ((Date.now() - lastCallms) < 40) {
-            console.log("throttle", Date.now())
+        if ((Date.now() - lastCallms) < 50 && lastCallms != 0) {
+            // console.log("throttle", Date.now())
             return   
         }
-
         adjustPads()
         checkLines()
         lastCallms = Date.now() 
