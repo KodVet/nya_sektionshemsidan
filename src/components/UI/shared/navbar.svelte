@@ -84,7 +84,9 @@
             }
 
     function newActive(href) {
+        console.log(`nu är active: ${active}`)
         active = href
+        console.log(`nu är active: `, active.split('/'))
     }
 
     function dotWasActive() {
@@ -379,7 +381,7 @@ nav {
                     /* pixel-värdet är bredden av scrollbaren */
                     width: 100%;
                     right: 0;
-                    font-size: 1.125rem;
+                    font-size: 1rem;
                     box-shadow:0px 0px 10px black;
                     background-color: var(--navbar-dropdown-bg);
                     top: 100%;
@@ -393,9 +395,10 @@ nav {
                         justify-content: center;
                         align-content: center;
                         align-items: center;
-                        gap: 15px;
-                        margin-top: 5px;
-                        margin-bottom: 5px;
+                        column-gap: 15px;
+                        row-gap: 2px;
+                        margin-top: 3px;
+                        margin-bottom: 3px;
                         width: 85%;
                         height: 100%;
                         margin-left: auto;

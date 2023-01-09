@@ -7,53 +7,53 @@
     },
     {
       "btnName": "Om sektionen",
-      "url": "/sektionen",
+      "url": "/om-sektionen",
       "childPages": [
         {
           "btnName": "Styrelsen",
-          "url": "/sektionen/styrelsen"
+          "url": "/om-sektionen/styrelsen"
         },
         {
           "btnName": "Kodvet",
-          "url": "/sektionen/kodvet"
+          "url": "/om-sektionen/kodvet"
         },
         {
           "btnName": "Kognitivet",
-          "url": "/sektionen/kognitivet"
+          "url": "/om-sektionen/kognitivet"
         },
         {
           "btnName": "KVIT",
-          "url": "/sektionen/kvit"
+          "url": "/om-sektionen/kvit"
         },
         {
           "btnName": "Utbildningsutskottet",
-          "url": "/sektionen/utbildnings-utskottet"
+          "url": "/om-sektionen/utbildnings-utskottet"
         },
         {
           "btnName": "MAFU",
-          "url": "/sektionen/mafu"
+          "url": "/om-sektionen/mafu"
         }
       ]
     },
     {
       "btnName": "För sökande",
-      "url": "/for-sökande",
+      "url": "/for-sokande",
       "childPages": [
         {
           "btnName": "Boende",
-          "url": "/for-sökande/boende"
+          "url": "/for-sokande/boende"
         },
         {
           "btnName": "Om programmet",
-          "url": "/for-sökande/om-programmet"
+          "url": "/for-sokande/om-programmet"
         },
         {
           "btnName": "Studentliv",
-          "url": "/for-sökande/studentliv"
+          "url": "/for-sokande/studentliv"
         },
         {
           "btnName": "FAQ",
-          "url": "/for-sökande/faq"
+          "url": "/for-sokande/faq"
         }
       ]
     },
