@@ -10,7 +10,7 @@ console.log(pdfsPaths)
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
-	<div class="container">
+	<div class="container" slot="content">
         <h1>här är dem</h1>
 		<ul>
 			{Object.entries(pdfs).map(([filepath, cleanedName])=>
