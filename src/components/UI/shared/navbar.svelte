@@ -15,9 +15,9 @@
     let staticBackground;
     let ddbuttons
     let hero
+    let contentReplaced
     export let isOpaque = false 
     
-
     let lines = []
     
     onMount(() =>{
@@ -40,6 +40,7 @@
         if (!isOpaque) {
             navbar.style.backgroundColor = 'var(--koggis-grön)'
         }
+        document.addEventListener('swup:contentReplaced', ()=> contentReplaced = Math.random())
     });
 
     beforeUpdate(() => {
@@ -182,15 +183,12 @@
         newActive(href)
         if (active === '/') {
             isOpaque = true
-            setTimeout(()=>{hero = document.getElementById('heroimg')
-                oberserver.observe(hero)
-            },600)
         } 
         else {
             isOpaque = false
         }
         adjustPads()
-        setTimeout(()=>readLinks(document.getElementsByTagName('a')), 600)
+        
     }
 
     let lastCallms = 0
@@ -203,6 +201,14 @@
         adjustPads()
         checkLines()
         lastCallms = Date.now() 
+    }
+    //När sidans innehåll uppdateras (av swup)
+    $: {
+        if (contentReplaced) {
+            readLinks(document.getElementsByTagName('a'))
+            hero = document.getElementById('heroimg')
+            if (hero) oberserver.observe(hero)
+        } 
     }
 
 </script>
