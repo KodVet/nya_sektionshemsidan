@@ -180,16 +180,14 @@
             console.log("staticbackground ska bli opaque yep", staticBackground)
             isOpaque = true
             setTimeout(()=>{hero = document.getElementById('heroimg')
-            console.log("hero", hero)
-            oberserver.observe(hero)},600)
-            setTimeout(()=> {
-                staticBackground?.classList.add('isOpaque')
-            }, 600)
+                console.log("hero", hero)
+                oberserver.observe(hero)
+            },600)
         } 
         else {
             isOpaque = false
-            staticBackground?.classList.remove('isOpaque')
         }
+        adjustPads()
     }
 
     let lastCallms = 0
@@ -541,6 +539,7 @@ nav {
 //Styles för när den är genomskinlig
 #staticBackground:global(.isOpaque) {
     height: 0;
+    margin-bottom: 0 !important; //!important har högst, så detta överskrider den margin den får av javascript
     &::after {
 
     }
