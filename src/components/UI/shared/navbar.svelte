@@ -1,3 +1,6 @@
+<script context="module">
+    export let max_height = 100;
+</script>
 <script>
     import { afterUpdate, beforeUpdate, onMount } from "svelte";
     import { null_to_empty } from "svelte/internal";
@@ -55,11 +58,10 @@
             navbar.classList.toggle('intersectingHero', entry.isIntersecting)
             staticBackground.classList.toggle('intersectingHero', entry.isIntersecting)
         })
-        console.log(entries)
     }, {rootMargin: `${-10}px`})
     
     let min_height = 50;
-    let max_height = 100;
+    
     let max_scroll = 100;
     let navHeight = max_height;
     function animateNavHeight(breakpoint, totalBreakpoints) {

@@ -3,23 +3,34 @@ import Sidebar from '../../../components/UI/sidebar.astro';
 import Layout from '../../../layouts/baseLayout.astro';
 const posts = await Astro.glob('../../../data/nyheter/*.md')
 import Contentbox from '../../../components/content/Contentbox.astro';
+import {max_height} from '../../../components/UI/shared/navbar.svelte'
 // log om man vill kolla
 // posts.map((post) => {
 // 	console.log('post här ', post)
 // })
+// console.log(max_height)
 ---
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
 	<Sidebar posts={posts.map(({frontmatter}) => frontmatter)} />
             <section id="inlägg">
                 {posts.map(({ frontmatter, Content }) =>
-                <div class="scrollAnchor" id={frontmatter.title}></div>
                 <div class="post">
+                <div class="scrollAnchor" id={frontmatter.title} style={`--max-height: ${max_height}px`}></div>
 					<Contentbox>
 						<Content/>
 					</Contentbox>
                 </div>
 				)}
             </section>
+<script is:inline>
+	const activeDdcontent = document.querySelector('.active .ddcontent')
+	const activeDdcontentHeight = activeDdcontent.clientHeight
+	const anchors = document.getElementsByClassName('scrollAnchor')
+	
+	Object.values(anchors).forEach(anchor => {
+		anchor.style.top = `calc(-${activeDdcontentHeight}px - var(--max-height))`
+	})
+</script>
 </Layout>
 
 <style>
@@ -28,7 +39,7 @@ import Contentbox from '../../../components/content/Contentbox.astro';
 	.scrollAnchor {
 		display: block;
 		position: relative;
-		top: -125px;
+		/* top: -125px; */
 		visibility: hidden;
 	}
 	#inlägg {
@@ -39,5 +50,4 @@ import Contentbox from '../../../components/content/Contentbox.astro';
 	}
 
 </style>
-
 
