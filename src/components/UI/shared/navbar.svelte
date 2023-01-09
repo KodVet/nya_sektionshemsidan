@@ -148,6 +148,15 @@
             }
         }
     }
+    function readLinks(links) {
+        Object.values(links).forEach(link => {
+            const href = link.getAttribute('href')
+            
+            link.addEventListener('click', () => {
+                if (href != active) handleNavigation(href)
+            })
+        })
+    }
     
     //handleScroll
     //Med denna variant kan jag lösa buggen med snabb skroll.
@@ -190,6 +199,7 @@
             isOpaque = false
         }
         adjustPads()
+        setTimeout(()=>readLinks(document.getElementsByTagName('a')), 600)
     }
 
     let lastCallms = 0
@@ -229,7 +239,6 @@
                 style="font-size:clamp(0px, {navFontSize}px, 3.1vw)" 
                 class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
                 <a tabindex="0" 
-                    on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} 
                     href="{baseUrl + url}">{btnName}
                 </a>
                 <span class="wrapper">
@@ -248,7 +257,6 @@
                             <div class="dot"></div>
                             <a 
                                 tabindex={'0'} 
-                                on:click={() => baseUrl+url !== active && handleNavigation(baseUrl + url)} 
                                 href="{baseUrl + url}">
                                 {btnName}
                             </a>
