@@ -2,7 +2,7 @@
 import Sidebar from '../../../components/UI/sidebar.astro';
 import Layout from '../../../layouts/baseLayout.astro';
 const posts = await Astro.glob('../../../data/nyheter/*.md')
-
+import Contentbox from '../../../components/content/Contentbox.astro';
 // log om man vill kolla
 // posts.map((post) => {
 // 	console.log('post här ', post)
@@ -14,7 +14,9 @@ const posts = await Astro.glob('../../../data/nyheter/*.md')
                 {posts.map(({ frontmatter, Content }) =>
                 <div class="scrollAnchor" id={frontmatter.title}></div>
                 <div class="post">
-					<Content/>
+					<Contentbox>
+						<Content/>
+					</Contentbox>
                 </div>
 				)}
             </section>
@@ -24,10 +26,10 @@ const posts = await Astro.glob('../../../data/nyheter/*.md')
 
 	/* dessa funkar som "ankare" för att autoscrolla till */
 	.scrollAnchor {
-    display: block;
-    position: relative;
-    top: -125px;
-    visibility: hidden;
+		display: block;
+		position: relative;
+		top: -125px;
+		visibility: hidden;
 	}
 	#inlägg {
 		display: flex;
@@ -35,15 +37,7 @@ const posts = await Astro.glob('../../../data/nyheter/*.md')
 		margin: 50px;
 		gap: 300px;
 	}
-	.post {
-		font-size: 1.5rem;
-		align-self:center;
-		background-color: gainsboro;
-		border-radius: 8px;
-		padding: 10px;
-		width: clamp(300px, 70%, 1000px);
-		box-shadow: 5px 10px 20px grey;
-	}
+
 </style>
 
 
