@@ -1,5 +1,6 @@
 ---
 title: Mer Information
-date: 23-01-01
+date: 11-01-2023
+excerpt: fett koolt utdrag
 ---
 *bing* bong

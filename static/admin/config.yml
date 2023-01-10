@@ -53,6 +53,19 @@ collections: # A list of collections the CMS should be able to edit
                 fields:
                   - {label: Namn, name: btnName, widget: string}
                   - {label: url, name: url, widget: string} 
+  
+  - name: nyheter
+    label: Nyheter
+    label_singular: nyhet
+    folder: src/data/nyheter
+    create: true
+    fields:
+     - {label: Rubrik, name: title, widget: string, required: true}
+     - {label: Datum, name: date, widget: datetime, time_format: false, format: "DD-MM-YYYY"} 
+     - {label: Omslagsbild, name: img, widget: image, required: false}
+     - {label: Utdrag, name: excerpt, widget: text, required: true, hint: "Detta är det som står på startsidans nyhetsflöden. Du behöver inte komma på nåt speciellt, copy pastea bara 3 första meningarna från inlägget"}
+     - {label: Inlägget, name: body, widget: markdown, required: true}
+
   - name: 'medlemmar'
     label: 'Medlemmar'
     label_singular: 'Medlem'

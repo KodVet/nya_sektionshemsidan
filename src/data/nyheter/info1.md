@@ -1,8 +1,10 @@
 ---
 title: Dagordning för höstmöte
-date: 22-11-23
+date: 10-01-2023
 img: /1673306163329.png
-excerpt: "Höstmötet börjar närma sig och mötets dagordning är nu klar! Mötet äger rum i KEY1 den 30 november. Dörrarna kommer att öppnas kl 17.15 och mötet startar kl 17.30, se till att vara där i god tid."
+excerpt: Höstmötet börjar närma sig och mötets dagordning är nu klar! Mötet äger
+  rum i KEY1 den 30 november. Dörrarna kommer att öppnas kl 17.15 och mötet
+  startar kl 17.30, se till att vara där i god tid.
 ---
 ## [Dagordning för höstmöte 2022](https://www.kogvet.se/2022/11/23/dagordning-for-hostmote-2022/ "Dagordning för höstmöte 2022")
 
