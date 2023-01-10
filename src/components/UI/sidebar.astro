@@ -2,19 +2,6 @@
 const { posts } = Astro.props
 ---
 
-<!-- <script>
-    // import { onMount } from "svelte";
-    export let posts;
-    let gutter;
-    let bar;
-    onMount(async () => {
-        console.log("bar width: ", bar.clientWidth)
-        console.log("gutter style: ", gutter.style)
-        gutter.style.width = `${bar.scrollWidth}px`
-    })
-    console.log("hallå")
-</script> -->
-<div id="gutter"></div>
 <ul>
     {posts.map(({ date, title }) => 
     <li>
@@ -26,12 +13,9 @@ const { posts } = Astro.props
 
 <style lang="scss">
 
-#gutter {
-    height: 1000px;
-    width: 200px;
-}
 ul {
     position: sticky;
+    align-self: flex-start;
     top: 30vh;
     z-index: 10;
     width: fit-content;
