@@ -40,6 +40,7 @@
         if (!isOpaque) {
             navbar.style.backgroundColor = 'var(--koggis-grön)'
         }
+        contentReplaced = Math.random()
         document.addEventListener('swup:contentReplaced', ()=> contentReplaced = Math.random())
     });
 
@@ -85,7 +86,10 @@
             }
 
     function newActive(href) {
-        active = href
+        // console.log(`nu är active: ${active}`)
+        if (href.startsWith('#')) return 
+        active = href.replace(/\#.*/, '')
+        // console.log(`nu är active: `, active.split('/'))
     }
 
     function dotWasActive() {
@@ -150,7 +154,7 @@
             const href = link.getAttribute('href')
             
             link.addEventListener('click', () => {
-                if (href != active) handleNavigation(href)
+                handleNavigation(href)
             })
         })
     }
