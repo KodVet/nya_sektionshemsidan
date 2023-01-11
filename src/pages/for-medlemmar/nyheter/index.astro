@@ -24,15 +24,7 @@ import {max_height} from '../../../components/UI/shared/navbar.svelte'
 		)}
 		</section>
 	</div>
-<script is:inline data-swup-reload-script>
-	const activeDdcontent = document.querySelector('.active .ddcontent')
-	const activeDdcontentHeight = activeDdcontent.clientHeight
-	const anchors = document.getElementsByClassName('scrollAnchor')
-	
-	Object.values(anchors).forEach(anchor => {
-		anchor.style.top = `calc(-${activeDdcontentHeight}px - var(--max-height))`
-	})
-</script>
+
 </Layout>
 
 <style>
@@ -43,7 +35,7 @@ import {max_height} from '../../../components/UI/shared/navbar.svelte'
 	.scrollAnchor {
 		display: block;
 		position: relative;
-		/* top: -125px; */
+		top: -200px;
 		visibility: hidden;
 	}
 	#inlägg {
