@@ -339,24 +339,26 @@ nav {
         height: 100%;
         margin: 0px;
         // gap: clamp(10px, 4%, 50px);
+        
+        &::after{
+            content:"";
+            flex-grow: 1.5;
+        }
+
+        &::before{
+            content:"";
+            flex-grow: 4;
+        }
 
         .navBtn{
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         height: 100%;
         // padding-inline: clamp(1px, calc(12vw - 85px), 30px);
         margin-inline: clamp(1px, .4%, 5px);
         flex-grow: 1;
         // padding-inline: clamp(0px, calc(3%), 30px);
         
-        &:first-child {
-            flex-grow: 5;
-            // margin-left: clamp(5px, calc(18vw - 120px), 300px);
-        }
-        &:last-child {
-            margin-right: 30px;
-            
-        }
 
             .ddbutton {
             height: 100%;

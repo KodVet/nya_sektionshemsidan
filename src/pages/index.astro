@@ -52,6 +52,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 			width: 100%;
 			background-color: var(--buckethat-svart);
 		}
+	
 		.newsList {
 			display: flex;
 			flex-direction: column;
@@ -60,11 +61,13 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 				display: flex;
 				flex-direction: row-reverse;
 				gap: 20px;
-				margin-top: 20px;
+				padding:20px;
 			}
 			img {
 				max-height: 150px;
 			}
+			
+			
 			.text>* {
 				margin-bottom: 8px;
 			}
