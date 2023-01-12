@@ -8,7 +8,7 @@ backend:
   auth_endpoint: oauth/authorize
   branch: main
 
-local_backend: false
+local_backend: true
 logo_url: https://sektionshemsidan.netlify.app/images/Sektionslogga 1.png
 display_url: https://sektionshemsidan.netlify.app
 media_folder: "static/images"
@@ -35,17 +35,20 @@ collections: # A list of collections the CMS should be able to edit
               - {label: Navbar dropdown färg, name: --navbar-dropdown-bg, widget: color, allowInput: true}
               - {label: Navbar aktiv dropdown färg, name: --navbar-active-dropdown-bg, widget: color, allowInput: true}
               - {label: Sidfot-färg, name: --footer-bg, widget: color, allowInput: true}
-      - label: Sitemap
-        name: pageStructure
-        file: src/pageStructure.json
+      
+      - label: Navbar config
+        name: navbarConfig
+        file: src/navbarConfig.json
         fields:
           - label: Sidor
             label_singular: Sida
             name: pages
+            create: true
             widget: list
             fields:
               - {label: Namn, name: btnName, widget: string}
               - {label: url, name: url, widget: string}
+              - {label: Är genomskinlig?, name: isOpaque, widget: boolean, default: true}
               - label: Underordnade sidor
                 label_singular: Sida
                 name: childPages
@@ -53,6 +56,7 @@ collections: # A list of collections the CMS should be able to edit
                 fields:
                   - {label: Namn, name: btnName, widget: string}
                   - {label: url, name: url, widget: string} 
+                  - {label: Är genomskinlig?, name: isOpaque, widget: boolean, default: true}
   
   - name: nyheter
     label: Nyheter

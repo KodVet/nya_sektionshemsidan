@@ -5,7 +5,7 @@
 import { afterUpdate, beforeUpdate, onMount } from "svelte";
 export let baseUrl;
 export let active;
-import { pages } from '../../../pageStructure.json'
+import { pages } from '../../../navbarConfig.json'
 let navbar;
 let yScrollPosition;
 let viewportWidth;
@@ -51,7 +51,7 @@ onMount(() =>{
     
     })
 
-    
+    console.log(pages)
 });
 
 beforeUpdate(() => {
@@ -150,6 +150,8 @@ $: {
 }
 
 function handleNavigation(href) {
+    if (href === active) return
+
     function dotWasActive() {
         const dot = document.querySelector('.active .dot')
         dot.style.transition ="300ms ease-in-out"
@@ -167,26 +169,27 @@ function handleNavigation(href) {
 
     const href_topPath = href.split('/')[1]
     const active_topPath = active.split('/')[1]
+
     if (href_topPath != active_topPath) {
         dotWasActive();
     }
 
     
     //Sätter ny active
-    if (href.startsWith('#')) return 
-    active = href.replace(/\#.*/, '') //Tar bort anchors från URLen, så att active alltid motsvarar någon länk i navbaren 
-
-    
-    //Kollar om navbaren ska vara genomskinlig
-    if (active === '/') {
-        isOpaque = true
-    } 
-    else {
-        isOpaque = false
+    if (!href.startsWith('#')) active = href.replace(/\#.*/, '') //Tar bort anchors från URLen, så att active alltid motsvarar någon länk i navbaren 
+   
+    //Letar rätt på nuvarande sida i navbarConfig.json, för att kunna kolla inställningar
+    let currentPage = pages.find(page => page.url.split('/')[1] === href_topPath)
+    //Om currentPage.url bara börjar på active, men inte helt stämmer övererns,
+    //innebär det att currentPage är någon underordnad sida
+    if (!(currentPage.url === active)) {
+        currentPage = currentPage.childPages.find(childPage => childPage.url === active)
     }
+
+    //Kollar om navbaren ska vara genomskinlig
+    isOpaque = Boolean(currentPage.isOpaque) 
     
     adjustPads()
-    
 }
 
 let lastCallms = 0
@@ -235,7 +238,7 @@ function handleResize () {
 </script>
 
 <svelte:window 
-    on:resize={handleResize}    
+    on:resize={handleResize}  
     bind:scrollY={yScrollPosition} 
     bind:innerWidth={viewportWidth}/>
 <div id="staticBackground"
@@ -246,7 +249,7 @@ function handleResize () {
     bind:this={navbar} 
     id={isOpaque?'isOpaque':''}
     style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : 'transparent'}">
-        <a href="/" on:click={()=>handleNavigation("/")}>
+        <a href="/">
         </a>
     <img id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     

@@ -1,0 +1,115 @@
+{
+  "pages": [
+    {
+      "btnName": "Start",
+      "url": "/",
+      "isOpaque": true,
+      "childPages": []
+    },
+    {
+      "btnName": "Om sektionen",
+      "url": "/om-sektionen",
+      "isOpaque": false,
+      "childPages": [
+        {
+          "btnName": "Styrelsen",
+          "url": "/om-sektionen/styrelsen"
+        },
+        {
+          "btnName": "Kodvet",
+          "url": "/om-sektionen/kodvet"
+        },
+        {
+          "btnName": "Kognitivet",
+          "url": "/om-sektionen/kognitivet"
+        },
+        {
+          "btnName": "KVIT",
+          "url": "/om-sektionen/kvit"
+        },
+        {
+          "btnName": "Utbildningsutskottet",
+          "url": "/om-sektionen/utbildnings-utskottet"
+        },
+        {
+          "btnName": "MAFU",
+          "url": "/om-sektionen/mafu"
+        }
+      ]
+      
+    },
+    {
+      "btnName": "För sökande",
+      "url": "/for-sokande",
+      "childPages": [
+        {
+          "btnName": "Boende",
+          "url": "/for-sokande/boende"
+        },
+        {
+          "btnName": "Om programmet",
+          "url": "/for-sokande/om-programmet"
+        },
+        {
+          "btnName": "Studentliv",
+          "url": "/for-sokande/studentliv"
+        },
+        {
+          "btnName": "FAQ",
+          "url": "/for-sokande/faq"
+        }
+      ]
+    },
+    {
+      "btnName": "För medlemmar",
+      "url": "/for-medlemmar",
+      "childPages": [
+        {
+          "btnName": "Nyheter",
+          "url": "/for-medlemmar/nyheter"
+        },
+        {
+          "btnName": "Anslagstavlan",
+          "url": "/for-medlemmar/anslagstavlan"
+        },
+        {
+          "btnName": "Arbetsmiljö",
+          "url": "/for-medlemmar/arbetsmiljö"
+        },
+        {
+          "btnName": "kalender",
+          "url": "/for-medlemmar/kalender"
+        },
+        {
+          "btnName": "Klagolådan",
+          "url": "/for-medlemmar/klagolådan"
+        },
+        {
+          "btnName": "Koggidoren",
+          "url": "/for-medlemmar/koggidoren"
+        },
+        {
+          "btnName": "Kurser",
+          "url": "/for-medlemmar/kurser"
+        },
+        {
+          "btnName": "STUFF",
+          "url": "/for-medlemmar/stuff"
+        },
+        {
+          "btnName": "Utbyte",
+          "url": "/for-medlemmar/utbyte"
+        },
+        {
+          "btnName": "Dokument",
+          "url": "/for-medlemmar/dokument"
+        }
+      ]
+    },
+    {
+      "btnName": "Kontakt",
+      "url": "/kontakt",
+      "childPages": []
+    }
+  ]
+}
