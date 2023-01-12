@@ -2,126 +2,202 @@
     export let max_height = 100;
 </script>
 <script>
-    import { afterUpdate, beforeUpdate, onMount } from "svelte";
-    import { null_to_empty } from "svelte/internal";
-    export let baseUrl;
-    export let active;
-    import { pages } from '../../../pageStructure.json'
-    let navbar;
-    let yScrollPosition;
-    let viewportWidth;
-    let ddcontentWidth;
-    let ddcontentHeight;
-    let staticBackground;
-    let ddbuttons
-    let hero
-    let contentReplaced
-    export let isOpaque = false 
+import { afterUpdate, beforeUpdate, onMount } from "svelte";
+export let baseUrl;
+export let active;
+import { pages } from '../../../pageStructure.json'
+let navbar;
+let yScrollPosition;
+let viewportWidth;
+let staticBackground;
+let hero
+let ddbuttons
+let ddcontents
+export let isOpaque = false 
+
+let lines = []
+
+onMount(() =>{
+    //Alla DOM-element som enklast binds här istället för med bind:this i markupen
+    hero = document.getElementById('heroimg')
+    ddbuttons = Object.values(document.getElementsByClassName('ddbutton'))
+    ddcontents = Object.values(document.getElementsByClassName('ddcontent'))
+    //Lines
+    for (let i=0; i<pages.length; i++) {
+        lines.push(Object.values(ddbuttons[i].getElementsByClassName('line')))
+    }
+
+    //Funktioner som körs för att rätta till variabler och utseende vid en reload
+    handleNavigation(active)
+    handleResize()
+    generateBreakpoints(15)
+
+    //Enksilda checkar
+    if (!isOpaque) {
+        navbar.style.backgroundColor = 'var(--koggis-grön)'
+    }
     
-    let lines = []
-    
-    onMount(() =>{
-        //Alla DOM-element som binds enklast här istället för med bind:this i markupen
+    //Eventlisteners och observers
+    if (hero) intersectionObserver.observe(hero)
+    ddcontents.forEach(ddcontent => ddcontentReziseObserver.observe(ddcontent))
+    readLinks()
+
+    //När sidans innehåll uppdateras (av swup)
+    document.addEventListener('swup:contentReplaced', ()=> {
+        console.log("sidan uppdaterades av swup")
+        readLinks()
         hero = document.getElementById('heroimg')
-        ddbuttons = Object.values(document.getElementsByClassName('ddbutton'))
-        
-        //Lines
-        for (let i=0; i<pages.length; i++) {
-            lines.push(Object.values(ddbuttons[i].getElementsByClassName('line')))
-        }
-
-        //Funktioner som körs för att rätta till variabler och utseende vid en reload
-        if (hero) oberserver.observe(hero)
-        handleNavigation(active)
-        handleResize()
-        generateBreakpoints(15)
-
-        //Enksilda checkar
-        if (!isOpaque) {
-            navbar.style.backgroundColor = 'var(--koggis-grön)'
-        }
-        contentReplaced = Math.random()
-        document.addEventListener('swup:contentReplaced', ()=> contentReplaced = Math.random())
-    });
-
-    beforeUpdate(() => {
-        
-    });
-
-    afterUpdate(() => {
- 
+        if (hero) intersectionObserver.observe(hero)
+    
     })
 
+    
+});
 
-    const oberserver = new IntersectionObserver(entries=>{
-        entries.forEach(entry => {
-            navbar.classList.toggle('intersectingHero', entry.isIntersecting)
-            staticBackground.classList.toggle('intersectingHero', entry.isIntersecting)
+beforeUpdate(() => {
+    
+});
+
+afterUpdate(() => {
+
+})
+
+//Defenitioner av alla observers
+const intersectionObserver = new IntersectionObserver(entries=>{
+    entries.forEach(entry => {
+        navbar.classList.toggle('intersectingHero', entry.isIntersecting)
+        staticBackground.classList.toggle('intersectingHero', entry.isIntersecting)
+    })
+}, {rootMargin: `${-10}px`})
+
+let previousDdcontentHeights = []
+const ddcontentReziseObserver = new ResizeObserver(entries => {
+    entries.forEach((entry, index) => {
+        const ddcontentHeight = entry.contentRect.height
+        if (ddcontentHeight != previousDdcontentHeights[index]) adjustPads()
+        previousDdcontentHeights[index] = ddcontentHeight || previousDdcontentHeights.push(ddcontentHeight)
+    })
+})
+
+//Funktionerna som gör sakerna
+const min_height = 50;
+const max_scroll = 100;
+let navHeight = max_height;
+function animateNavHeight(breakpoint, totalBreakpoints) {
+        navHeight = max_height - ((max_height-min_height)/totalBreakpoints)*breakpoint
+}
+
+const maxFontSize = 24
+const minFontSize = 18
+let navFontSize = maxFontSize;
+function animateFontSize(breakpoint, totalBreakpoints, eager=false) {
+        navFontSize = (maxFontSize - (((maxFontSize-minFontSize)/totalBreakpoints))*breakpoint)
+        
+}
+    
+function generateBreakpoints(total){
+    for (let i = 0; i <= total; i++) {
+        if (((i*max_scroll)/total)<=yScrollPosition) {
+            animateNavHeight(i, total);
+            animateFontSize(i, total);
+        }
+    }
+}
+
+function readLinks() {
+    Object.values(document.getElementsByTagName('a')).forEach(link => {
+        const href = link.getAttribute('href')
+        
+        link.addEventListener('click', () => {
+            handleNavigation(href)
         })
-    }, {rootMargin: `${-10}px`})
+    })
+}
+
+function adjustPads() {
+    const activeDdcontentHeight = document.querySelector('.ddbutton.active .ddcontent')?.clientHeight
+    staticBackground.style.marginBottom = `${activeDdcontentHeight}px`
+
+    for (let ddbutton of ddbuttons) {
+        if (!ddbutton.querySelector('.ddcontent')) continue
+        const pad = ddbutton.querySelector('.pad')
+        const ddcontent = ddbutton.querySelector('.ddcontent')
+        pad.style.height = `${ddcontent.clientHeight + 40}px`
+    };
+}
     
-    let min_height = 50;
-    
-    let max_scroll = 100;
-    let navHeight = max_height;
-    function animateNavHeight(breakpoint, totalBreakpoints) {
-            navHeight = max_height - ((max_height-min_height)/totalBreakpoints)*breakpoint
-    }
+//Abstrakta funktioner som hanterar händelser,
+//och i sin tur anropar funktionerna från förra delen.
+//Funktionerna här anropas på olika sätt beroende på vad som var enklast
 
-    const maxFontSize = 24
-    const minFontSize = 18
-    let navFontSize = maxFontSize;
-    function getFontSize(breakpoint, totalBreakpoints, eager=false) {
-            navFontSize = (maxFontSize - (((maxFontSize-minFontSize)/totalBreakpoints))*breakpoint)
-            
-    }
-      
-    function generateBreakpoints(total){
-                for (let i = 0; i <= total; i++) {
-                    if (((i*max_scroll)/total)<=yScrollPosition) {
-                        animateNavHeight(i, total);
-                        getFontSize(i, total);
-                    }
-                }
-            }
 
-    function newActive(href) {
-        // console.log(`nu är active: ${active}`)
-        if (href.startsWith('#')) return 
-        active = href.replace(/\#.*/, '')
-        // console.log(`nu är active: `, active.split('/'))
-    }
+//handleScroll
+    //Med denna variant kan jag lösa buggen med snabb skroll.
+    //Att namge kodstycke här till en funktionen och binda en event-listener funkar ej,
+    //vet inte vrf
+let previousScrollPosition
+$: {
+    // (viewportWidth)
+    previousScrollPosition = yScrollPosition;
+    const scrollDelta = Math.abs(yScrollPosition - previousScrollPosition); 
+    generateBreakpoints(30-Math.floor(scrollDelta/10))
 
+    //Detta är det som lägger på bl.a blur effekten på startsidan
+    if (isOpaque) {
+        navbar?.classList.toggle('scrolled', yScrollPosition >= max_scroll)
+        staticBackground?.classList.toggle('scrolled', yScrollPosition >= max_scroll) 
+    }
+}
+
+function handleNavigation(href) {
     function dotWasActive() {
-        const activeDot = document.querySelector('.active .dot')
-        activeDot.style.transition ="300ms ease-in-out"
-        activeDot.style.transform = "translateY(3px)"
-        activeDot.style.height = "5px"
-        activeDot.style.clipPath = "inset(2.5px 2.5px 2.5px 2.5px)" 
+        const dot = document.querySelector('.active .dot')
+        dot.style.transition ="300ms ease-in-out"
+        dot.style.transform = "translateY(3px)"
+        dot.style.height = "5px"
+        dot.style.clipPath = "inset(2.5px 2.5px 2.5px 2.5px)" 
         setTimeout(() => {
-            activeDot.style.transition =""
-            activeDot.style.transform = ""
-            activeDot.style.height = ""
-            activeDot.style.clipPath = ""
+            dot.style.transition =""
+            dot.style.transform = ""
+            dot.style.height = ""
+            dot.style.clipPath = ""
         }, 300)
         
     }
 
-    function adjustPads() {
-        const activeDdcontentHeight = document.querySelector('.ddbutton.active .ddcontent')?.clientHeight
-        staticBackground.style.marginBottom = `${activeDdcontentHeight}px`
-
-        
-        
-        for (let ddbutton of ddbuttons) {
-            if (!ddbutton.querySelector('.ddcontent')) continue
-            const pad = ddbutton.querySelector('.pad')
-            const ddcontent = ddbutton.querySelector('.ddcontent')
-            pad.style.height = `${ddcontent.clientHeight + 40}px`
-        };
+    const href_topPath = href.split('/')[1]
+    const active_topPath = active.split('/')[1]
+    if (href_topPath != active_topPath) {
+        dotWasActive();
     }
-     
-    function checkLines() {
+
+    
+    //Sätter ny active
+    if (href.startsWith('#')) return 
+    active = href.replace(/\#.*/, '') //Tar bort anchors från URLen, så att active alltid motsvarar någon länk i navbaren 
+
+    
+    //Kollar om navbaren ska vara genomskinlig
+    if (active === '/') {
+        isOpaque = true
+    } 
+    else {
+        isOpaque = false
+    }
+    
+    adjustPads()
+    
+}
+
+let lastCallms = 0
+function handleResize () {
+    // En basic throttle. Begränsar funktionsanrop till max en gång varje 40ms
+    if ((Date.now() - lastCallms) < 50 && lastCallms != 0) {
+        // console.log("throttle", Date.now())
+        return   
+    }
+    (function checkLines() {
+
         for (let i = 0; i<(lines?.length); i++) {
 
             if (!lines[i]) continue
@@ -132,88 +208,29 @@
                 const nextLine = lines[i][j+1]
                 const previousLine = lines[i][j-1]
 
-                if (!previousLine) continue
-
-                //Kolla efter linjer i början av rader
-                if (line.offsetLeft < previousLine.offsetLeft && previousLine.nextSibling.offsetTop < line.nextSibling.offsetTop) {
-                 line.style.visibility = "hidden"
-                }
-                else line.style.visibility = "visible"
+                
                 
                 //Kolla efter linjer i slutet av rader
                 if (line.offsetLeft > nextLine.offsetLeft && line.offsetLeft > line.nextSibling.offsetLeft) {
+                    line.style.visibility = "hidden"
+                }
+
+                else if (!previousLine) continue
+
+                //Kolla efter linjer i början av rader
+                else if (line.offsetLeft < previousLine.offsetLeft && previousLine.nextSibling.offsetTop < line.nextSibling.offsetTop) {
                     line.style.visibility = "hidden"
                 }
                 else line.style.visibility = "visible"
                 //Tror jag, det kanske va tvärt om
             }
         }
-    }
-    function readLinks(links) {
-        Object.values(links).forEach(link => {
-            const href = link.getAttribute('href')
-            
-            link.addEventListener('click', () => {
-                handleNavigation(href)
-            })
-        })
-    }
+    })()
     
-    //handleScroll
-    //Med denna variant kan jag lösa buggen med snabb skroll.
-    //Att namge kodstycke här till en funktionen och binda en event-listener funkar ej,
-    //vet inte vrf
-    let previousScrollPosition
-    $: {
-        // (viewportWidth)
-        previousScrollPosition = yScrollPosition;
-        const scrollDelta = Math.abs(yScrollPosition - previousScrollPosition); 
-        generateBreakpoints(30-Math.floor(scrollDelta/10))
+    lastCallms = Date.now() 
+}
 
-        //Detta är det som lägger på bl.a blur effekten på startsidan
-        if (isOpaque) {
-            navbar?.classList.toggle('scrolled', yScrollPosition >= max_scroll)
-            staticBackground?.classList.toggle('scrolled', yScrollPosition >= max_scroll) 
-        }
-    }
 
-    function handleNavigation(href) {
-        const href_topPath = href.split('/')[1]
-        const active_topPath = active.split('/')[1]
-        if (href_topPath != active_topPath) {
-                dotWasActive();
-            }
-        
-        newActive(href)
-        if (active === '/') {
-            isOpaque = true
-        } 
-        else {
-            isOpaque = false
-        }
-        adjustPads()
-        
-    }
-
-    let lastCallms = 0
-    function handleResize () {
-        //En basic throttle. Begränsar funktionsanrop till max en gång varje 40ms
-        if ((Date.now() - lastCallms) < 50 && lastCallms != 0) {
-            // console.log("throttle", Date.now())
-            return   
-        }
-        adjustPads()
-        checkLines()
-        lastCallms = Date.now() 
-    }
-    //När sidans innehåll uppdateras (av swup)
-    $: {
-        if (contentReplaced) {
-            readLinks(document.getElementsByTagName('a'))
-            hero = document.getElementById('heroimg')
-            if (hero) oberserver.observe(hero)
-        } 
-    }
 
 </script>
 
@@ -248,9 +265,7 @@
                 {#if childPages.length > 1}
                 <div class="ddcontent" 
                     class:isOpaque={isOpaque} 
-                    id={btnName} 
-                    bind:clientWidth={ddcontentWidth} 
-                    bind:clientHeight={ddcontentHeight}>
+                    id={btnName}> 
                     <ul>
                     {#each childPages as { url, btnName }, index}
                         <li class="button" 
