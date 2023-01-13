@@ -8,7 +8,7 @@ backend:
   auth_endpoint: oauth/authorize
   branch: main
 
-local_backend: false
+local_backend: true
 logo_url: https://sektionshemsidan.netlify.app/images/Sektionslogga 1.png
 display_url: https://sektionshemsidan.netlify.app
 media_folder: "static/images"
@@ -18,6 +18,7 @@ collections: # A list of collections the CMS should be able to edit
 
   - name: config
     label: Inställningar
+    # extensions: json
     editor:
       preview: false
     files:
@@ -34,6 +35,40 @@ collections: # A list of collections the CMS should be able to edit
               - {label: Navbar dropdown färg, name: --navbar-dropdown-bg, widget: color, allowInput: true}
               - {label: Navbar aktiv dropdown färg, name: --navbar-active-dropdown-bg, widget: color, allowInput: true}
               - {label: Sidfot-färg, name: --footer-bg, widget: color, allowInput: true}
+      
+      - label: Navbar config
+        name: navbarConfig
+        file: src/navbarConfig.json
+        fields:
+          - label: Sidor
+            label_singular: Sida
+            name: pages
+            create: true
+            widget: list
+            fields:
+              - {label: Namn, name: btnName, widget: string}
+              - {label: url, name: url, widget: string}
+              - {label: Är genomskinlig?, name: isOpaque, widget: boolean, default: true}
+              - label: Underordnade sidor
+                label_singular: Sida
+                name: childPages
+                widget: list
+                fields:
+                  - {label: Namn, name: btnName, widget: string}
+                  - {label: url, name: url, widget: string} 
+                  - {label: Är genomskinlig?, name: isOpaque, widget: boolean, default: true}
+  
+  - name: nyheter
+    label: Nyheter
+    label_singular: nyhet
+    folder: src/data/nyheter
+    create: true
+    fields:
+     - {label: Rubrik, name: title, widget: string, required: true}
+     - {label: Datum, name: date, widget: datetime, time_format: false, format: "DD-MM-YYYY"} 
+     - {label: Omslagsbild, name: img, widget: image, required: false}
+     - {label: Utdrag, name: excerpt, widget: text, required: true, hint: "Detta är det som står på startsidans nyhetsflöden. Du behöver inte komma på nåt speciellt, copy pastea bara 3 första meningarna från inlägget"}
+     - {label: Inlägget, name: body, widget: markdown, required: true}
 
   - name: 'medlemmar'
     label: 'Medlemmar'
@@ -62,68 +97,36 @@ collections: # A list of collections the CMS should be able to edit
       - { label: 'Titel', name: 'titel', widget: 'string', required: true }
       - { label: 'Innehåll', name: 'body', widget: 'markdown', hint: 'Detta är det som kommer stå i mitten-rutan på sidan'}
   
-  - name: 'sektionen'
-    label: 'Om sektionen'
-    label_singular: 'Sida'
-    folder: 'src/pages/sektionen'
-    identifier_field: '{{filename}}'
-    create: true
-    editor:
-      summary: '{{filename}}'
+  - label: Sidor
+    label_singular: sida
+    name: sidor
+    folder: src/pages/
+    summary: '{{dirname}}'
+    description: Här är (för närvarande) alla sidor förutom de som innehåller speciella komponenter (såsom de för utskotten).
+    nested:
+      depth: 4
     fields: 
       - { label: 'Mall', name: 'layout', widget: 'select', options: [
           { label: Basic, value: ../../layouts/Basic.astro },
         ]}
-      - { label: Innehåll, name: body, widget: markdown}
-
-  - name: 'for-medlemmar'
-    label: 'För medlemmar'
-    label_singular: 'Sida'
-    folder: 'src/pages/for-medlemmar'
-    identifier_field: '{{filename}}'
+      - { label: Innehåll, name: body, widget: markdown, hint: 'Detta är det som kommer stå i mitten-rutan på sidan'}
+      - {label: Title, name: title, widget: string, hint: Detta är namnet som dyker upp i entries-listan, samt utgör mallen för filnamnet}
+    meta: { path: { widget: string, label: 'Path', index_file: 'index' } }
     create: true
-    editor:
-      summary: "sidan"
-      sortable_fields: ['title']
-    fields: 
-      - { label: 'Mall', name: 'layout', widget: 'select', options: [
-          { label: Basic, value: ../../layouts/Basic.astro },
-        ]}
-      - { widget: string, default: '{{filename}}', name: title}
-      - { label: Innehåll, name: body, widget: markdown}
-
-  - name: 'for-sökande'
-    label: 'För sökande'
-    label_singular: 'Sida'
-    folder: 'src/pages/for-sökande'
-    identifier_field: '{{filename}}'
-    create: true
-    fields: 
-      - { label: 'Mall', name: 'layout', widget: 'select', options: [
-          { label: Basic, value: ../../layouts/Basic.astro },
-        ]}
-      - { label: Innehåll, name: body, widget: markdown}
-
-  - name: 'kontakt'
-    label: 'Kontakt'
-    label_singular: 'Sida'
-    folder: 'src/pages/kontakt'
-    identifier_field: '{{filename}}'
-    create: true
-    fields: 
-      - { label: 'Mall', name: 'layout', widget: 'select', options: [
-          { label: Basic, value: ../../layouts/Basic.astro },
-        ]}
-      - { label: Innehåll, name: body, widget: markdown}
-
-  - name: color-theme
-    label: Färg schema
-    folder: src/pages/index.astro
-    extension: astro
-    format: yaml
-    fields: 
-      - { label: Färger, name: :root, widget: object}
   
+
+  - name: kod
+    label: Kod
+    format: frontmatter
+    description: Här finns lite rå kod. Tror inte ni har så många anledningar till att ändra här - om ni vill göra det kan ni lika gärna koda direkt på git, eller kontakta kodvet. Men det finns här iallafall
+    files: 
+      - name: css
+        label: Global CSS
+        file: src/globalStyles.css
+        fields:
+          - {name: body, label: kod, widget: code, default_language: css, output_code_only: true, hint: Dessa styles appliceras för hela sidan. Exempelvis kan det ju hända att ni skulle vilja justera nyanser av vårt standar-färgschema.}
+  
+
   - name: 'kitchenSink' # all the things in one entry, for documentation and quick testing
     label: 'Kitchen Sink'
     folder: '_sink'
