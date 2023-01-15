@@ -1,5 +1,0 @@
----
-titel: 'Kognitivet'
-
----
-Tagga CK

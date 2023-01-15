@@ -1,7 +1,6 @@
 ---
-titel: MAFU
+title: Marknadsföringsutskottet
 ---
-
 # Marknadsföringsutskottet
 
 Marknadsföringsutskottet (MAFU) agerar för att presentera utbildningen gentemot företag och näringsliv, men också marknadsföra oss mot andra universitetsstuderande, gymnasieelever och andra som kan tänkas söka eller vara intresserade av vår utbildning. Arbetet innefattar bl.a. att förse styrelsen med tröjor, ta in beställningar och beställa kogvet-väskor och vara med och anordna KVIA Kognitionsvetare i Arbetslivet.

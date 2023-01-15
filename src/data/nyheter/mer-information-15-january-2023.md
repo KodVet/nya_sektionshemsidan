@@ -1,6 +1,8 @@
 ---
+draft: false
+author: Gurra
 title: Mer Information
-date: 11-01-2023
+date: 15-January-2023
 excerpt: fett koolt utdrag
 ---
 *bing* bong

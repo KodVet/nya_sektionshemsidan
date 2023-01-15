@@ -1,8 +1,8 @@
 ---
 namn: Gurra
-utskott: Kodvet
+utskott: "Kodvet\r"
 post: Hacker
 kontakt: gusno115@student.liu.se
-bild: /images/fiskmås.jpg
+bild: "/images/fiskmås.jpg\r"
 ---
 I﻿ts me

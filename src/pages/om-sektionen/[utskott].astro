@@ -3,13 +3,13 @@ import Layout from '../../layouts/Basic.astro';
 import MänniskaCard from '../../components/content/människaCard.svelte'
 
 export async function getStaticPaths() {
-	const utskott = await Astro.glob('../../data/sidor/utskott/*.md')
+	const utskott = await Astro.glob('../../data/utskott/*.md')
 	const medlemmar = await Astro.glob('../../data/medlemmar/*.md')
 	
 	return utskott.map(utskott => {
-		const filteredMedlemmar = medlemmar.filter(medlem => medlem.frontmatter.utskott === utskott.frontmatter.titel)
+		const filteredMedlemmar = medlemmar.filter(medlem => medlem.frontmatter.utskott === utskott.frontmatter.title)
 		return {
-			params: { utskott: utskott.frontmatter.titel.toLowerCase().replace(' ','-') },
+			params: { utskott: utskott.frontmatter.title.toLowerCase().replace(' ','-') },
 			props: { utskott: utskott, medlemmar: filteredMedlemmar },
 		}
 	})

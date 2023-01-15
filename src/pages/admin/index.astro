@@ -1,7 +1,10 @@
 ---
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+// import { parseContentKey } from '@staticcms/core';
+const instruktioner = await Astro.glob("../../data/cms/instruktioner.md")
+const markdown = instruktioner.map(md=>md.rawContent())
+console.log(instruktioner)
 ---
 
 <!doctype html>
@@ -11,12 +14,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
 </head>
-<body data-icons={[]}>
-    <div>
-        <FontAwesomeIcon icon={faHouse} size="lg" />
+<body data-icons={[]} >
+    <div id="data" data-md={markdown}>
     </div>
   <!-- Include the script that builds the page and powers Netlify CMS -->
-  <script is:inline src="https://cdn.jsdelivr.net/npm/@staticcms/core@1.0.0-beta0/dist/static-cms-core.js"></script>
+  <!-- <script is:inline src="https://cdn.jsdelivr.net/npm/@staticcms/core@1.0.0-beta10/dist/static-cms-core.js"></script> -->
   
 </body>
 </html>
@@ -30,32 +32,49 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
     
 </script> -->
 
-    <!-- <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script> -->
-<!-- <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script> -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
 <script>
     import CMS from '@staticcms/core'
-    import { faPalette, faCog, faPager, faSitemap } from '@fortawesome/free-solid-svg-icons';
+    import { faPalette,
+            faUsersRectangle,
+            faCog,
+            faPager, 
+            faSitemap, 
+            faUserGroup, 
+            faNewspaper, 
+            faCode,
+            faPersonChalkboard } from '@fortawesome/free-solid-svg-icons';
     import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-const icon = document.querySelector('body > div').innerHTML
-console.log(icon)
-console.log("hej")
+    import ReactMarkdown from 'react-markdown'
+    const markdown = document.getElementById('data').dataset.md
+    console.log(markdown)
+    // const instruktioner = Astro.glob("../../data/nyheter/info1.md")
     CMS.init();
-    CMS.registerIcon('house', function () {
+
+    //Testade olika syntax, den tredje var ju enklast så använd den
+    CMS.registerIcon('cog', function () {
         return h(FontAwesomeIcon, {icon: faCog, size: "lg"})
     })
-
+    CMS.registerIcon('usergroup', () => {return h(FontAwesomeIcon, {icon: faUserGroup, size: 'lg'})})
+    CMS.registerIcon('newspaper', ()=>h(FontAwesomeIcon, {icon: faNewspaper, size: 'lg'}))
+    CMS.registerIcon('sitemap', ()=>h(FontAwesomeIcon, {icon: faSitemap, size: 'lg'}))
+    CMS.registerIcon('code', ()=>h(FontAwesomeIcon, {icon: faCode, size: 'lg'}))
+    CMS.registerIcon('userrectangle', ()=>h(FontAwesomeIcon, {icon: faUsersRectangle, size: 'lg'}))
+    CMS.registerIcon('chalkboard', ()=>h(FontAwesomeIcon, {icon: faPersonChalkboard, size: 'lg'}))
 
     const CustomPage = () => {
-  return h('div', {}, 'I am a custom page!');
-};
+      return h(ReactMarkdown, {children: markdown});
+    };
 
-CMS.registerAdditionalLink({
-  id: 'custom-page',
-  title: 'Custom Page',
-  data: CustomPage,
-  options: {
-    icon: 'page',
-  },
-});
-  </script>
+    CMS.registerAdditionalLink({
+      id: 'instruktioner',
+      title: 'Instruktioner',
+      data: CustomPage,
+      options: {
+        icon: 'chalkboard',
+      },
+    });
+
+</script>

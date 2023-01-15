@@ -13,30 +13,35 @@
       "childPages": [
         {
           "btnName": "Styrelsen",
-          "url": "/om-sektionen/styrelsen"
+          "url": "/om-sektionen/styrelsen",
+          "isOpaque": false
         },
         {
           "btnName": "Kodvet",
-          "url": "/om-sektionen/kodvet"
+          "url": "/om-sektionen/kodvet",
+          "isOpaque": false
         },
         {
           "btnName": "Kognitivet",
-          "url": "/om-sektionen/kognitivet"
+          "url": "/om-sektionen/kognitivet",
+          "isOpaque": false
         },
         {
           "btnName": "KVIT",
-          "url": "/om-sektionen/kvit"
+          "url": "/om-sektionen/kvit",
+          "isOpaque": false
         },
         {
           "btnName": "Utbildningsutskottet",
-          "url": "/om-sektionen/utbildnings-utskottet"
+          "url": "/om-sektionen/utbildnings-utskottet",
+          "isOpaque": false
         },
         {
           "btnName": "MAFU",
-          "url": "/om-sektionen/mafu"
+          "url": "/om-sektionen/marknadsföringsutskottet",
+          "isOpaque": false
         }
       ]
-      
     },
     {
       "btnName": "För sökande",
@@ -44,21 +49,26 @@
       "childPages": [
         {
           "btnName": "Boende",
-          "url": "/for-sokande/boende"
+          "url": "/for-sokande/boende",
+          "isOpaque": false
         },
         {
           "btnName": "Om programmet",
-          "url": "/for-sokande/om-programmet"
+          "url": "/for-sokande/om-programmet",
+          "isOpaque": false
         },
         {
           "btnName": "Studentliv",
-          "url": "/for-sokande/studentliv"
+          "url": "/for-sokande/studentliv",
+          "isOpaque": false
         },
         {
           "btnName": "FAQ",
-          "url": "/for-sokande/faq"
+          "url": "/for-sokande/faq",
+          "isOpaque": false
         }
-      ]
+      ],
+      "isOpaque": false
     },
     {
       "btnName": "För medlemmar",
@@ -66,50 +76,62 @@
       "childPages": [
         {
           "btnName": "Nyheter",
-          "url": "/for-medlemmar/nyheter"
+          "url": "/for-medlemmar/nyheter",
+          "isOpaque": false
         },
         {
           "btnName": "Anslagstavlan",
-          "url": "/for-medlemmar/anslagstavlan"
+          "url": "/for-medlemmar/anslagstavlan",
+          "isOpaque": false
         },
         {
           "btnName": "Arbetsmiljö",
-          "url": "/for-medlemmar/arbetsmiljö"
+          "url": "/for-medlemmar/arbetsmiljö",
+          "isOpaque": false
         },
         {
           "btnName": "kalender",
-          "url": "/for-medlemmar/kalender"
+          "url": "/for-medlemmar/kalender",
+          "isOpaque": false
         },
         {
           "btnName": "Klagolådan",
-          "url": "/for-medlemmar/klagolådan"
+          "url": "/for-medlemmar/klagolådan",
+          "isOpaque": false
         },
         {
           "btnName": "Koggidoren",
-          "url": "/for-medlemmar/koggidoren"
+          "url": "/for-medlemmar/koggidoren",
+          "isOpaque": false
         },
         {
           "btnName": "Kurser",
-          "url": "/for-medlemmar/kurser"
+          "url": "/for-medlemmar/kurser",
+          "isOpaque": false
         },
         {
           "btnName": "STUFF",
-          "url": "/for-medlemmar/stuff"
+          "url": "/for-medlemmar/stuff",
+          "isOpaque": false
         },
         {
           "btnName": "Utbyte",
-          "url": "/for-medlemmar/utbyte"
+          "url": "/for-medlemmar/utbyte",
+          "isOpaque": false
         },
         {
           "btnName": "Dokument",
-          "url": "/for-medlemmar/dokument"
+          "url": "/for-medlemmar/dokument",
+          "isOpaque": false
         }
-      ]
+      ],
+      "isOpaque": false
     },
     {
       "btnName": "Kontakt",
       "url": "/kontakt",
-      "childPages": []
+      "childPages": [],
+      "isOpaque": false
     }
   ]
 }

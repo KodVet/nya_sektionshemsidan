@@ -1,7 +1,6 @@
 ---
-titel: 'Utbildnings-utskottet'
+title: Utbildnings-utskottet
 ---
-
 # Utbildningsutskottet
 
 Utbildningsutskottet är sektionens länk till programmet och verkar för att bibehålla och förbättra kvalitén på utbildningen. Som student ska man kunna ha möjlighet att vara med och påverka utbildningen man läser och detta förutsätts bland annat av en god löpande kontakt med programledningen.

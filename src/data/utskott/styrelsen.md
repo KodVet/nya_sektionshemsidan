@@ -1,5 +1,5 @@
 ---
-titel: 'Styrelsen'
+title: Styrelsen
 ---
 ![1672328258901](https://www.kogvet.se/wp-content/uploads/2022/10/hemsidagb-1024x683.png)
 
