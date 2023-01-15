@@ -1,5 +1,5 @@
 backend:
-  name: proxy
+  name: gitlab
   repo: Kodvet/sektionshemsidan # Path to your GitLab repository
   auth_type: pkce # Required for implicit grant
   app_id: 1fd03c5ff044c3a3abff03589e28d67bce9b3ccb0ff2ad39764fd46e4dbf0c38 # Application ID from your GitLab settings
@@ -8,7 +8,7 @@ backend:
   auth_endpoint: oauth/authorize
   branch: main
 
-local_backend: true
+local_backend: false
 logo_url: https://sektionshemsidan.netlify.app/images/Sektionslogga 1.png
 display_url: http://localhost:3000/
 media_folder: "/static/images"
