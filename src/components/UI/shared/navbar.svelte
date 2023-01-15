@@ -46,6 +46,7 @@ onMount(() =>{
     document.addEventListener('swup:contentReplaced', ()=> {
         console.log("sidan uppdaterades av swup")
         readLinks()
+        adjustPads()
         hero = document.getElementById('heroimg')
         if (hero) intersectionObserver.observe(hero)
     
@@ -189,7 +190,6 @@ function handleNavigation(href) {
     //Kollar om navbaren ska vara genomskinlig
     isOpaque = Boolean(currentPage.isOpaque) 
     
-    adjustPads()
 }
 
 let lastCallms = 0
