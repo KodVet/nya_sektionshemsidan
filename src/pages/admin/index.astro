@@ -25,8 +25,6 @@ const markdown = instruktioner.map(md=>md.rawContent())
     }
 </style>
 
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
 <script>
     import CMS from '@staticcms/core'
@@ -42,7 +40,6 @@ const markdown = instruktioner.map(md=>md.rawContent())
     import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
     import ReactMarkdown from 'react-markdown'
     const markdown = document.getElementById('data').dataset.md
-    console.log(markdown)
     // const instruktioner = Astro.glob("../../data/nyheter/info1.md")
     CMS.init();
 
