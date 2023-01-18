@@ -178,9 +178,9 @@ function handleNavigation(href) {
     
     //Sätter ny active
     if (!href.startsWith('#')) active = href.replace(/\#.*/, '') //Tar bort anchors från URLen, så att active alltid motsvarar någon länk i navbaren 
-   
+
     //Letar rätt på nuvarande sida i navbarConfig.json, för att kunna kolla inställningar
-    let currentPage = pages.find(page => page.url.split('/')[1] === href_topPath)
+    let currentPage = pages.find(page => page.url.split('/')[1] === active.split('/')[1])
     //Om currentPage.url bara börjar på active, men inte helt stämmer övererns,
     //innebär det att currentPage är någon underordnad sida
     if (!(currentPage.url === active)) {
