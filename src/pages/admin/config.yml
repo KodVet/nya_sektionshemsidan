@@ -21,7 +21,7 @@ collections: # A list of collections the CMS should be able to edit
     label_singular: nyhet
     folder: src/data/nyheter
     create: true
-    slug: '{{slug}}-{{date}}'
+    slug: '{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}'
     icon: newspaper
     view_filters:
       - label: Utkast
@@ -57,7 +57,7 @@ collections: # A list of collections the CMS should be able to edit
     folder: 'src/data/medlemmar'
     icon: usergroup
     create: true
-    slug: '{{slug}}'
+    slug: '{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}'
     editor:
       preview: false
     view_groups:
@@ -78,7 +78,7 @@ collections: # A list of collections the CMS should be able to edit
     label: 'Utskott'
     folder: 'src/data/utskott'
     icon: userrectangle
-    slug: '{{slug}}'
+    slug: '{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}'
     create: true
     editor:
       sortable_fields: [title]
