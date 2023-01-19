@@ -2,7 +2,8 @@
 import Layout from '../layouts/baseLayout.astro';
 import Hero from '../components/content/hero.astro';
 
-const news = await Astro.glob('../data/nyheter/*.md')
+const posts = await Astro.glob('../data/nyheter/*.md')
+const publishedPosts = posts.filter(post => !post.frontmatter.draft)
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // console.log(news)
@@ -15,7 +16,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 		<h1>Nyheter</h1>
 		<span class="line"></span>
 		<div class="newsList">
-			{news.slice(0, 3).map(({Content, frontmatter, getHeadings}, index) =>
+			{publishedPosts.slice(0, 3).map(({Content, frontmatter, getHeadings}, index) =>
 				<article style={`flex-direction: ${index%2===0?'row':'row-reverse'}`}>
 					<div class="img">
 							<img src={frontmatter.img} alt=""/>

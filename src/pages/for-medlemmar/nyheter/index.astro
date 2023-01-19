@@ -2,6 +2,7 @@
 import Sidebar from '../../../components/UI/sidebar.astro';
 import Layout from '../../../layouts/baseLayout.astro';
 const posts = await Astro.glob('../../../data/nyheter/*.md')
+const publishedPosts = posts.filter(post => !post.frontmatter.draft)
 import Contentbox from '../../../components/content/Contentbox.astro';
 import {max_height} from '../../../components/UI/navbar.svelte'
 // log om man vill kolla
@@ -14,7 +15,7 @@ import {max_height} from '../../../components/UI/navbar.svelte'
 	<div class="wrapper">
 		<Sidebar posts={posts.map(({frontmatter}) => frontmatter)} />
 		<section id="inlägg">
-			{posts.map(({ frontmatter, Content }) =>
+			{publishedPosts.map(({ frontmatter, Content }) =>
 			<div class="post">
 			<div class="scrollAnchor" id={frontmatter.title} style={`--max-height: ${max_height}px`}></div>
 			<Contentbox>
