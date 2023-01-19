@@ -1,5 +1,5 @@
 ---
-title: Utbildnings-utskottet
+title: Utbildningsutskottet
 ---
 # Utbildningsutskottet
 

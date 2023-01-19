@@ -69,7 +69,7 @@ collections: # A list of collections the CMS should be able to edit
         field: utskott
     fields:
     - { label: 'Namn', name: 'namn', widget: 'string'}
-    - { labek: 'Utskott', name: 'utskott', widget: relation, collection: utskott, value_field: title, search_fields: ['title'] }
+    - { labek: 'Utskott', name: 'utskott', widget: relation, collection: utskott, value_field: 'title', search_fields: ['title'] }
     - { label: 'Post', name: 'post', widget: 'string'}
     - { label: 'Kogvet mail', name: 'kontakt', widget: 'string'}
     - { label: 'Bild', name: 'bild', widget: 'image', media_library: {choose_url: true}}
