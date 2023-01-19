@@ -1,5 +1,5 @@
 <script>
-    import pages from '../../../navbarConfig.json'
+    import pages from '../../data/navbarConfig.json'
 </script>
  
  <nav>

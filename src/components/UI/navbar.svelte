@@ -5,7 +5,7 @@
 import { afterUpdate, beforeUpdate, onMount } from "svelte";
 export let baseUrl;
 export let active;
-import { pages } from '../../../navbarConfig.json'
+import { pages } from '../../data/navbarConfig.json'
 let navbar;
 let yScrollPosition;
 let viewportWidth;
