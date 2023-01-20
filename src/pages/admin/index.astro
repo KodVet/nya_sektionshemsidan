@@ -26,13 +26,10 @@ const markdown = instruktioner.map(md=>md.rawContent())
         document.head.appendChild(link)
       },2500)
     </script>
+
 </body>
 </html>
-<style>
-    body > div {
-        display: none;
-    }
-</style>
+
 
 
 <script>
@@ -62,6 +59,14 @@ const markdown = instruktioner.map(md=>md.rawContent())
     CMS.registerIcon('code', ()=>h(FontAwesomeIcon, {icon: faCode, size: 'lg'}))
     CMS.registerIcon('userrectangle', ()=>h(FontAwesomeIcon, {icon: faUsersRectangle, size: 'lg'}))
     CMS.registerIcon('chalkboard', ()=>h(FontAwesomeIcon, {icon: faPersonChalkboard, size: 'lg'}))
+    
+    const GitLabIcon = () => {
+      return h('img', {src: '/gitlab.png', height: '20', width: '20'})
+      
+    }
+    const NetlifyIcon = () => h('img', {src: '/netlify.webp', height: '20', width: '20'})
+    CMS.registerIcon('netlify', NetlifyIcon)
+    CMS.registerIcon('gitlab', GitLabIcon)
 
     const CustomPage = () => {
       return h(ReactMarkdown, {children: markdown});
@@ -75,5 +80,20 @@ const markdown = instruktioner.map(md=>md.rawContent())
         icon: 'chalkboard',
       },
     });
-
+    CMS.registerAdditionalLink({
+      id: 'gitlab',
+      title: 'GitLab ↗',
+      data: 'https://gitlab.liu.se/Kodvet/sektionshemsidan',
+      options: {
+        icon: 'gitlab'
+      }
+    })
+    CMS.registerAdditionalLink({
+      id: 'netlify',
+      title: 'Netlify ↗',
+      data: 'https://app.netlify.com/teams/webbgruppen-kogvet/overview',
+      options: {
+        icon: 'netlify'
+      }
+    })
 </script>
