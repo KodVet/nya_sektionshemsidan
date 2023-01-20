@@ -16,7 +16,7 @@ const markdown = instruktioner.map(md=>md.rawContent())
 <body>
     <div id="data" data-md={markdown}>
     </div>
-    <script is:inline src="https://unpkg.com/@staticcms/app@^1.0.0/dist/static-cms-app.js"></script>
+    <script is:inline src="https://unpkg.com/@staticcms/app@1.0.0/dist/static-cms-app.js"></script>
 </body>
 </html>
 <style>
@@ -40,8 +40,7 @@ const markdown = instruktioner.map(md=>md.rawContent())
     import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
     import ReactMarkdown from 'react-markdown'
     const markdown = document.getElementById('data').dataset.md
-    // const instruktioner = Astro.glob("../../data/nyheter/info1.md")
-    CMS.init();
+    CMS.init({config});
 
     //Testade olika syntax, den tredje var ju enklast så använd den
     CMS.registerIcon('cog', function () {
