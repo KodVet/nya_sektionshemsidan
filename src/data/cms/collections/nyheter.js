@@ -6,6 +6,16 @@ const nyheter = {
     create: true,
     slug: "{{slug}}",
     icon: "newspaper",
+    sortable_fields: {
+        fields: [
+            'date',
+            'author'
+        ],
+        default: {
+            field: 'date',
+            direction: 'Descending'
+        }
+    },
     view_filters: [
     {
         label: "Utkast",
