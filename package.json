@@ -28,7 +28,7 @@
     "svelte": "^3.55.0"
   },
   "devDependencies": {
-    "@staticcms/core": "^1.0.0-beta.13",
+    "@staticcms/core": "^1.1.1",
     "@swup/head-plugin": "^1.2.1",
     "@swup/scroll-plugin": "^1.3.2",
     "sass": "^1.55.0",
