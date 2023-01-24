@@ -49,7 +49,7 @@
       "required": false,
       "name": "post_hel",
       "label": "Fullständig post",
-      "hint": "För AMO, MYSA, etc. Om ni har en förkortning, skriv hela posten här. Om detta fält fylls i, är det det som kommer läggas bredvid ert namt slutet av er \"post\" på medlemskorten."
+      "hint": "För AMO, MYSA, etc. Om ni har en förkortning, skriv hela posten här. Om detta fält fylls i, är det det som kommer läggas framför ert namn i början av er \"post\" på medlemskorten."
     },
     {
       "label": "Kogvet mail",
