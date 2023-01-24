@@ -1,11 +1,11 @@
 ---
 draft: false
-author: Gurra
+author: Gurra - Hacker
 title: Gustaf är en riktigt hacker
 date: 01-January-1912
 img: /images/6999295.jpg
-excerpt: Visste ni att Gustaf är en riktig hacker. Aa, faktiskt. Han gjort det
-  mesta här. Han vet också hur man lagar korv och makaroner\r
+excerpt: "Visste ni att Gustaf är en riktig hacker. Aa, faktiskt. Han gjort det
+  mesta här. Han vet också hur man lagar korv och makaroner\\r\r"
 ---
 # Woman Will Never Know Intimacy Like Passing Garbage Truck Drivers Slowing Down To Point At Each Other
 

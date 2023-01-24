@@ -24,10 +24,11 @@ medlemmar.map(medlem => console.log(medlem.frontmatter.namn))
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<div class="container" slot="content">
 			<Content/>
-			{medlemmar.map(({ frontmatter: {post, namn, kontakt, bild}, Content }, index) =>
+			{medlemmar.map(({ frontmatter: {post, post_hel, namn, kontakt, bild}, Content }, index) =>
 			<div class="cardContainer">
 				<MänniskaCard client:visible
 				post={post}
+				post_hel={post_hel}
 				namn={namn}
 				kontakt={kontakt} 
 				bild={bild}

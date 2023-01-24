@@ -1,61 +1,84 @@
 {
-    "name":"medlemmar",
-    "identifier_field":"namn",
-    "label":"Medlemmar",
-    "label_singular":"Medlem",
-    "folder":"src/data/medlemmar",
-    "icon":"usergroup",
-    "create":true,
-    "slug":"{{slug}}",
-    "editor":{
-      "preview":false
+  "name": "medlemmar",
+  "identifier_field": "namn",
+  "label": "Medlemmar",
+  "label_singular": "Medlem",
+  "folder": "src/data/medlemmar",
+  "icon": "usergroup",
+  "create": true,
+  "slug": "{{slug}}",
+  "editor": {
+    "preview": false,
+    "frame": false
+  },
+  "view_groups": [
+    {
+      "label": "Utskott",
+      "field": "utskott"
+    }
+  ],
+  "fields": [
+    {
+      "label": "Namn",
+      "name": "namn",
+      "widget": "string",
+      "required": true
     },
-    "view_groups":[
-      {
-        "label":"Utskott",
-        "field":"utskott"
+    {
+      "label": "Utskott",
+      "name": "utskott",
+      "widget": "relation",
+      "collection": "utskott",
+      "value_field": "title",
+      "search_fields": [
+        "title"
+      ],
+      "required": true,
+      "multiple": false,
+      "options_lenght": 20
+    },
+    {
+      "label": "Post",
+      "name": "post",
+      "widget": "string",
+      "required": true,
+      "hint": "Om ni har en förkortning, skriv den här. Det som står här kommer att läggas bredvid ert namn på nyhetsinlägg."
+    },
+    {
+      "widget": "string",
+      "required": false,
+      "name": "post_hel",
+      "label": "Fullständig post",
+      "hint": "För AMO, MYSA, etc. Om ni har en förkortning, skriv hela posten här. Om detta fält fylls i, är det det som kommer läggas bredvid ert namt slutet av er \"post\" på medlemskorten."
+    },
+    {
+      "label": "Kogvet mail",
+      "name": "kontakt",
+      "widget": "string",
+      "required": true
+    },
+    {
+      "label": "Bild",
+      "name": "bild",
+      "widget": "image",
+      "media_library": {
+        "choose_url": true,
+        "allow_multiple": true
+      },
+      "required": true
+    },
+    {
+      "label": "Om mig",
+      "name": "body",
+      "widget": "markdown",
+      "required": false,
+      "hint": "(Ni får själv velja om detta ska vara obligatoriskt)  Skriv lite om dig själv, varförd du valde kogvet, linköping.  Varför du sökte till din post. Eller bara något roligt, fan vet jag",
+      "media_library": {
+        "allow_multiple": true,
+        "choose_url": true
       }
-    ],
-    "fields":[
-      {
-        "label":"Namn",
-        "name":"namn",
-        "widget":"string"
-      },
-      {
-        "label":"Utskott",
-        "name":"utskott",
-        "widget":"relation",
-        "collection":"utskott",
-        "value_field":"title",
-        "search_fields":[
-          "title"
-        ]
-      },
-      {
-        "label":"Post",
-        "name":"post",
-        "widget":"string"
-      },
-      {
-        "label":"Kogvet mail",
-        "name":"kontakt",
-        "widget":"string"
-      },
-      {
-        "label":"Bild",
-        "name":"bild",
-        "widget":"image",
-        "media_library":{
-          "choose_url":true
-        }
-      },
-      {
-        "label":"Om mig",
-        "name":"body",
-        "widget":"markdown",
-        "required":false,
-        "hint":"(Ni får själv velja om detta ska vara obligatoriskt)  Skriv lite om dig själv, varförd du valde kogvet, linköping.  Varför du sökte till din post. Eller bara något roligt, fan vet jag"
-      }
-    ]
-  }
+    }
+  ],
+  "hide": false,
+  "delete": true
+}

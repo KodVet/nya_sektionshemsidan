@@ -1,6 +1,6 @@
 ---
 draft: false
-author: Nathalie Wahlner
+author: Nathalie Wahlner - Informatör
 title: Dagordning för höstmöte
 date: 23-November-2022
 img: /1673306163329.png

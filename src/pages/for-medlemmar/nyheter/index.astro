@@ -19,6 +19,7 @@ import {max_height} from '../../../components/UI/navbar.svelte'
 			<div class="post">
 			<div class="scrollAnchor" id={frontmatter.title} style={`--max-height: ${max_height}px`}></div>
 			<Contentbox>
+				<h3>{frontmatter.author}</h3> 
 				<Content/>
 			</Contentbox>
 			</div>

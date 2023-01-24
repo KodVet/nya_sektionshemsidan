@@ -1,6 +1,7 @@
 
 <script>
     export let namn;
+    export let post_hel;
     export let post;
     export let kontakt;
     export let bild;
@@ -56,7 +57,7 @@
 <div class={direction + " wrapper"} class:expanded="{expanded}">
     <img src={bild} alt="en fin bild på en person">
     <div class="txt">
-    <p><b>{post}:</b> {namn}</p> 
+    <p><b>{post_hel ? `${post_hel} - ${post}`: post}:</b> {namn}</p> 
     <p><b>Kontakt:</b> {kontakt}</p>
     </div>
     {#if hasContent}
