@@ -33,8 +33,10 @@ const markdown = instruktioner.map(md=>md.rawContent())
 
 
 <script>
-    // import CMS from '@staticcms/app'
+  // import { parseContentKey } from '@staticcms/core';
+    // import CMS from '@staticcms/core'
     import config from '../../data/cms/config'
+    config.backend.branch = 'preview'
     import { faPalette,
             faUsersRectangle,
             faCog,
