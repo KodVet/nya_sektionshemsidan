@@ -10,7 +10,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname} isOpaque={true}>
 	<div class="hero">
-		<Hero />		
+		<Hero />
 	</div>
 	<div class="news">
 		<h1>Nyheter</h1>
@@ -27,22 +27,11 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 						</div>
 						<div class="date"><small>{frontmatter.date}</small></div>
 						<div class="excerpt">{frontmatter.excerpt}</div>
-					</div>					
+					</div>
 				</article>
 			)}
 		</div>
 	</div>
-	<script>
-		if (window.netlifyIdentity) {
-		  window.netlifyIdentity.on("init", user => {
-			if (!user) {
-			  window.netlifyIdentity.on("login", () => {
-				document.location.href = "/admin/";
-			  });
-			}
-		  });
-		}
-	  </script>
 </Layout>
 
 <style lang="scss">
@@ -50,6 +39,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 		z-index: 2;
 		min-height: 100vh;
 		margin-bottom: 5%;
+		filter: chroma(color = #FFF);
 	}
 	.news {
 		width: clamp(500px, 70vw, 1200px);
