@@ -7,8 +7,8 @@
     "api_root": "https://gitlab.liu.se/api/v4",
     "base_url": "https://gitlab.liu.se/",
     "auth_endpoint": "oauth/authorize",
-    "branch": "preview",
-    "site_domain": "https://sektionshemsidan.netlify.app/"
+    "branch": "main",
+    "site_domain": "https://sektionshemsidan.netlify.app"
   },
   "local_backend": false,
   "logo_url": "https://sektionshemsidan.netlify.app/images/Sektionslogga 1.png",
