@@ -37,6 +37,7 @@ const markdown = instruktioner.map(md=>md.rawContent())
     // import CMS from '@staticcms/core'
     import config from '../../data/cms/config'
     config.backend.branch = 'preview'
+    config.display_url = "https://preview--sektionshemsidan.netlify.app"
     import { faPalette,
             faUsersRectangle,
             faCog,
@@ -106,7 +107,7 @@ const markdown = instruktioner.map(md=>md.rawContent())
     CMS.registerAdditionalLink({
       id: 'preview',
       title: 'Preview',
-      data: () => h('iframe', {src: 'https://preview--sektionshemsidan.netlify.app', height: '100%', width: '100%'})
+      data: () => h('div', {style: {height: '100%', width: '100%',resize: 'both', overflow: 'hidden'}}, h('iframe', {src: 'https://preview--sektionshemsidan.netlify.app', height: '100%', width: '100%'}))
     })
     CMS.registerPreviewTemplate('nyheter', Nyheter)
     console.log(config)

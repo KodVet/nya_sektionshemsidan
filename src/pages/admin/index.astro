@@ -101,13 +101,8 @@ const markdown = instruktioner.map(md=>md.rawContent())
       }
     })
 
-    CMS.registerAdditionalLink({
-      id: 'preview',
-      title: 'Preview',
-      data: () => h('iframe', {src: 'https://preview--sektionshemsidan.netlify.app', height: '100%', width: '100%'})
-    })
+
     CMS.registerPreviewTemplate('nyheter', Nyheter)
     console.log(config)
 
-    
 </script>
