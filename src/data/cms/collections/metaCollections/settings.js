@@ -5,7 +5,7 @@ const meta = {
       {
         name: "settings",
         label: 'Settings',
-        file: "config/settings.json",
+        file: "src/data/cms/settings.json",
         fields: [
           {
             name: "backend",
