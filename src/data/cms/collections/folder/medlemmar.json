@@ -42,14 +42,14 @@
       "name": "post",
       "widget": "string",
       "required": true,
-      "hint": "Om ni har en förkortning, skriv den här. Det som står här kommer att läggas bredvid ert namn på nyhetsinlägg."
+      "hint": "Om ni har en förkortning, skriv den här. Det som står här kommer att läggas bredvid ert namn på nyhetsinlägg och medkemskorten."
     },
     {
       "widget": "string",
       "required": false,
       "name": "post_hel",
       "label": "Fullständig post",
-      "hint": "För AMO, MYSA, etc. Om ni har en förkortning, skriv hela posten här. Om detta fält fylls i, är det det som kommer läggas framför ert namn i början av er \"post\" på medlemskorten."
+      "hint": "För AMO, MYSA, etc. Om ni har en förkortning, skriv hela posten här. Om detta fält fylls i, kommer det läggas framför er \"post\" på medlemskorten. Det kommer inte användas för nyhetsinlägg."
     },
     {
       "label": "Kogvet mail",
@@ -72,7 +72,7 @@
       "name": "body",
       "widget": "markdown",
       "required": false,
-      "hint": "(Ni får själv velja om detta ska vara obligatoriskt)  Skriv lite om dig själv, varförd du valde kogvet, linköping.  Varför du sökte till din post. Eller bara något roligt, fan vet jag",
+      "hint": "(Ni får själv velja om detta ska vara obligatoriskt)  Skriv lite om dig själv, varförd du valde kogvet, linköping.  Varför du sökte till din post. Eller bara något roligt, fan vet jag. Detta kommer dyka upp efter \"läs mer\" klickas.",
       "media_library": {
         "allow_multiple": true,
         "choose_url": true
