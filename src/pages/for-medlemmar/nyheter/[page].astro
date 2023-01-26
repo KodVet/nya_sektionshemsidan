@@ -1,0 +1,62 @@
+---
+import Sidebar from '../../../components/UI/sidebar.astro';
+import Layout from '../../../layouts/baseLayout.astro';
+
+import Contentbox from '../../../components/content/Contentbox.astro';
+import {max_height} from '../../../components/UI/navbar.svelte'
+// log om man vill kolla
+// posts.map((post) => {
+// 	console.log('post här ', post)
+// })
+// console.log(max_height)
+
+export async function getStaticPaths({ paginate }) {
+	const posts = await Astro.glob('../../../data/nyheter/*.md')
+const publishedPosts = posts.filter(post => !post.frontmatter.draft)
+    return paginate(publishedPosts, { pageSize: 2 })
+}
+const { page } = Astro.props
+---
+<Layout title="Kodvet är bäst" active={Astro.url.pathname}>
+	<div class="wrapper" data-page-json={JSON.stringify(page)}>
+		<script is:inline>
+			console.log(JSON.parse(document.querySelector('.wrapper[data-page-json]').dataset.pageJson))
+		</script>
+		<Sidebar posts={page.data.map(({frontmatter}) => frontmatter)} />
+		<section id="inlägg">
+			{page.data.map(({ frontmatter, Content }) =>
+			<div class="post">
+			<div class="scrollAnchor" id={frontmatter.title} style={`--max-height: ${max_height}px`}></div>
+			<Contentbox>
+				<h3>{frontmatter.author}</h3> 
+				<Content/>
+			</Contentbox>
+			</div>
+		)}
+		{page.url.prev && <a href={page.url.prev}><button>Förra</button></a>}
+		{page.url.next && <a href={page.url.next}><button>Nästa</button></a>}
+		</section>	
+	</div>
+
+</Layout>
+
+<style>
+	.wrapper {
+		display: flex;
+	}
+	/* dessa funkar som "ankare" för att autoscrolla till */
+	.scrollAnchor {
+		display: block;
+		position: relative;
+		top: -200px;
+		visibility: hidden;
+	}
+	#inlägg {
+		display: flex;
+		flex-direction: column;
+		margin: 50px;
+		gap: 300px;
+	}
+
+</style>
+
