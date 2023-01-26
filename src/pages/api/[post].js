@@ -19,7 +19,6 @@ export function getStaticPaths () {
         rawContent: post.rawContent(),
         compiledContent: post.compiledContent(),
         getHeadings: post.getHeadings(),
-        getHeaders: post.getHeaders(),
       }),
     };
   }
