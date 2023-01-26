@@ -10,6 +10,11 @@ const swup = new Swup({
   plugins: [
     new SwupScriptsPlugin(),
     new SwupHeadPlugin(),
+    new SwupRouteNamePlugin({
+      routes: [
+        { name: 'start', path: '/'}
+      ]
+    }),
     new SwupScrollPlugin({
       animateScroll: {
         samePageWithHash: true,
