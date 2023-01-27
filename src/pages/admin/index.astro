@@ -102,4 +102,61 @@ const markdown = instruktioner.map(md=>md.rawContent())
     CMS.registerPreviewTemplate('nyheter', Nyheter)
     console.log(config)
 
+    const PostPreviewCard = ({ entry, widgetFor, viewStyle }) => {
+  return h(
+    'div',
+    { style: { width: '100%' } },
+    viewStyle === 'grid' ? widgetFor('image') : null,
+    h(
+      'div',
+      { style: { padding: '16px', width: '100%' } },
+      h(
+        'div',
+        {
+          style: {
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          },
+        },
+        h(
+          'div',
+          {
+            style: {
+              display: 'flex',
+              flexDirection: viewStyle === 'grid' ? 'column' : 'row',
+              alignItems: 'center',
+              gap: '38px',
+              flexGrow: '1'
+            },
+          },
+          h('strong', { style: { fontSize: '16px', width: '25%' } }, entry.data.title),
+          h('span', { style: { fontSize: '16px', width: '25%' } }, entry.data.author.map((auth, index) => h('span', {}, entry.data.author[index + 1] ? auth + ',  ' : auth))),
+          h('span', { style: { fontSize: '16px', width: '25%' } }, entry.data.date),
+        ),
+        h(
+          'div',
+          {
+            style: {
+              backgroundColor: entry.data.draft === true ? 'grey' : 'green',
+              color: 'white',
+              border: 'none',
+              padding: '4px 8px',
+              textAlign: 'center',
+              textDecoration: 'none',
+              display: 'inline-block',
+              cursor: 'pointer',
+              borderRadius: '4px',
+              fontStyle: 'strong'
+            },
+          },
+          entry.data.draft === true ? 'Utkast' : 'Publicerad',
+        ),
+      ),
+    ),
+  );
+};
+
+CMS.registerPreviewCard('nyheter', PostPreviewCard);
 </script>
