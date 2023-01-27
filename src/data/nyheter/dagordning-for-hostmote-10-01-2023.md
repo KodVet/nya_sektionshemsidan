@@ -1,6 +1,11 @@
 ---
 draft: false
-author: Nathalie Wahlner - Informatör
+author:
+  - Nathalie Enkvist
+  - Lina Sandin
+useNamn: true
+usePost: false
+useUtskott: true
 title: Dagordning för höstmöte
 date: 23-November-2022
 img: /1673306163329.png

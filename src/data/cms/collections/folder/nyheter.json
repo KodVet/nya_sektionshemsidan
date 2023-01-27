@@ -1,98 +1,136 @@
 {
-    "name":"nyheter",
-    "label":"Nyheter",
-    "label_singular":"nyhet",
-    "folder":"src/data/nyheter",
-    "create":true,
-    "slug":"{{slug}}",
-    "icon":"newspaper",
-    "sortable_fields":{
-      "fields":[
-        "date",
-        "author"
+  "name": "nyheter",
+  "label": "Nyheter",
+  "label_singular": "nyhet",
+  "folder": "src/data/nyheter",
+  "create": true,
+  "slug": "{{slug}}",
+  "icon": "newspaper",
+  "sortable_fields": {
+    "fields": [
+      "date",
+      "author"
+    ],
+    "default": {
+      "field": "date",
+      "direction": "Descending"
+    }
+  },
+  "view_filters": [
+    {
+      "label": "Utkast",
+      "field": "draft",
+      "pattern": "true"
+    },
+    {
+      "label": "Publicerade",
+      "field": "draft",
+      "pattern": "false"
+    }
+  ],
+  "view_groups": [
+    {
+      "label": "Månad publicerad",
+      "field": "date",
+      "pattern": "[a-zA-Z]+"
+    },
+    {
+      "label": "Författare",
+      "field": "author"
+    }
+  ],
+  "editor": {
+    "preview": true,
+    "frame": true
+  },
+  "fields": [
+    {
+      "label": "Utkast?",
+      "name": "draft",
+      "widget": "boolean",
+      "required": true,
+      "default": false
+    },
+    {
+      "label": "Författare",
+      "name": "author",
+      "widget": "relation",
+      "collection": "medlemmar",
+      "value_field": "{{namn}}",
+      "search_fields": [
+        "namn",
+        "post",
+        "utskott"
       ],
-      "default":{
-        "field":"date",
-        "direction":"Descending"
+      "required": true,
+      "multiple": true,
+      "options_lenght": 20
+    },
+    {
+      "widget": "boolean",
+      "default": true,
+      "name": "useNamn",
+      "label": "Visa namn",
+      "hint": "Visa författarens namn i början av inlägget"
+    },
+    {
+      "widget": "boolean",
+      "default": false,
+      "name": "usePost",
+      "label": "Visa post",
+      "hint": "Visa författarens post efter namnet. "
+    },
+    {
+      "widget": "boolean",
+      "default": false,
+      "name": "useUtskott",
+      "label": "Visa utskott",
+      "hint": "Visa författarens utskott efter posten. "
+    },
+    {
+      "label": "Rubrik",
+      "name": "title",
+      "widget": "string",
+      "required": true
+    },
+    {
+      "label": "Datum",
+      "name": "date",
+      "widget": "datetime",
+      "date_format": "dd-MM-yyyy",
+      "time_format": false,
+      "format": "dd-MMMM-yyyy",
+      "required": true,
+      "picker_utc": false
+    },
+    {
+      "label": "Omslagsbild",
+      "name": "img",
+      "widget": "image",
+      "required": false,
+      "media_library": {
+        "allow_multiple": true,
+        "choose_url": true
       }
     },
-    "view_filters":[
-      {
-        "label":"Utkast",
-        "field":"draft",
-        "pattern":"true"
-      },
-      {
-        "label":"Publicerade",
-        "field":"draft",
-        "pattern":"false"
-      }
-    ],
-    "view_groups":[
-      {
-        "label":"Månad publicerad",
-        "field":"date",
-        "pattern":"[a-zA-Z]+"
-      },
-      {
-        "label":"Författare",
-        "field":"author"
-      }
-    ],
-    "editor":{
-      "preview":true,
-      "frame":true
+    {
+      "label": "Utdrag",
+      "name": "excerpt",
+      "widget": "text",
+      "required": true,
+      "hint": "Detta är det som står på startsidans nyhetsflöden.  Du behöver inte komma på nåt speciellt. Förslagsvis kan du copy pastea 3 första meningarna från inlägget"
     },
-    "fields":[
-      {
-        "label":"Utkast?",
-        "name":"draft",
-        "widget":"boolean"
-      },
-      {
-        "label":"Författare",
-        "name":"author",
-        "widget":"relation",
-        "collection":"medlemmar",
-        "value_field":"{{namn}} - {{post}}",
-        "search_fields":[
-          "namn",
-          "post",
-          "utskott"
-        ]
-      },
-      {
-        "label":"Rubrik",
-        "name":"title",
-        "widget":"string",
-        "required":true
-      },
-      {
-        "label":"Datum",
-        "name":"date",
-        "widget":"datetime",
-        "date_format":"dd-MM-yyyy",
-        "time_format":false,
-        "format":"dd-MMMM-yyyy"
-      },
-      {
-        "label":"Omslagsbild",
-        "name":"img",
-        "widget":"image",
-        "required":false
-      },
-      {
-        "label":"Utdrag",
-        "name":"excerpt",
-        "widget":"text",
-        "required":true,
-        "hint":"Detta är det som står på startsidans nyhetsflöden.  Du behöver inte komma på nåt speciellt. Förslagsvis kan du copy pastea 3 första meningarna från inlägget"
-      },
-      {
-        "label":"Inlägget",
-        "name":"body",
-        "widget":"markdown",
-        "required":true
+    {
+      "label": "Inlägget",
+      "name": "body",
+      "widget": "markdown",
+      "required": true,
+      "media_library": {
+        "allow_multiple": true,
+        "choose_url": true
       }
-    ]
-  }
+    }
+  ],
+  "hide": false,
+  "delete": true
+}

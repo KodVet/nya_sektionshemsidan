@@ -1,6 +1,10 @@
 ---
 draft: false
-author: Gurra - Hacker
+author:
+  - Gurra
+useNamn: true
+usePost: true
+useUtskott: true
 title: Gustaf är en riktigt hacker
 date: 01-January-1912
 img: /images/6999295.jpg

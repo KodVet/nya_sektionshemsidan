@@ -9,10 +9,10 @@ import {max_height} from '../../../components/UI/navbar.svelte'
 // 	console.log('post här ', post)
 // })
 // console.log(max_height)
-
+const medlemmar = await Astro.glob('../../../data/medlemmar/*.md')
 export async function getStaticPaths({ paginate }) {
 	const posts = await Astro.glob('../../../data/nyheter/*.md')
-const publishedPosts = posts.filter(post => !post.frontmatter.draft)
+	const publishedPosts = posts.filter(post => !post.frontmatter.draft)
     return paginate(publishedPosts, { pageSize: 2 })
 }
 const { page } = Astro.props
@@ -24,14 +24,26 @@ const { page } = Astro.props
 		</script>
 		<Sidebar posts={page.data.map(({frontmatter}) => frontmatter)} />
 		<section id="inlägg">
-			{page.data.map(({ frontmatter, Content }) =>
-			<div class="post">
-			<div class="scrollAnchor" id={frontmatter.title} style={`--max-height: ${max_height}px`}></div>
-			<Contentbox>
-				<h3>{frontmatter.author}</h3> 
-				<Content/>
-			</Contentbox>
-			</div>
+			{page.data.map(({ frontmatter, Content }) => {
+				const authors = frontmatter.author.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author))
+				return (
+				<div class="post">
+				<div class="scrollAnchor" id={frontmatter.title} style={`--max-height: ${max_height}px`}></div>
+				<Contentbox>
+					{authors.map(author => 
+						<h3>{frontmatter.useNamn && author.frontmatter.namn}
+							{frontmatter.useNamn && frontmatter.usePost && ' -'}
+							{frontmatter.usePost && author.frontmatter.post}
+							{(frontmatter.usePost && frontmatter.useUtskott || frontmatter.useNamn && frontmatter.useUtskott) && ' -'}
+							{frontmatter.useUtskott && author.frontmatter.utskott}</h3>
+					)}
+					
+					<Content/>
+				</Contentbox>
+				</div>
+				)
+			}
+
 		)}
 		{page.url.prev && <a href={page.url.prev}><button>Förra</button></a>}
 		{page.url.next && <a href={page.url.next}><button>Nästa</button></a>}
