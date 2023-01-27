@@ -171,4 +171,10 @@ const markdown = instruktioner.map(md=>md.rawContent())
 };
 
 CMS.registerPreviewCard('nyheter', PostPreviewCard);
+
+CMS.registerAdditionalLink({
+      id: 'preview',
+      title: 'Preview',
+      data: () => h('div', {style: {height: '100%', width: '100%',resize: 'both', overflow: 'hidden'}}, h('iframe', {src: 'https://sektionshemsidan-test.netlify.app', height: '100%', width: '100%'}))
+    })
 </script>
