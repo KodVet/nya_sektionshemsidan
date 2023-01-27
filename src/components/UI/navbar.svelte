@@ -123,7 +123,7 @@ function adjustPads() {
         if (!ddbutton.querySelector('.ddcontent')) continue
         const pad = ddbutton.querySelector('.pad')
         const ddcontent = ddbutton.querySelector('.ddcontent')
-        pad.style.height = `${ddcontent.clientHeight + 40}px`
+        pad.style.height = `calc(${ddcontent.clientHeight + 40}px + 2vh)`
     };
 }
     
