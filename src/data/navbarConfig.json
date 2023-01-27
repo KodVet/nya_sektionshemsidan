@@ -76,7 +76,7 @@
       "childPages": [
         {
           "btnName": "Nyheter",
-          "url": "/for-medlemmar/nyheter/1",
+          "url": "/for-medlemmar/nyheter/",
           "isOpaque": false
         },
         {
