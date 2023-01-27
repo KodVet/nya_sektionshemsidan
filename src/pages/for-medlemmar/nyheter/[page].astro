@@ -24,18 +24,19 @@ const { page } = Astro.props
 		</script>
 		<Sidebar posts={page.data.map(({frontmatter}) => frontmatter)} />
 		<section id="inlägg">
-			{page.data.map(({ frontmatter, Content }) => {
-				const authors = frontmatter.author.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author))
+			{page.data.map((post) => {
+				const { Content } = post
+				const authors = post.frontmatter.author.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author))
 				return (
 				<div class="post">
-				<div class="scrollAnchor" id={frontmatter.title} style={`--max-height: ${max_height}px`}></div>
+				<div class="scrollAnchor" id={post.frontmatter.title} style={`--max-height: ${max_height}px`}></div>
 				<Contentbox>
 					{authors.map(author => 
-						<h3>{frontmatter.useNamn && author.frontmatter.namn}
-							{frontmatter.useNamn && frontmatter.usePost && ' -'}
-							{frontmatter.usePost && author.frontmatter.post}
-							{(frontmatter.usePost && frontmatter.useUtskott || frontmatter.useNamn && frontmatter.useUtskott) && ' -'}
-							{frontmatter.useUtskott && author.frontmatter.utskott}</h3>
+						<h3>{post.frontmatter.useNamn && author.frontmatter.namn}
+							{post.frontmatter.useNamn && post.frontmatter.usePost && ' -'}
+							{post.frontmatter.usePost && author.frontmatter.post}
+							{(post.frontmatter.usePost && post.frontmatter.useUtskott || post.frontmatter.useNamn && post.frontmatter.useUtskott) && ' -'}
+							{post.frontmatter.useUtskott && author.frontmatter.utskott}</h3>
 					)}
 					
 					<Content/>
