@@ -1,7 +1,4 @@
 ---
-import { faHouse } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 const instruktioner = await Astro.glob("../../data/cms/instruktioner.md")
 const markdown = instruktioner.map(md=>md.rawContent())
 ---
