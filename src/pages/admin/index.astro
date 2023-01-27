@@ -139,6 +139,15 @@ const markdown = instruktioner.map(md=>md.rawContent())
           'div',
           {
             style: {
+              minWidth: '95px',
+              display: 'flex',
+              justifyContent: 'end'
+            }
+          },
+          h(
+          'div',
+          {
+            style: {
               backgroundColor: entry.data.draft === true ? 'grey' : 'green',
               color: 'white',
               border: 'none',
@@ -148,10 +157,13 @@ const markdown = instruktioner.map(md=>md.rawContent())
               display: 'inline-block',
               cursor: 'pointer',
               borderRadius: '4px',
-              fontStyle: 'strong'
+              fontStyle: 'strong',
+              boxShadow: 'rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px',
+              marginLeft: 'auto'
+              
             },
           },
-          entry.data.draft === true ? 'Utkast' : 'Publicerad',
+          entry.data.draft === true ? 'Utkast' : 'Publicerad',)
         ),
       ),
     ),
