@@ -1,34 +1,45 @@
 ---
 import Sidebar from '../../../components/UI/sidebar.astro';
 import Layout from '../../../layouts/baseLayout.astro';
-const posts = await Astro.glob('../../../data/nyheter/*.md')
-const publishedPosts = posts.filter(post => !post.frontmatter.draft)
+const allPosts = await Astro.glob('../../../data/nyheter/*.md')
+const publishedPosts = allPosts.filter(post => !post.frontmatter.draft)
+
+
+// console.log(import.meta\u200b.env.MODE)
 import Contentbox from '../../../components/content/Contentbox.astro';
 import {max_height} from '../../../components/UI/navbar.svelte'
-// log om man vill kolla
-// posts.map((post) => {
-// 	console.log('post här ', post)
-// })
-// console.log(max_height)
+
 ---
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
 	<div class="wrapper">
-		<Sidebar posts={posts.map(({frontmatter}) => frontmatter)} />
+		<Sidebar posts={
+			import.meta.env.STAGING === 'true'
+			? allPosts.map(({frontmatter}) => frontmatter)
+			: publishedPosts.map(({frontmatter}) => frontmatter)
+		}/>
 		<section id="inlägg">
-			{publishedPosts.map(({ frontmatter, Content }) =>
+			{() => {
+				let posts
+				if (import.meta.env.STAGING === "true") posts = allPosts
+				else posts = publishedPosts
+				return posts.map(({ frontmatter, Content }) =>(
 			<div class="post">
 			<div class="scrollAnchor" id={frontmatter.title} style={`--max-height: ${max_height}px`}></div>
 			<Contentbox>
-				<h3>{frontmatter.author}</h3> 
+				<h3>{frontmatter.author}</h3>
 				<Content/>
 			</Contentbox>
-			</div>
-		)}
+			</div>)
+		)
+			}
+			
+			}
 		</section>
 	</div>
-
 </Layout>
-
+<script>
+	console.log(import.meta.env.MODE)
+</script>
 <style>
 	.wrapper {
 		display: flex;
