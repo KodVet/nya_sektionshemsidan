@@ -7,6 +7,8 @@ import "../globalStyles.css";
 import Css from 'json-to-css'
 
 import jsoncss from '../CSSTheme.json'
+import meta from "../data/cms/collections/metaCollections/settings";
+import { env } from "../../.eslintrc.cjs";
 const css = Css.of(jsoncss)
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 // console.log(css)
@@ -17,6 +19,7 @@ const {
 	customHead = false
 } = Astro.props;
 // const { customHead = false } = Astro.props;
+console.log(import.meta.env)
 ---
 
 <!DOCTYPE html>
@@ -41,7 +44,7 @@ const {
 		<main id="swup">
 			<slot />
 		</main>
-
+		<div>{import.meta.env.PUBLIC_STAGING}</div>
 		<footer id="foot">
 			<div>
 				<h1>Made by kodvet</h1>
