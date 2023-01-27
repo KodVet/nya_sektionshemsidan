@@ -3,6 +3,9 @@ import svelte from "@astrojs/svelte";
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
+import netlify from "@astrojs/netlify/functions";
+
+// https://astro.build/config
 export default defineConfig({
   site: 'https://sektionshemsidan.netlify.app/',
   base: '',
@@ -17,5 +20,7 @@ export default defineConfig({
   // for the build output. So in deviation from the defaults we're using a folder
   // called `static` instead.
   publicDir: 'static',
-  integrations: [svelte(), mdx()]
+  integrations: [svelte(), mdx()],
+  output: "server",
+  adapter: netlify()
 });
