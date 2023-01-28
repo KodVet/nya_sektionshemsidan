@@ -185,10 +185,26 @@ const buildHook = () => {
       return h('div', {}, h('button', {onClick: handleClick}, 'Publicera alllllltt nuuuu!'))
     }
 
+const reloadStatusBadge = () => {
+  async function handleClick() {
+    const url = 'https://api.netlify.com/api/v1/badges/51fa1acc-7b6e-4026-98ac-ce1b29f97754/deploy-status'
+    await fetch(url, { cache: 'reload', mode: 'no-cors' })
+  document.body.querySelectorAll(`img[src='${url}']`)
+    .forEach(img => img.src = url)
+  }
+  return h('div', {}, h('button', {onClick: handleClick}, 'Checka bygge'))
+}
+
+const reloadPreviewFrame = () => {
+  function handleClick() {
+    document.getElementById('previewFrame').src = document.getElementById('previewFrame').src
+  }
+  return h('div', {}, h('button', {onClick: handleClick}, 'Checka preview'))
+}
 CMS.registerAdditionalLink({
       id: 'preview',
       title: 'Preview',
-      data: () => h('div', {style: {height: '100%', width: '100%',resize: 'both', overflow: 'hidden'}}, h(buildHook, {}, ), h('iframe', {src: 'https://sektionshemsidan-test.netlify.app', height: '100%', width: '100%'}))
+      data: () => h('div', {style: {height: '100%', width: '100%',resize: 'both', overflow: 'hidden'}}, h(buildHook, {}, ), h('img', {src: 'https://api.netlify.com/api/v1/badges/51fa1acc-7b6e-4026-98ac-ce1b29f97754/deploy-status', id: 'badge'}), h(reloadStatusBadge, {}), h(reloadPreviewFrame, {}), h('iframe', {src: 'https://sektionshemsidan-test.netlify.app', height: '100%', width: '100%', id: 'previewFrame'}))
     })
 
 
