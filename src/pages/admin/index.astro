@@ -176,13 +176,13 @@ CMS.registerPreviewCard('nyheter', PostPreviewCard);
 
 const buildHook = () => {
       function handleClick() {
-        // fetch('https://api.netlify.com/build_hooks/63d4647c45202500ab1fac38', {
-        //   method: 'POST'
-        // })
+        fetch('https://api.netlify.com/build_hooks/63d4647c45202500ab1fac38', {
+          method: 'POST'
+        })
         console.log("tjosan")
       }
 
-      return h('div', {}, h('button', {onClick: handleClick()}, 'Publicera alllllltt nuuuu!'))
+      return h('div', {}, h('button', {onClick: handleClick}, 'Publicera alllllltt nuuuu!'))
     }
 
 CMS.registerAdditionalLink({
