@@ -43,6 +43,8 @@ const markdown = instruktioner.map(md=>md.rawContent())
             faPersonChalkboard } from '@fortawesome/free-solid-svg-icons';
     import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
     import ReactMarkdown from 'react-markdown'
+
+import { H } from '../../../public/_astro/index.7301459e';
     const markdown = document.getElementById('data').dataset.md
     CMS.init({config});
 
@@ -172,9 +174,22 @@ const markdown = instruktioner.map(md=>md.rawContent())
 
 CMS.registerPreviewCard('nyheter', PostPreviewCard);
 
+const buildHook = () => {
+      function handleClick() {
+        // fetch('https://api.netlify.com/build_hooks/63d4647c45202500ab1fac38', {
+        //   method: 'POST'
+        // })
+        console.log("tjosan")
+      }
+
+      return h('div', {}, h('button', {onClick: handleClick()}, 'Publicera alllllltt nuuuu!'))
+    }
+
 CMS.registerAdditionalLink({
       id: 'preview',
       title: 'Preview',
-      data: () => h('div', {style: {height: '100%', width: '100%',resize: 'both', overflow: 'hidden'}}, h('iframe', {src: 'https://sektionshemsidan-test.netlify.app', height: '100%', width: '100%'}))
+      data: () => h('div', {style: {height: '100%', width: '100%',resize: 'both', overflow: 'hidden'}}, h(buildHook, {}, ), h('iframe', {src: 'https://sektionshemsidan-test.netlify.app', height: '100%', width: '100%'}))
     })
+
+
 </script>
