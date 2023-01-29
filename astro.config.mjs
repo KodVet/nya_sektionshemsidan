@@ -21,6 +21,5 @@ export default defineConfig({
   // called `static` instead.
   publicDir: 'static',
   integrations: [svelte(), mdx()],
-  output: "server",
-  adapter: netlify()
+  output: "static",
 });
