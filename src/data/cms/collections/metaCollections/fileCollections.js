@@ -7,11 +7,15 @@ const collection = {
     labe_singular: "collection",
     extension: "json",
     create: true,
-    folder: "src/data/cms/collections/file",
+    folder: "config/collections/file",
+    editor: {
+        preview: false
+    },
     fields: [
         {
             name: "files",
             widget: "list",
+            required: true,
             fields: [
                 {
                     name: "file",
@@ -22,11 +26,12 @@ const collection = {
                     name: "fields",
                     label_singular: "field",
                     widget: "list",
-                    add_to_top: false,
+                    add_to_top: true,
                     type_key: "widget",
                     summary: "{{types.fields.name}}",
                     types: widgets,
-                    required: false
+                    required: false,
+                    collapsed: false
                 }
             ]
         },

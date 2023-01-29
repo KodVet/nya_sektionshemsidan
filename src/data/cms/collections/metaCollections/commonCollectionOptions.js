@@ -62,11 +62,6 @@ const fields = [
       required: false
     },
     {
-      name: "extension",
-      widget: "string",
-      required: false
-    },
-    {
       name: "format",
       widget: "select",
       options: [
@@ -76,6 +71,11 @@ const fields = [
         "yaml-frontmatter",
         "json-frontmatter"
       ],
+      required: false
+    },
+    {
+      name: "extension",
+      widget: "string",
       required: false
     },
     {
@@ -92,11 +92,12 @@ const fields = [
     {
       name: "sortable_fields",
       widget: "object",
-      collapsed: false,
+      collapsed: true,
       fields: [
         {
           name: "fields",
           widget: "list",
+          required: false,
           fields: [
             {
               name: "string",
@@ -107,14 +108,17 @@ const fields = [
         {
           name: "default",
           widget: "object",
+          required: false,
           fields: [
             {
               name: "field",
-              widget: "string"
+              widget: "string",
+              required: false
             },
             {
               name: "direction",
               widget: "select",
+              required: false,
               options: [
                 "Ascending",
                 "Descending",
@@ -129,19 +133,22 @@ const fields = [
     {
       name: "view_filters",
       widget: "list",
-      collapsed: false,
+      collapsed: true,
       fields: [
         {
           name: "label",
-          widget: "string"
+          widget: "string",
+          required: false
         },
         {
           name: "field",
-          widget: "author"
+          widget: "string",
+          required: false
         },
         {
           name: "pattern",
-          widget: "string"
+          widget: "string",
+          required: false
         }
       ],
       required: false
@@ -150,15 +157,17 @@ const fields = [
       name: "view_groups",
       widget: "list",
       required: false,
-      collapsed: false,
+      collapsed: true,
       fields: [
         {
           name: "label",
-          widget: "string"
+          widget: "string",
+          required: false
         },
         {
           name: "field",
-          widget: "author"
+          widget: "string",
+          required: false
         },
         {
           name: "pattern",

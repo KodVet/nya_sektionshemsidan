@@ -15,12 +15,13 @@ const unNestedObject = {
       {
         name: "summary",
         widget: "string",
-        required: true
+        required: false
       },
       {
         name: "fields",
         widget: "list",
         required: false,
+        type_key: 'widget',
         types: [
           ...otherWidgets,
           unNestedList
