@@ -1,5 +1,6 @@
 ---
 title: Marknadsföringsutskottet
+medlemmar: null
 ---
 # Marknadsföringsutskottet
 

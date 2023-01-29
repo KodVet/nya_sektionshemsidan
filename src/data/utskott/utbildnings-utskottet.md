@@ -1,5 +1,6 @@
 ---
 title: Utbildningsutskottet
+medlemmar: null
 ---
 # Utbildningsutskottet
 
