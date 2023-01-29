@@ -24,6 +24,61 @@
         "name":"body",
         "widget":"markdown",
         "hint":"Detta är det som kommer stå i mitten-rutan på sidan"
+      },
+      {
+        "name": "medlemmar",
+        "label": "Medlemmar",
+        "label_singular": "medlem",
+        "widget": "list",
+        "fields": [
+          {
+            "label": "Namn",
+            "name": "namn",
+            "widget": "string",
+            "required": true
+          },
+          {
+            "label": "Post",
+            "name": "post",
+            "widget": "string",
+            "required": true,
+            "hint": "Om ni har en förkortning, skriv den här. Det som står här kommer att läggas bredvid ert namn på nyhetsinlägg och medkemskorten."
+          },
+          {
+            "widget": "string",
+            "required": false,
+            "name": "post_hel",
+            "label": "Fullständig post",
+            "hint": "För AMO, MYSA, etc. Om ni har en förkortning, skriv hela posten här. Om detta fält fylls i, kommer det läggas framför er \"post\" på medlemskorten. Det kommer inte användas för nyhetsinlägg."
+          },
+          {
+            "label": "Kogvet mail",
+            "name": "kontakt",
+            "widget": "string",
+            "required": true
+          },
+          {
+            "label": "Bild",
+            "name": "bild",
+            "widget": "image",
+            "media_library": {
+              "choose_url": true,
+              "allow_multiple": true
+            },
+            "required": true
+          },
+          {
+            "label": "Om mig",
+            "name": "about",
+            "widget": "markdown",
+            "required": false,
+            "hint": "(Ni får själv velja om detta ska vara obligatoriskt)  Skriv lite om dig själv, varförd du valde kogvet, linköping.  Varför du sökte till din post. Eller bara något roligt, fan vet jag. Detta kommer dyka upp efter \"läs mer\" klickas.",
+            "media_library": {
+              "allow_multiple": true,
+              "choose_url": true
+            }
+          }
+        ]
       }
     ]
   }
