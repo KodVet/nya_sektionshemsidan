@@ -7,10 +7,10 @@
     "api_root": "https://gitlab.liu.se/api/v4",
     "base_url": "https://gitlab.liu.se/",
     "auth_endpoint": "oauth/authorize",
-    "branch": "main",
+    "branch": "49-sortera-medlemmar-manuellt",
     "site_domain": "https://sektionshemsidan.netlify.app"
   },
-  "local_backend": false,
+  "local_backend": true,
   "logo_url": "https://sektionshemsidan.netlify.app/images/Sektionslogga 1.png",
   "display_url": "https://sektionshemsidan.netlify.app/",
   "media_folder": "static/images",
