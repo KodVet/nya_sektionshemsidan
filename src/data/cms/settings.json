@@ -3,7 +3,7 @@
     "name": "gitlab",
     "repo": "Kodvet/sektionshemsidan",
     "auth_type": "pkce",
-    "app_id": "1fd03c5ff044c3a3abff03589e28d67bce9b3ccb0ff2ad39764fd46e4dbf0c38",
+    "app_id": "3afd2d0a6c733a9dc2a5f50e61c423967f01e366d3575bd810f6e5c3ad4e8811",
     "api_root": "https://gitlab.liu.se/api/v4",
     "base_url": "https://gitlab.liu.se/",
     "auth_endpoint": "oauth/authorize",
