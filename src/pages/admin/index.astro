@@ -13,7 +13,7 @@ const markdown = instruktioner.map(md=>md.rawContent())
 <body>
     <div id="data" data-md={markdown}>
     </div>
-    <script is:inline src="https://unpkg.com/@staticcms/app@1.0.0/dist/static-cms-app.js"></script>
+    <script is:inline src="https://unpkg.com/@staticcms/app@^1.0.0/dist/static-cms-app.js"></script>
     <script is:inline defer>
       setTimeout(() => {
       const link = document.createElement('link')
