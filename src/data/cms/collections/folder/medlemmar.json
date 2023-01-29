@@ -38,6 +38,17 @@
       "options_lenght": 20
     },
     {
+      "widget": "number",
+      "required": false,
+      "step": 1,
+      "name": "position",
+      "label": "Position",
+      "default": 0,
+      "hint": "Detta är vilken position som medlemmen kommer att dyka upp i, bland listan av medlemmar för sitt utskott.\nOm ni lämnar det på 0, kommer inger sortering (eller jo men bara i bokstavsordning) ske.",
+      "value_type": "int",
+      "min": -1
+    },
+    {
       "label": "Post",
       "name": "post",
       "widget": "string",
