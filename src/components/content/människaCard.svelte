@@ -1,11 +1,16 @@
 
 <script>
-    export let namn;
-    export let post_hel;
-    export let post;
-    export let kontakt;
-    export let bild;
+    export let medlem
+    const {
+        namn,
+        post_hel,
+        post,
+        kontakt,
+        bild,
+    } = medlem
     export let direction;
+
+
     let hasContent;
     let slot;
     let expanded = false;
