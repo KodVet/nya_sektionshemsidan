@@ -9,7 +9,12 @@ import {max_height} from '../../../components/UI/navbar.svelte'
 // 	console.log('post här ', post)
 // })
 // console.log(max_height)
-const medlemmar = await Astro.glob('../../../data/medlemmar/*.md')
+const utskott = await Astro.glob('../../../data/utskott/*.md')
+let medlemmar = []
+utskott.map(utskott => {
+	if (utskott.frontmatter.medlemmar) medlemmar.push(...utskott.frontmatter.medlemmar)
+})
+console.log(medlemmar)
 export async function getStaticPaths({ paginate }) {
 	const posts = await Astro.glob('../../../data/nyheter/*.md')
 	const publishedPosts = posts.filter(post => !post.frontmatter.draft)
@@ -26,17 +31,17 @@ const { page } = Astro.props
 		<section id="inlägg">
 			{page.data.map((post) => {
 				const { Content } = post
-				const authors = post.frontmatter.author.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author))
+				const authors = post.frontmatter.author.map(author => medlemmar.find(medlem => medlem.namn === author))
 				return (
 				<div class="post">
 				<div class="scrollAnchor" id={post.frontmatter.title} style={`--max-height: ${max_height}px`}></div>
 				<Contentbox>
 					{authors.map(author => 
-						<h3>{post.frontmatter.useNamn && author.frontmatter.namn}
+						<h3>{post.frontmatter.useNamn && author.namn}
 							{post.frontmatter.useNamn && post.frontmatter.usePost && ' -'}
-							{post.frontmatter.usePost && author.frontmatter.post}
+							{post.frontmatter.usePost && author.post}
 							{(post.frontmatter.usePost && post.frontmatter.useUtskott || post.frontmatter.useNamn && post.frontmatter.useUtskott) && ' -'}
-							{post.frontmatter.useUtskott && author.frontmatter.utskott}</h3>
+							{post.frontmatter.useUtskott && author.utskott}</h3>
 					)}
 					
 					<Content/>

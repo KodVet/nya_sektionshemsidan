@@ -4,27 +4,24 @@ import MänniskaCard from '../../components/content/människaCard.svelte'
 
 export async function getStaticPaths() {
 	const utskott = await Astro.glob('../../data/utskott/*.md')
-	const medlemmar = await Astro.glob('../../data/medlemmar/*.md')
-	
 	return utskott.map(utskott => {
-		const filteredMedlemmar = medlemmar.filter(medlem => medlem.frontmatter.utskott === utskott.frontmatter.title)
 		return {
 			params: { utskott: utskott.frontmatter.title.toLowerCase().replace(' ','-') },
-			props: { utskott: utskott, medlemmar: filteredMedlemmar },
+			props: { utskott: utskott },
 		}
 	})
 	// return [{params:{utskott:'styrelsen'}}]
 }
-const { utskott, medlemmar } = Astro.props
-const { Content } = utskott
+const { utskott } = Astro.props
+const { Content, frontmatter: { medlemmar }} = utskott
 // console.log("medlemmar: ", medlemmar)
-medlemmar.map(medlem => console.log(medlem.frontmatter.namn))
+// medlemmar.map(medlem => console.log(medlem.frontmatter))
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<div class="container" slot="content">
 			<Content/>
-			{medlemmar.map(({ frontmatter: {post, post_hel, namn, kontakt, bild}, Content }, index) =>
+			{medlemmar && medlemmar.map(({ post, post_hel, namn, kontakt, bild, about }, index) =>
 			<div class="cardContainer">
 				<MänniskaCard client:visible
 				post={post}
@@ -33,7 +30,7 @@ medlemmar.map(medlem => console.log(medlem.frontmatter.namn))
 				kontakt={kontakt} 
 				bild={bild}
 				direction={((index % 2==0) ? 'right' : 'left')}>
-					<Content />
+					{about}
 				</MänniskaCard>
 			</div>
 			)}
