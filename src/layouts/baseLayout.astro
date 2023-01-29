@@ -19,7 +19,6 @@ const {
 	customHead = false
 } = Astro.props;
 // const { customHead = false } = Astro.props;
-console.log(import.meta.env)
 ---
 
 <!DOCTYPE html>
@@ -44,7 +43,6 @@ console.log(import.meta.env)
 		<main id="swup">
 			<slot />
 		</main>
-		<div>{import.meta.env.PUBLIC_STAGING}</div>
 		<footer id="foot">
 			<div>
 				<h1>Made by kodvet</h1>
