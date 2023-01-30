@@ -32,7 +32,7 @@
     {
       "label": "Månad publicerad",
       "field": "date",
-      "pattern": "[a-zA-Z]+"
+      "pattern": "(?<=-)\\d+(?=-)"
     },
     {
       "label": "Författare",
