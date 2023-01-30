@@ -16,6 +16,8 @@ export async function getStaticPaths({ paginate }) {
     return paginate(publishedPosts, { pageSize: 2 })
 }
 const { page } = Astro.props
+import { format } from 'date-fns'
+import { sv } from 'date-fns/locale'
 ---
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
 	<div class="wrapper" data-page-json={JSON.stringify(page)}>
@@ -38,7 +40,7 @@ const { page } = Astro.props
 							{(post.frontmatter.usePost && post.frontmatter.useUtskott || post.frontmatter.useNamn && post.frontmatter.useUtskott) && ' -'}
 							{post.frontmatter.useUtskott && author.frontmatter.utskott}</h3>
 					)}
-					
+					<h6>{format(new Date(post.frontmatter.date), 'dd-MMMM-yyyy', {locale: sv})}</h6>
 					<Content/>
 				</Contentbox>
 				</div>

@@ -71,21 +71,24 @@
       "default": true,
       "name": "useNamn",
       "label": "Visa namn",
-      "hint": "Visa författarens namn i början av inlägget"
+      "hint": "Visa författarens namn i början av inlägget",
+      "required": true
     },
     {
       "widget": "boolean",
       "default": false,
       "name": "usePost",
       "label": "Visa post",
-      "hint": "Visa författarens post efter namnet. "
+      "hint": "Visa författarens post efter namnet. ",
+      "required": true
     },
     {
       "widget": "boolean",
       "default": false,
       "name": "useUtskott",
       "label": "Visa utskott",
-      "hint": "Visa författarens utskott efter posten. "
+      "hint": "Visa författarens utskott efter posten. ",
+      "required": true
     },
     {
       "label": "Rubrik",
@@ -99,7 +102,7 @@
       "widget": "datetime",
       "date_format": "dd-MM-yyyy",
       "time_format": false,
-      "format": "dd-MMMM-yyyy",
+      "format": "yyyy-MM-dd",
       "required": true,
       "picker_utc": false
     },

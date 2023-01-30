@@ -7,7 +7,7 @@ useNamn: true
 usePost: false
 useUtskott: true
 title: Dagordning för höstmöte
-date: 23-November-2022
+date: 2023-01-16
 img: /1673306163329.png
 excerpt: Höstmötet börjar närma sig och mötets dagordning är nu klar! Mötet äger
   rum i KEY1 den 30 november. Dörrarna kommer att öppnas kl 17.15 och mötet

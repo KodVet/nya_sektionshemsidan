@@ -6,7 +6,7 @@ useNamn: true
 usePost: true
 useUtskott: true
 title: Gustaf är en riktigt hacker
-date: 01-January-1912
+date: 2023-01-16
 img: /images/6999295.jpg
 excerpt: >
   Visste ni att Gustaf är en riktig hacker. Aa, faktiskt. Han gjort det
