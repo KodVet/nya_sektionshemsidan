@@ -23,7 +23,7 @@ export async function getStaticPaths({ paginate }) {
 }
 const { page } = Astro.props
 import { format } from 'date-fns'
-import { sv } from 'date-fns/locale'
+import { sv } from 'date-fns/locale/index.js'
 ---
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
 	<div class="wrapper" data-page-json={JSON.stringify(page)}>
