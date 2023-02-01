@@ -1,18 +1,12 @@
 ---
-namn: Skrubbadubba
+namn: Gurra
 utskott: Kodvet
 position: 0
 post: Hacker
 kontakt: gusno115@student.liu.se
-bild: "/images/fiskmås.jpg\r"
+bild: "/images/fiskmas.jpg\r"
 ---
-Its me. _Pretty cool huh?_
-
-
-
-
-
-## _header 2_
+Its me.
 
 
 
