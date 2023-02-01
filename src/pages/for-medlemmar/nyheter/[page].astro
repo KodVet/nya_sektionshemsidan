@@ -39,7 +39,7 @@ import { sv } from 'date-fns/locale/index.js'
 				<div class="post">
 				<div class="scrollAnchor" id={post.frontmatter.title} style={`--max-height: ${max_height}px`}></div>
 				<Contentbox>
-					{authors.map(author => 
+					{authors.map(author => author &&
 						<h3>{post.frontmatter.useNamn && author.frontmatter.namn}
 							{post.frontmatter.useNamn && post.frontmatter.usePost && ' -'}
 							{post.frontmatter.usePost && author.frontmatter.post}
