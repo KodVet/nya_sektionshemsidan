@@ -43,7 +43,7 @@
 
     onMount(() => {
         rootFontSize = getDefaultFontSize()
-        hasContent = Boolean(collapsible.innerText)
+        
     });
 
     function collapse(){
@@ -55,18 +55,18 @@
         }
         expanded=!expanded
     };
-    
+    hasContent = true
 </script>
 
 
-<div class={direction + " wrapper"} class:expanded="{expanded}">
-    <img src={bild} alt="en fin bild på en person">
-    <div class="txt">
-    <p><b>{post_hel ? `${post_hel} - ${post}`: post}:</b> {namn}</p> 
-    <p><b>Kontakt:</b> {kontakt}</p>
+<div class={direction + " wrapper"} class:expanded="{expanded}" id={namn}>
+    <img src={bild} alt="en fin bild på en person" class="image">
+    <div class="txt" id="namn">
+    <p><span><b>{post_hel ? `${post_hel} - ${post}`: post}:</b></span><span>&nbsp;</span><span class="namn">{namn}</span></p> 
+    <p><b>Kontakt:</b> <span class="kontakt"> {kontakt}</span></p>
     </div>
     {#if hasContent}
-    <button on:click={collapse}>Läs mer</button>
+    <button on:click={collapse}>Read more</button>
     {/if}
     <div bind:this={collapsible} class='content'>
         <slot></slot>
@@ -121,10 +121,10 @@ button{
     height: 30px;
     margin:auto;
     margin-bottom:5px;
-    border-radius: 100%;
-    background-color: transparent;
+    /* border-radius: 100%; */
+    /* background-color: transparent;
     color:black;
-    border: 2px solid;
+    border: 2px solid; */
     pointer-events: all;
     
 }

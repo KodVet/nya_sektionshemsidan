@@ -6,6 +6,11 @@
   "extension": "md",
   "slug": "{{slug}}",
   "create": true,
+  "IframePreview": {
+    "baseSrc": "/om-sektionen/",
+    "fieldSrc": "title",
+    "container": "title"
+  },
   "editor": {
     "sortable_fields": [
       "title"
@@ -26,6 +31,7 @@
       "name": "body",
       "widget": "markdown",
       "hint": "Detta är det som kommer stå i mitten-rutan på sidan",
+      "class": "content",
       "required": true,
       "media_library": {
         "allow_multiple": true,

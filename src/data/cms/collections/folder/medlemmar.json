@@ -7,8 +7,13 @@
   "icon": "usergroup",
   "create": true,
   "slug": "{{slug}}",
+  "IframePreview": {
+    "baseSrc": "/om-sektionen/",
+    "fieldSrc": "utskott",
+    "container": "namn"
+  }, 
   "editor": {
-    "preview": false,
+    "preview": true,
     "frame": false
   },
   "view_groups": [
@@ -22,7 +27,8 @@
       "label": "Namn",
       "name": "namn",
       "widget": "string",
-      "required": true
+      "required": true,
+      "class": "namn"
     },
     {
       "label": "Utskott",
@@ -66,7 +72,8 @@
       "label": "Kogvet mail",
       "name": "kontakt",
       "widget": "string",
-      "required": true
+      "required": true,
+      "class": "kontakt"
     },
     {
       "label": "Bild",
@@ -76,13 +83,15 @@
         "choose_url": true,
         "allow_multiple": true
       },
-      "required": true
+      "required": true,
+      "class": "image"
     },
     {
       "label": "Om mig",
       "name": "body",
       "widget": "markdown",
       "required": false,
+      "class": "content",
       "hint": "(Ni får själv velja om detta ska vara obligatoriskt)  Skriv lite om dig själv, varförd du valde kogvet, linköping.  Varför du sökte till din post. Eller bara något roligt, fan vet jag. Detta kommer dyka upp efter \"läs mer\" klickas.",
       "media_library": {
         "allow_multiple": true,
