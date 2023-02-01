@@ -8,9 +8,9 @@ useUtskott: true
 title: Gustaf är en riktigt hacker
 date: 2023-01-16
 img: /images/6999295.jpg
-excerpt: >
-  Visste ni att Gustaf är en riktig hacker. Aa, faktiskt. Han gjort det
-  mesta här. Han vet också hur man lagar korv och makaroner
+excerpt: Visste ni att Gustaf är en riktig hacker. Aa, faktiskt. Han gjort det
+  mesta här. Han vet också hur man lagar korv och makaroner. Klicka aldrig på
+  hans länkar för då får du säkert virus eller nåt!
 ---
 # Woman Will Never Know Intimacy Like Passing Garbage Truck Drivers Slowing Down To Point At Each Other
 
