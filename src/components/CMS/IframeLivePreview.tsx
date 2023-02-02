@@ -13,6 +13,7 @@ const IframeLivePreview = ({
 }) => {
   const relevantFields = fields.filter((field) => field.class);
   const elements = useRef([]);
+  const initialSrc = useRef(options.baseSrc + entry.data[options.fieldSrc]?.toLowerCase() + "#" + entry.data[options.container])
 
   function defineContent() {
     const doc = document.getElementById("my-frame").contentDocument;
@@ -54,10 +55,7 @@ const IframeLivePreview = ({
         }}
         id="my-frame"
         src={
-          options.baseSrc +
-          entry.data[options.fieldSrc]?.toLowerCase() +
-          "#" +
-          entry.data[options.container]
+          initialSrc.current
         }
         onLoad={() =>
           setTimeout(() => {
