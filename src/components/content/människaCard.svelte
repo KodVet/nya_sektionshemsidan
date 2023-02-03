@@ -22,8 +22,7 @@
     let expanded = false;
     let collapsible;
     let rootFontSize;
-    import { onMount } from 'svelte';
-    
+    import { onMount, afterUpdate } from 'svelte';
     
     const getDefaultFontSize = () => {
         const element = document.createElement('div');
@@ -49,15 +48,20 @@
 
     onMount(() => {
         rootFontSize = getDefaultFontSize()
-        
+        hasContent = Boolean(collapsible.innerText)
     });
+    afterUpdate(() => {
+        hasContent = Boolean(collapsible.innerText)
+    })
 
     function collapse(){
         if (!expanded){
             collapsible.style.maxHeight = String(collapsible.scrollHeight - rootFontSize) + 'px'
+            collapsible.classList.add('collapsed')
         }
         else {
             collapsible.style.maxHeight = 0
+            collapsible.classList.remove('collapsed')
         }
         expanded=!expanded
     };
@@ -66,31 +70,74 @@
 
 
 <div class={direction + " wrapper"} class:expanded="{expanded}" id={namn}>
-    <div>
+
+
+    {#if direction === "right"}
+    <div class="imageWrap">
         <img src={bild} alt="en fin bild på en person" class="image">
     </div>
-    <div class="txt" id="namn">
-    <p><span><b>{post_hel ? `${post_hel} - ${post}`: post}:</b></span><span>&nbsp;</span><span class="namn">{namn}</span></p> 
-    <p><b>Kontakt:</b> <span class="kontakt"> {kontakt}</span></p>
+    <div class="info">
+        <div class="txt" id="namn">
+            <p><span><b>{post_hel ? `${post_hel} - ${post}`: post}:</b></span><span>&nbsp;</span><span class="namn">{namn}</span></p> 
+            <p><b>Kontakt:</b> <span class="kontakt"> {kontakt}</span></p>
+        </div>
+        <div class="btn">
+            {#if hasContent}
+            <button on:click={collapse}>Read more</button>
+            {/if}
+        </div>
     </div>
-    {#if hasContent}
-    <button on:click={collapse}>Read more</button>
     {/if}
+
+    {#if direction === "left"}
+    <div class="info">
+        <div class="txt" id="namn">
+            <p><span><b>{post_hel ? `${post_hel} - ${post}`: post}:</b></span><span>&nbsp;</span><span class="namn">{namn}</span></p> 
+            <p><b>Kontakt:</b> <span class="kontakt"> {kontakt}</span></p>
+        </div>
+        <div class="btn">
+            {#if hasContent}
+            <button on:click={collapse}>Read more</button>
+            {/if}
+        </div>
+    </div>
+    <div class="imageWrap">
+        <img src={bild} alt="en fin bild på en person" class="image">
+    </div>
+    {/if}
+
     <div bind:this={collapsible} class='content'>
         <slot></slot>
     </div>
 </div>
 
 
-<style>
+<style lang="scss">
 .wrapper {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 10px;
-    border-radius: 20px;
+    display: grid;
+    /* grid-template-rows: 200px 0px; */
+    border-radius: 3px;
 }
+
+.wrapper.right {
+    grid-template-columns: 200px auto;
+}
+
+.wrapper.left {
+    grid-template-columns: auto 200px;
+    .info {
+        padding-left: 15px;
+    }
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
 .right{
     flex-direction: row;
     background: linear-gradient(119deg, var(--valla-grön) 0%, var(--ovveblues) 100%);
@@ -102,16 +149,26 @@
 }
 
 .txt{
-    margin:auto;
-    max-width: 40%;
+    max-width: 90%;
+}
+.btn {
+    position: absolute;
+    top: 160px;
+    right: 15px;
 }
 .content{
-    width:100%;
+    /* width:100%; */
+    grid-column-start: 1;
+    grid-column-end: -1;
     overflow: hidden;
-    transition: ease-in-out .4s;
+    transition: max-height ease-in-out .4s;
+    margin-inline: 1rem;
     max-height: 0;
-    margin: .6rem;
     margin-top: 0;
+}
+
+.content.collapsed {
+    margin-bottom: 1rem;
 }
 
 p {
@@ -120,15 +177,22 @@ p {
 
 
 img{
-    width: 200px;
-    height: 200px;
+    margin: auto;
+    border: white 2px;
     clip-path: circle(82px); /*behövs tillfälligt då bilderna är kvadratiska med vit ram runt cirkeln med den faktiska bilden*/
+}
+.imageWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    clip-path: circle(84px);
+    height: 200px;
+    width: 200px;
 }
 
 button{
     height: 30px;
-    margin:auto;
-    margin-bottom:5px;
     /* border-radius: 100%; */
     /* background-color: transparent;
     color:black;
