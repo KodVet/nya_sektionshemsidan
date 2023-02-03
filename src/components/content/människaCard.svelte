@@ -118,6 +118,8 @@
     display: grid;
     /* grid-template-rows: 200px 0px; */
     border-radius: 3px;
+    box-shadow: 0 4px 8px black;
+    clip-path: inset(0 -50px -50px -50px);
 }
 
 .wrapper.right {
@@ -183,6 +185,8 @@ img{
     margin: auto;
     border: white 2px;
     clip-path: circle(82px); /*behövs tillfälligt då bilderna är kvadratiska med vit ram runt cirkeln med den faktiska bilden*/
+    height: 200px;
+    width: 200px;
 }
 .imageWrap {
     display: flex;
