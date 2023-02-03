@@ -129,6 +129,9 @@
     .info {
         padding-left: 15px;
     }
+    .btn {
+        left: 15px;
+    }
 }
 
 .info {
