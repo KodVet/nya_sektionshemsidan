@@ -1,6 +1,12 @@
 
 <script>
-    export let medlem
+    export let medlem = {
+        namn: 'Namn',
+        post: 'Post',
+        post_hel: 'Post',
+        kontakt: 'Kontakt',
+        bild: '#'
+    }
     const {
         namn,
         post_hel,
@@ -8,7 +14,7 @@
         kontakt,
         bild,
     } = medlem
-    export let direction;
+    export let direction = 'right';
 
 
     let hasContent;
@@ -60,7 +66,9 @@
 
 
 <div class={direction + " wrapper"} class:expanded="{expanded}" id={namn}>
-    <img src={bild} alt="en fin bild på en person" class="image">
+    <div>
+        <img src={bild} alt="en fin bild på en person" class="image">
+    </div>
     <div class="txt" id="namn">
     <p><span><b>{post_hel ? `${post_hel} - ${post}`: post}:</b></span><span>&nbsp;</span><span class="namn">{namn}</span></p> 
     <p><b>Kontakt:</b> <span class="kontakt"> {kontakt}</span></p>
@@ -114,7 +122,7 @@ p {
 img{
     width: 200px;
     height: 200px;
-    clip-path: circle(90px); /*behövs tillfälligt då bilderna är kvadratiska med vit ram runt cirkeln med den faktiska bilden*/
+    clip-path: circle(82px); /*behövs tillfälligt då bilderna är kvadratiska med vit ram runt cirkeln med den faktiska bilden*/
 }
 
 button{

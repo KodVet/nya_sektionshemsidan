@@ -11,7 +11,7 @@
     "baseSrc": "/om-sektionen/",
     "fieldSrc": "utskott",
     "container": "namn"
-  }, 
+  },
   "editor": {
     "preview": true,
     "frame": false
@@ -23,6 +23,13 @@
     }
   ],
   "fields": [
+    {
+      "widget": "boolean",
+      "default": false,
+      "name": "direction",
+      "label": "Riktning",
+      "hint": "Denna är bara för att testa hur komponenten kan se ut. Vilken riktning den faktiskt kommer få på hemsidan bestäms av om den har en jämn eller udda position bland alla andra medlemmar."
+    },
     {
       "label": "Namn",
       "name": "namn",
