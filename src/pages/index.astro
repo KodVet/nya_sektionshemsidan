@@ -1,37 +1,60 @@
 ---
 import Layout from '../layouts/baseLayout.astro';
 import Hero from '../components/content/hero.astro';
-
+import Titlecard from '@components/content/TitleCard.astro';
+import SponsorCard from '@components/content/SponsorCard.svelte';
 const posts = await Astro.glob('../data/nyheter/*.md')
 const publishedPosts = posts.filter(post => !post.frontmatter.draft)
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
-
+const components = await Astro.glob('../components/*/*.astro')
+console.log(components)
 // console.log(news)
 ---
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname} isOpaque={true}>
-	<div class="hero">
-		<Hero />
-	</div>
-	<div class="news">
-		<h1>Nyheter</h1>
-		<span class="line"></span>
-		<div class="newsList">
-			{publishedPosts.slice(0, 3).map(({Content, frontmatter, getHeadings}, index) =>
-				<article style={`flex-direction: ${index%2===0?'row':'row-reverse'}`}>
-					<div class="img">
-							<img src={frontmatter.img} alt=""/>
-					</div>
-					<div class="text">
-						<div class="title">
-							<a href={`/for-medlemmar/nyheter#${frontmatter.title}`}><h2>{frontmatter.title}</h2></a>
+<Fragment slot="main">
+		<section class="hero">
+			<Hero />
+		</section>
+		<section class="welcome">
+			<div class="text">
+				<div>
+				<Titlecard>
+					<Fragment slot="header">
+						Välkommen till kogvet!
+					</Fragment>
+					<Fragment slot="content">
+						Vi är sektionen för det kognitonsvetenskapliga programmet vid Linköpings Universitet. Här finns information och dokument samlat till dig som är student under Student.
+						Är du nyfiken på vilka vi är och vad vi gör? Se Om sektionen. För mer information om Kognitionsvetenskap som program, se Kognitionsvetenskap vid LiU.
+					</Fragment>
+				</Titlecard>
+				</div>
+			</div>
+			<aside>
+				<SponsorCard />
+			</aside>
+		</section>
+		<section class="news">
+			<h1>Nyheter</h1>
+			<span class="line"></span>
+			<div class="newsList">
+				{publishedPosts.slice(0, 3).map(({Content, frontmatter, getHeadings}, index) =>
+					<article style={`flex-direction: ${index%2===0?'row':'row-reverse'}`}>
+						<div class="img">
+								<img src={frontmatter.img} alt=""/>
 						</div>
-						<div class="date"><small>{frontmatter.date}</small></div>
-						<div class="excerpt">{frontmatter.excerpt}</div>
-					</div>
-				</article>
-			)}
-		</div>
-	</div>
+						<div class="text">
+							<div class="title">
+								<a href={`/for-medlemmar/nyheter#${frontmatter.title}`}><h2>{frontmatter.title}</h2></a>
+							</div>
+							<div class="date"><small>{frontmatter.date}</small></div>
+							<div class="excerpt">{frontmatter.excerpt}</div>
+						</div>
+					</article>
+				)}
+			</div>
+		</section>
+		
+</Fragment slot="main">
 </Layout>
 
 <style lang="scss">
@@ -40,6 +63,29 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 		min-height: 100vh;
 		margin-bottom: 5%;
 		filter: chroma(color = #FFF);
+	}
+
+	.welcome {
+		display: flex;
+		justify-content: space-between;
+		box-shadow: 0 0px 6px black;
+		
+		.text {
+			width: 75%;
+			margin-left: -3px;
+			div {
+				padding-left: 23%;
+				background-color: var(--koggis-grön);
+			}
+		}
+	
+		aside {
+			background-color: white;
+			display: flex;
+			justify-content: center;
+			width: 25%;
+			//border: 2px solid #bbb;
+		}
 	}
 	.news {
 		width: clamp(500px, 70vw, 1200px);

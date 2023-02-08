@@ -42,20 +42,20 @@ console.log("sorterad: ")
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
 	<div class="container" id={utskott.frontmatter.title} slot="content">
-			<div class="content">
-				<Content/>
-			</div>
-			<ol class="medlemmarList">
-				{medlemmar.map(({ frontmatter, Content }, index) =>
-				<li class="cardContainer">
-					<Card client:visible
-					medlem={frontmatter}
-					direction={((index % 2==0) ? 'right' : 'left')}>
-						<Content />
-					</Card>
-				</li>
-				)}
-			</ol>
+		<div class="content">
+			<Content/>
+		</div>
+		<ol class="medlemmarList">
+			{medlemmar.map(({ frontmatter, Content }, index) =>
+			<li class="cardContainer">
+				<Card client:visible
+				medlem={frontmatter}
+				direction={((index % 2==0) ? 'right' : 'left')}>
+					<Content />
+				</Card>
+			</li>
+			)}
+		</ol>
 	</div>
 </Layout>
 

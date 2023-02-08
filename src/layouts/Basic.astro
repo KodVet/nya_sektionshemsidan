@@ -6,8 +6,10 @@ const { title = "Kogvet Sektionen på Linköpings Universitet" } = Astro.props;
 const { frontmatter } = Astro.props
 ---
 <Base active={Astro.url.pathname}>
-    <div id="line"></div>
-    <div id="container">
+    <Fragment slot="head">
+        <slot name="head" />
+    </Fragment>
+    <div id="container" slot="main">
         <div id="left-panel">
             <Contentbox>
                 <slot name="left">Genvääääägar</slot>
@@ -15,9 +17,11 @@ const { frontmatter } = Astro.props
         </div>
         <div id="main">
             <Contentbox>
-                <slot name="content">Här var det tomt</slot>
-                {frontmatter && <slot>Här var det tomt</slot>} <!--- I denna slot som ej har ett namn
-                                                    injekteras markdownen från markdown sidor-->
+               <Fragment>
+                 <slot name="content">Här var det tomt</slot>
+                 {frontmatter && <slot>Här var det tomt</slot>} <!--- I denna slot som ej har ett namn
+                                                     injekteras markdownen från markdown sidor-->
+               </Fragment>
             </Contentbox>
         </div>
         <div id="right-panel">
