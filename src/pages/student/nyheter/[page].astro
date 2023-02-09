@@ -26,7 +26,7 @@ import { format } from 'date-fns'
 import { sv } from 'date-fns/locale/index.js'
 ---
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
-	<div class="wrapper" data-page-json={JSON.stringify(page)}>
+	<div class="wrapper" data-page-json={JSON.stringify(page)} slot="main">
 		<script is:inline>
 			console.log(JSON.parse(document.querySelector('.wrapper[data-page-json]').dataset.pageJson))
 		</script>
