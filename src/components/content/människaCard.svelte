@@ -174,7 +174,7 @@
     grid-column-start: 1;
     grid-column-end: -1;
     overflow: hidden;
-    transition: max-height ease-in-out .4s;
+    transition: all ease-in-out .4s;
     margin-inline: 1rem;
     max-height: 0;
     margin-top: 0;
