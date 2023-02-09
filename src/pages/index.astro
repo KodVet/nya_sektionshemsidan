@@ -5,6 +5,11 @@ import Titlecard from '@components/content/TitleCard.astro';
 import SponsorCard from '@components/content/SponsorCard.svelte';
 const posts = await Astro.glob('../data/nyheter/*.md')
 const publishedPosts = posts.filter(post => !post.frontmatter.draft)
+const sortedPosts = publishedPosts.sort((a, b) => {
+		const dateA = new Date(a.frontmatter.date)
+		const dateB = new Date(b.frontmatter.date)
+		return dateB - dateA
+	})
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 const components = await Astro.glob('../components/*/*.astro')
 console.log(components)
@@ -39,7 +44,7 @@ console.log("DATUM", publishedPosts[0].frontmatter.date)
 			<h1>Nyheter</h1>
 			<span class="line"></span>
 			<div class="newsList">
-				{publishedPosts.slice(0, 3).map(({Content, frontmatter, getHeadings}, index) =>
+				{sortedPosts.slice(0, 3).map(({Content, frontmatter, getHeadings}, index) =>
 					<article style={`flex-direction: ${index%2===0?'row':'row-reverse'}`}>
 						<div class="img">
 								<img src={frontmatter.img} alt=""/>
