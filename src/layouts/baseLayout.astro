@@ -25,8 +25,10 @@ const {
 <html data-theme={css} lang="en">
 	
 	<head>
-		<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-		<meta charset="UTF-8" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+				<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
@@ -41,7 +43,7 @@ const {
 		</header>
 
 		<main id="swup">
-			<slot />
+			<slot name="main"/>
 		</main>
 		<footer id="foot">
 			<div>
@@ -59,12 +61,14 @@ const {
 	
 <style lang="scss">
 
-	@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap'); 
-
+	// @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+	// @font-face {
+	// 	font-family: 'GillSans';
+	// 	src: url('/gill-sans.ttf') format('ttf');
+	// }
 
 	html {
-		font-family: "Source Sans Pro";
-	}
+		font-family: 'Cabin', sans-serif;	}
 
 	body {
 		/* container-type: size; */
@@ -164,13 +168,13 @@ const {
 	fieldset, form, label, legend,
 	table, caption, tbody, tfoot, thead, tr, th, td,
 	article, aside, canvas, details, embed, 
-	figure, figcaption, footer, header, hgroup, 
+	figure, figcaption, header, hgroup, 
 	menu, nav, output, ruby, section, summary,
 	time, mark, audio, video {
 		margin: 0;
 		padding: 0;
 		border: 0;
-		font-size: 100%;
+		// font-size: 100%;
 		vertical-align: baseline;
 	}
 	/* HTML5 display-role reset for older browsers */

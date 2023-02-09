@@ -23,7 +23,7 @@
     let collapsible;
     let rootFontSize;
     import { onMount, afterUpdate } from 'svelte';
-    
+
     const getDefaultFontSize = () => {
         const element = document.createElement('div');
         element.style.width = '1rem';
@@ -78,7 +78,10 @@
     </div>
     <div class="info">
         <div class="txt" id="namn">
-            <p><span><b>{post_hel ? `${post_hel} - ${post}`: post}:</b></span><span>&nbsp;</span><span class="namn">{namn}</span></p> 
+            <p><span class="post"><b>{post_hel ? `${post_hel} - ${post}`: post}</b></span></p>
+            <hr class="solid s-kyuocepncruE">
+            <p><span><b>Namn:</b></span>
+                <span>&nbsp;</span><span class="namn">{namn}</span></p>
             <p><b>Kontakt:</b> <span class="kontakt"> {kontakt}</span></p>
         </div>
         <div class="btn">
@@ -92,7 +95,10 @@
     {#if direction === "left"}
     <div class="info">
         <div class="txt" id="namn">
-            <p><span><b>{post_hel ? `${post_hel} - ${post}`: post}:</b></span><span>&nbsp;</span><span class="namn">{namn}</span></p> 
+            <p><span class="post"><b>{post_hel ? `${post_hel} - ${post}`: post}</b></span></p>
+            <hr class="solid s-kyuocepncruE">
+            <p><span><b>Namn:</b></span>
+                <span>&nbsp;</span><span class="namn">{namn}</span></p>
             <p><b>Kontakt:</b> <span class="kontakt"> {kontakt}</span></p>
         </div>
         <div class="btn">

@@ -1,5 +1,5 @@
 ---
-import Layout from '../../layouts/Basic.astro';
+import Layout from '../../layouts/baseLayout.astro';
 import Card from '../../components/content/människaCard.svelte'
 
 export async function getStaticPaths() {
@@ -41,7 +41,7 @@ console.log("sorterad: ")
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
-	<div class="container" id={utskott.frontmatter.title} slot="content">
+	<div class="container" id={utskott.frontmatter.title} slot="main">
 		<div class="content">
 			<Content/>
 		</div>

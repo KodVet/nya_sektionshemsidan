@@ -32,96 +32,44 @@
           "isOpaque": false
         },
         {
-          "btnName": "Utbildningsutskottet",
-          "url": "/om-sektionen/utbildningsutskottet",
-          "isOpaque": false
-        },
-        {
-          "btnName": "MAFU",
-          "url": "/om-sektionen/marknadsföringsutskottet",
+          "btnName": "Dokument",
+          "url": "/om-sektionen/dokument",
           "isOpaque": false
         }
       ]
     },
     {
-      "btnName": "För sökande",
-      "url": "/for-sokande",
+      "btnName": "Student",
+      "url": "/student",
       "childPages": [
         {
           "btnName": "Boende",
-          "url": "/for-sokande/boende",
-          "isOpaque": false
-        },
-        {
-          "btnName": "Om programmet",
-          "url": "/for-sokande/om-programmet",
+          "url": "/student/boende",
           "isOpaque": false
         },
         {
           "btnName": "Studentliv",
-          "url": "/for-sokande/studentliv",
-          "isOpaque": false
-        },
-        {
-          "btnName": "FAQ",
-          "url": "/for-sokande/faq",
-          "isOpaque": false
-        }
-      ],
-      "isOpaque": false
-    },
-    {
-      "btnName": "För medlemmar",
-      "url": "/for-medlemmar",
-      "childPages": [
-        {
-          "btnName": "Nyheter",
-          "url": "/for-medlemmar/nyheter/1",
+          "url": "/student/studentliv",
           "isOpaque": false
         },
         {
           "btnName": "Anslagstavlan",
-          "url": "/for-medlemmar/anslagstavlan",
+          "url": "/student/anslagstavlan",
           "isOpaque": false
         },
         {
           "btnName": "Arbetsmiljö",
-          "url": "/for-medlemmar/arbetsmiljö",
+          "url": "/student/arbetsmiljö",
           "isOpaque": false
         },
         {
-          "btnName": "kalender",
-          "url": "/for-medlemmar/kalender",
+          "btnName": "Åka utomlands",
+          "url": "/student/utbyte",
           "isOpaque": false
         },
         {
-          "btnName": "Klagolådan",
-          "url": "/for-medlemmar/klagolådan",
-          "isOpaque": false
-        },
-        {
-          "btnName": "Koggidoren",
-          "url": "/for-medlemmar/koggidoren",
-          "isOpaque": false
-        },
-        {
-          "btnName": "Kurser",
-          "url": "/for-medlemmar/kurser",
-          "isOpaque": false
-        },
-        {
-          "btnName": "STUFF",
-          "url": "/for-medlemmar/stuff",
-          "isOpaque": false
-        },
-        {
-          "btnName": "Utbyte",
-          "url": "/for-medlemmar/utbyte",
-          "isOpaque": false
-        },
-        {
-          "btnName": "Dokument",
-          "url": "/for-medlemmar/dokument",
+          "btnName": "Näringsliv",
+          "url": "/student/naringsliv",
           "isOpaque": false
         }
       ],
@@ -130,8 +78,15 @@
     {
       "btnName": "Kontakt",
       "url": "/kontakt",
-      "childPages": [],
+      "childPages": [
+        {
+          "btnName": "Klagolådan",
+          "url": "/kontakt/klagolådan",
+          "isOpaque": false
+        }
+      ],
       "isOpaque": false
     }
-  ]
+  ] 
+
 }

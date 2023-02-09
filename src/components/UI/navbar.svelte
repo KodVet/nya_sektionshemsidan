@@ -6,6 +6,7 @@ import { afterUpdate, beforeUpdate, onMount } from "svelte";
 export let baseUrl;
 export let active;
 import { pages } from '../../data/navbarConfig.json'
+import "../../globalStyles.css";
 let navbar;
 let yScrollPosition;
 let viewportWidth;
@@ -265,7 +266,7 @@ function handleResize () {
                 <span class="wrapper">
                     <div class="dot"></div>
                 </span>
-                {#if childPages.length > 1}
+                {#if childPages.length > 0}
                 <div class="ddcontent" 
                     class:isOpaque={isOpaque} 
                     id={btnName}> 
@@ -296,6 +297,7 @@ function handleResize () {
 
 
 <style lang="scss">
+
 @mixin pseudoTemplate {
     content: '';
     position: absolute;
@@ -307,6 +309,7 @@ function handleResize () {
 }
 * {
     transition: opacity .3s ease-in-out;
+
 }
 #staticBackground {
     display: none;

@@ -1,12 +1,10 @@
 @font-face {
-    font-family: 'Gill Sans MT';
-    src: url('/fonts/gill-sans-mt.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: 'GillSans';
+  src: url('http://127.0.0.1:3000/fonts/gill-sans.ttf') format('ttf');
+}
 
   :root{
-    --koggis-grön: #037d4f;
+    --koggis-grön: #037D4F;
     --valla-grön: #16a654;
     --limejuice: #d1f2d5;
     --finvins-röd: #7D0331;

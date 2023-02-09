@@ -30,13 +30,18 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
         }
     }
     #heroimg{
+        //Justerade en del här för att se till att bilden är centrerad vid olika skärmstorlekar -Fredrik
+        object-fit: cover;
         display:block;
         min-height: calc(100vh + 230px);
         position: relative;
+        width: 100%;
+        margin-left: 0%;
+        overflow: hidden;
     }
 
     .herotxt{
-        top:9%;
+        top:20%;
         left:0%;
         right:0%;
         margin:auto;
