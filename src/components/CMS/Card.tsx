@@ -36,8 +36,9 @@ const component = ({ entry, widgetFor, collection }) => {
       justifyContent: "center"
     }}>
     <div style={{
-      width: "50%",
-      height: "clamp(100px, 20%, 400px)"
+      width: "clamp(425px, 50%, 600px)",
+      height: "clamp(100px, 20%, 400px)",
+      fontFamily: "GillSans"
     }}>
         <Card
           medlem={{

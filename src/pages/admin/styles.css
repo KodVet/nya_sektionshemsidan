@@ -8,3 +8,7 @@
 a[href="#/collections"] {
     font-weight: 500;
 }
+
+#preview-pane * {
+    font-family: GillSans;
+}
