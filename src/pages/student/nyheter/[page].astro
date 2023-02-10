@@ -2,7 +2,7 @@
 import Sidebar from '../../../components/UI/sidebar.astro';
 import Layout from '../../../layouts/baseLayout.astro';
 
-import Contentbox from '../../../components/content/Contentbox.astro';
+import NyhetCard from '@components/content/NyhetCard.svelte';
 import {max_height} from '../../../components/UI/navbar.svelte'
 // log om man vill kolla
 // posts.map((post) => {
@@ -32,23 +32,23 @@ import { sv } from 'date-fns/locale/index.js'
 		</script>
 		<Sidebar posts={page.data.map(({frontmatter}) => frontmatter)} />
 		<section id="inlägg">
-			{page.data.map((post) => {
+			{page.data.map((post, index) => {
 				const { Content } = post
 				const authors = post.frontmatter.author.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author))
+				const postProps = {
+					...post.frontmatter,
+					authors: authors.map(author => author.frontmatter)
+				}
+				console.log("postProps", postProps)
 				return (
 				<div class="post">
 				<div class="scrollAnchor" id={post.frontmatter.title} style={`--max-height: ${max_height}px`}></div>
-				<Contentbox>
-					{authors.map(author => author &&
-						<h3>{post.frontmatter.useNamn && author.frontmatter.namn}
-							{post.frontmatter.useNamn && post.frontmatter.usePost && ' -'}
-							{post.frontmatter.usePost && author.frontmatter.post}
-							{(post.frontmatter.usePost && post.frontmatter.useUtskott || post.frontmatter.useNamn && post.frontmatter.useUtskott) && ' -'}
-							{post.frontmatter.useUtskott && author.frontmatter.utskott}</h3>
-					)}
-					<h6>{format(new Date(post.frontmatter.date), 'dd-MMMM-yyyy', {locale: sv})}</h6>
-					<Content/>
-				</Contentbox>
+				<NyhetCard reverse={index % 2} post={postProps}>
+					
+					<Fragment slot="excerpt">
+						{post.frontmatter.excerpt}
+					</Fragment>
+				</NyhetCard>
 				</div>
 				)
 			}

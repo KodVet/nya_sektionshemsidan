@@ -12,3 +12,7 @@ a[href="#/collections"] {
 #preview-pane * {
     font-family: GillSans;
 }
+
+#preview-pane {
+    background-color: var(--reflex-vit);
+}
