@@ -34,15 +34,18 @@ const Component = ({ entry, widgetFor, collection }) => {
         height: "clamp(100px, 20%, 400px)",
         fontFamily: "GillSans"
         }}>
-
             <Card
             post={{
                 title: entry.data["title"],
-                authors: entry.data["author"].map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter),
+                authors: entry.data["author"]?.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter) || [
+                    {
+                        namn: "Författare"
+                    }
+                ], 
                 useNamn: entry.data["useNamn"],
                 usePost: entry.data["usePost"],
-                useUtskott: entry.data["usePost"],
-                date: entry.data["date"],
+                useUtskott: entry.data["useUtskott"],
+                date: entry.data["date"] || new Date(),
                 image: blob
             }}
             reverse={false}
