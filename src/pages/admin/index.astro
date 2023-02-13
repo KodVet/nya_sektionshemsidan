@@ -102,10 +102,6 @@ import '../../globalStyles.css'
       }
     })
 
-
-    CMS.registerPreviewTemplate('nyheter', Nyheter)
-    console.log(config)
-
     const PostPreviewCard = ({ entry, widgetFor, viewStyle }) => {
   return h(
     'div',
@@ -174,6 +170,7 @@ import '../../globalStyles.css'
   );
 };
 
+CMS.registerPreviewCard('nyheter', PostPreviewCard);
 
 const buildHook = () => {
       function handleClick() {
