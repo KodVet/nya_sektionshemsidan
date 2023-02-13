@@ -76,11 +76,7 @@ import '../../globalStyles.css'
     const CustomPage = () => {
       return h('div', {style: {height: '100%', width: '100%', paddingInline: '5px'}}, h(ReactMarkdown, {children: markdown}));
     };
-    const Nyheter = () => h('div', {style: {
-      position: 'absolute',
-      height: '95%',
-      width: '95%'
-    }}, h('iframe', {src: 'https://sektionshemsidan.netlify.app/for-medlemmar/nyheter/', height: '100%', width: '100%'}))
+
     CMS.registerAdditionalLink({
       id: 'instruktioner',
       title: 'Instruktioner',
@@ -178,7 +174,6 @@ import '../../globalStyles.css'
   );
 };
 
-CMS.registerPreviewCard('nyheter', PostPreviewCard);
 
 const buildHook = () => {
       function handleClick() {
