@@ -132,7 +132,7 @@ import '../../globalStyles.css'
             },
           },
           h('strong', { style: { fontSize: '16px', width: '25%' } }, entry.data.title),
-          h('span', { style: { fontSize: '16px', width: '25%' } }, entry.data.author.map((auth, index) => h('span', {}, entry.data.author[index + 1] ? auth + ',  ' : auth))),
+          h('span', { style: { fontSize: '16px', width: '25%' } }, entry.data.authors.map((auth, index) => h('span', {}, entry.data.authors[index + 1] ? auth + ',  ' : auth))),
           h('span', { style: { fontSize: '16px', width: '25%' } }, entry.data.date),
         ),
         h(
