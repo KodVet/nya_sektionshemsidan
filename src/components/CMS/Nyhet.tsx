@@ -32,7 +32,7 @@ const Component = ({ entry, widgetFor, collection }) => {
     }}>
         <div style={{
         containerType: "inline-size",
-        width: "clamp(425px, 75%, 1000px)",
+        width: "clamp(425px, 90%, 1000px)",
         height: "calc(fit-content + 10px)",
         fontFamily: "GillSans",
         resize: "horizontal",

@@ -160,6 +160,7 @@
         margin-bottom: 5px;
     }
     .image.wrapper {
+        min-width: 265px;
         display: flex;
         align-items: center;
         img {
