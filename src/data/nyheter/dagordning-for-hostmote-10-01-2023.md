@@ -1,17 +1,17 @@
 ---
 draft: false
-author:
-  - Nathalie Enkvist
+authors:
   - Lina Sandin
+  - Nathalie Enkvist
 useNamn: true
 usePost: false
 useUtskott: true
 title: Dagordning för höstmöte
 date: 2023-01-30
 img: /1673306163329.png
-excerpt: "Höstmötet börjar närma sig och mötets dagordning är nu klar! Mötet
+excerpt: Höstmötet börjar närma sig och mötets dagordning är nu klar! Mötet
   äger rum i KEY1 den 30 november. Dörrarna kommer att öppnas kl 17.15 och mötet
-  startar kl 17.30, se till att vara där i god tid.\r"
+  startar kl 17.30, se till att vara där i god tid.
 ---
 ## [Dagordning för höstmöte 2022](https://www.kogvet.se/2022/11/23/dagordning-for-hostmote-2022/ "Dagordning för höstmöte 2022")
 

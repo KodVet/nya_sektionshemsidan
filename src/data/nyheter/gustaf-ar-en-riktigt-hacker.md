@@ -1,6 +1,6 @@
 ---
 draft: false
-author:
+authors:
   - Gurra
 useNamn: true
 usePost: true
