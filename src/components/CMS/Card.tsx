@@ -37,8 +37,10 @@ const component = ({ entry, widgetFor, collection }) => {
     }}>
     <div style={{
       width: "clamp(425px, 50%, 600px)",
-      height: "clamp(100px, 20%, 400px)",
-      fontFamily: "GillSans"
+      height: "fit-content",
+      fontFamily: "GillSans",
+      resize: "horizontal",
+      overflow: "hidden"
     }}>
         <Card
           medlem={{
