@@ -27,17 +27,21 @@ const Component = ({ entry, widgetFor, collection }) => {
       width: "100%",
       height: "100%",
       alignContent: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      
     }}>
         <div style={{
+        containerType: "inline-size",
         width: "clamp(425px, 75%, 1000px)",
-        height: "clamp(100px, 20%, 400px)",
-        fontFamily: "GillSans"
+        height: "calc(fit-content + 10px)",
+        fontFamily: "GillSans",
+        resize: "horizontal",
+        overflow: "hidden"
         }}>
             <Card
             post={{
                 title: entry.data["title"],
-                authors: entry.data["author"]?.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter) || [
+                authors: entry.data["authors"]?.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter) || [
                     {
                         namn: "Författare"
                     }
@@ -46,7 +50,7 @@ const Component = ({ entry, widgetFor, collection }) => {
                 usePost: entry.data["usePost"],
                 useUtskott: entry.data["useUtskott"],
                 date: entry.data["date"] || new Date(),
-                image: blob
+                img: blob
             }}
             reverse={false}
             >
