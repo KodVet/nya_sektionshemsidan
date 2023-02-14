@@ -41,7 +41,7 @@
   ],
   "editor": {
     "preview": true,
-    "frame": true
+    "frame": false
   },
   "fields": [
     {
@@ -53,7 +53,7 @@
     },
     {
       "label": "Författare",
-      "name": "author",
+      "name": "authors",
       "widget": "relation",
       "collection": "medlemmar",
       "value_field": "{{namn}}",
