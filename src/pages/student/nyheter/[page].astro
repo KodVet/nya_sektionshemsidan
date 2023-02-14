@@ -3,14 +3,15 @@ import Sidebar from '../../../components/UI/sidebar.astro';
 import Layout from '../../../layouts/baseLayout.astro';
 
 import NyhetCard from '@components/content/NyhetCard.svelte';
+import NyhetList from '@components/content/NyhetList.svelte';
 import {max_height} from '../../../components/UI/navbar.svelte'
 // log om man vill kolla
 // posts.map((post) => {
 // 	console.log('post här ', post)
 // })
 // console.log(max_height)
-const medlemmar = await Astro.glob('../../../data/medlemmar/*.md')
 export async function getStaticPaths({ paginate }) {
+	const medlemmar = await Astro.glob('../../../data/medlemmar/*.md')
 	const posts = await Astro.glob('../../../data/nyheter/*.md')
 	const publishedPosts = posts.filter(post => !post.frontmatter.draft)
 	const sortedPosts = publishedPosts.sort((a, b) => {
@@ -18,34 +19,47 @@ export async function getStaticPaths({ paginate }) {
 		const dateB = new Date(b.frontmatter.date)
 		return dateB - dateA
 	})
-	sortedPosts.map((post)=>console.log(post.frontmatter.date))
-    return paginate(sortedPosts, { pageSize: 2 })
+	// medlemmar.map(medlem => console.log("medlem namn", medlem.frontmatter.namn))
+	// sortedPosts.map(post => console.log("post authors", post.frontmatter.authors))
+	const postsWithAuthors = sortedPosts.map(post => {
+		// let newPost = JSON.parse(JSON.stringify(post))
+		const authorsObject = {
+			frontmatter: {
+				...post.frontmatter,
+				authors: post.frontmatter.authors.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter)
+			}
+		}
+		const newPost = {
+			...post,
+			frontmatter: {
+				...post.frontmatter,
+				authors: post.frontmatter.authors.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter)
+			}
+		}
+		// newPost.frontmatter.authors = post.frontmatter.authors.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author))
+		// console.log("newPost", newPost.frontmatter)
+		return newPost
+	})
+	// console.log("post with authors antal", postsWithAuthors.length)
+	// postsWithAuthors.map((post)=>console.log("post with author" ,post.frontmatter))
+    return paginate(postsWithAuthors, { pageSize: 2 })
 }
 const { page } = Astro.props
 import { format } from 'date-fns'
 import { sv } from 'date-fns/locale/index.js'
 ---
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
-	<div class="wrapper" data-page-json={JSON.stringify(page)} slot="main">
+	<div class="wrapper" slot="main">
 		<script is:inline>
-			console.log(JSON.parse(document.querySelector('.wrapper[data-page-json]').dataset.pageJson))
 		</script>
-		<Sidebar posts={page.data.map(({frontmatter}) => frontmatter)} />
+		<!-- <Sidebar posts={page.data.map(({frontmatter}) => frontmatter)} /> -->
 		<section id="inlägg">
 			{page.data.map((post, index) => {
-				const { Content } = post
-				const authors = post.frontmatter.author.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author))
-				const postProps = {
-					...post.frontmatter,
-					authors: authors.map(author => author.frontmatter)
-				}
-				console.log("postProps", postProps)
 				return (
 				<div class="post">
 				<div class="scrollAnchor" id={post.frontmatter.title} style={`--max-height: ${max_height}px`}></div>
-				<NyhetCard reverse={index % 2} post={postProps}>
-					
-					<Fragment slot="excerpt">
+				<NyhetCard post={post.frontmatter} reverse={index % 2}>
+					<Fragment>
 						{post.frontmatter.excerpt}
 					</Fragment>
 				</NyhetCard>
@@ -54,6 +68,7 @@ import { sv } from 'date-fns/locale/index.js'
 			}
 
 		)}
+		<NyhetList posts={page.data.map(post => post.frontmatter)}/>
 		{page.url.prev && <a href={page.url.prev}><button>Förra</button></a>}
 		{page.url.next && <a href={page.url.next}><button>Nästa</button></a>}
 		</section>	
@@ -75,9 +90,16 @@ import { sv } from 'date-fns/locale/index.js'
 	#inlägg {
 		display: flex;
 		flex-direction: column;
-		margin: 50px;
-		gap: 300px;
+		width: 70%;
+		margin: auto;
+		gap: 50px;
 	}
-
+	.post {
+		container-type: inline-size;
+		/* width: 70vw; */
+		position: relative;
+		display: flex;
+		justify-content: center;
+	}
 </style>
 
