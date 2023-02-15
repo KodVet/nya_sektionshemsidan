@@ -63,19 +63,31 @@ if (!page.url.prev) {
 		<div class="gamla-inlägg">
 			<h1>Äldre inlägg</h1>
 			<NyhetList posts={oldPosts.map(post => post.frontmatter)}/>
-		</div>
-		<div class="page-switcher">
-			{page.url.prev && <a href={page.url.prev}><button>{"<"}</button></a>}
+			<div class="page-switcher">
+				{page.currentPage >= 3 && <a href={page.url.prev}><button class="arrow">«</button></a>}
+				{page.url.prev && <a href={page.url.prev}><button class="arrow">‹</button></a>}
+	
+				<ol class="page-list">
+					{[...Array(page.lastPage).keys()].map(pageNumber => {
+						pageNumber ++
+						return (
+							<li>
+								<a
+								href={`/student/nyheter/${pageNumber}`} 
+								>
+									<button style={(pageNumber === page.currentPage) && 'text-decoration: underline;'}>{pageNumber}</button>
+								</a>
+							</li>
 
-			<ol class="page-list">
-				{[...Array(page.total).keys()].map(pageNumber => 
-					<li><a>{pageNumber}</a></li>
-					
-					)
-				}
-			</ol>
-			
-			{page.url.next && <a href={page.url.next}><button>{">"}</button></a>}
+							)
+						})
+					}
+				</ol>
+				
+				{page.url.next && <a href={page.url.next}><button class="arrow">›</button></a>}
+				{page.lastPage -  page.currentPage >= 3 && <a href={page.url.prev}><button class="arrow">»</button></a>}
+				{()=>console.log(page.total)}
+			</div>
 		</div>
 		
 		</section>	
@@ -117,15 +129,25 @@ if (!page.url.prev) {
 	.page-switcher {
 		display: flex;
 		align-items: center;
-		button {
-			background-color: transparent;
-			border: none;
+		gap: 5px;
+		justify-content: center;
+		a {
+			color: black;
+			text-decoration: none;
+			button {
+				background-color: transparent;
+				border: none;
+				font-size: 18px;
+				&.arrow {
+					font-weight: bold;
+				}
+			}
 		}
 		.page-list {
 			display: flex;
 			list-style: none;
 			padding: 0;
-			gap: 15px;
+			gap: 5px;
 			li {
 				padding: 0;
 			}
