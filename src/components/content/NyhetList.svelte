@@ -5,15 +5,15 @@
     
 </script>
 
-<a href="#">
-    <div class="container">
+<div class="container">
+    <a href="#">
         <ol>
             {#each posts as { title, date, authors, useNamn, usePost, useUtskott }}
                 <li>
                     <div class="highlight"></div>
                     <div class="main">
-                        <p>{title}</p>
-                        <p>
+                        <p class="title"><b>{title}</b></p>
+                        <p class="dateauthor">
                             <time datetime={new Date(date)}>{format(new Date(date), 'dd/MM/yyyy')}</time>
                             {#if useNamn || usePost || useUtskott}
                             av
@@ -39,10 +39,70 @@
                             {/if}
                             {/each}
                         </p>
-                        <p>Läs mer →</p>
+                        <p class="readmore">Läs mer →</p>
                     </div>
                 </li>
             {/each}
         </ol>
-    </div>
-</a>
+    </a>
+</div>
+
+<style lang="scss">
+    .container {
+        
+        width: calc(100% - 20px);
+        margin: auto;
+    }
+    
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    ol {
+        padding: 0;
+    }
+    li {
+        background-color: white;
+        transition: background-color 100ms ease;
+        height: 36px;
+        &:nth-child(n):hover {
+            background-color: var(--limejuice);
+            .highlight {
+                opacity: 1;
+            }
+        }
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &:nth-child(even) {
+			background-color: rgb(226, 226, 226);
+		}
+    }
+    .highlight {
+        background-color: black;
+        width: 2px;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 100ms ease;
+    }
+    .main {
+        padding-inline: 8px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        p {
+            overflow: clip;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow-clip-margin: 3px;
+        }
+        .title {
+            flex-basis: 47%;
+        }
+        .dateauthor {
+            flex-basis: 42%;
+            color: var(--regnig-betong);
+        }
+    }
+</style>

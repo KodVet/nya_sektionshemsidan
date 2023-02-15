@@ -29,14 +29,14 @@ export async function getStaticPaths({ paginate }) {
 		}
 		return newPost
 	})
-    return paginate(postsWithAuthors, { pageSize: 12 })
+    return paginate(postsWithAuthors, { pageSize: 3 })
 }
 const { page } = Astro.props
 let oldPosts = page.data
 let newPosts
 if (!page.url.prev) {
-	newPosts = page.data.slice(0,3)
-	oldPosts = page.data.slice(3)
+	newPosts = page.data.slice(0,1)
+	oldPosts = page.data.slice(1)
 }
 ---
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
@@ -60,7 +60,10 @@ if (!page.url.prev) {
 				}
 			)}
 			</div>}
-		<NyhetList posts={oldPosts.map(post => post.frontmatter)}/>
+		<div class="gamla-inlägg">
+			<h1>Äldre inlägg</h1>
+			<NyhetList posts={oldPosts.map(post => post.frontmatter)}/>
+		</div>
 		{page.url.prev && <a href={page.url.prev}><button>Förra</button></a>}
 		{page.url.next && <a href={page.url.next}><button>Nästa</button></a>}
 		</section>	
@@ -95,5 +98,7 @@ if (!page.url.prev) {
 		display: flex;
 		justify-content: center;
 	}
+	.gamla-inlägg h1 {
+		padding-left: 12px;
+	}
 </style>
-
