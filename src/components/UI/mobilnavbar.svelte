@@ -19,6 +19,9 @@
 
 
 <style>
+nav{
+    display:none;
+}
 
 nav .dropdown-menu {
     display: inline-block;
