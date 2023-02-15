@@ -6,7 +6,7 @@
         <div class= "dropdown-menu">
             <ul>
                     <li> <a href indexedDB.astro id="start"> Start </a></li>
-                    <li> <a href indexedDB.astro id ="start"> Om sektionen </a></li>
+                    <li> <a href indexedDB.astro id ="sektionen"> Om sektionen </a></li>
                         <div class = "dropdown-content"> <a href="">Intressant sida 1</a></div>
                         <div class = "dropdown-content"> <a href="">Intressant sida 2</a></div>
                     <li>Ny student</li>
