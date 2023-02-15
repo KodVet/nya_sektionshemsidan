@@ -64,13 +64,25 @@ if (!page.url.prev) {
 			<h1>Äldre inlägg</h1>
 			<NyhetList posts={oldPosts.map(post => post.frontmatter)}/>
 		</div>
-		{page.url.prev && <a href={page.url.prev}><button>Förra</button></a>}
-		{page.url.next && <a href={page.url.next}><button>Nästa</button></a>}
+		<div class="page-switcher">
+			{page.url.prev && <a href={page.url.prev}><button>{"<"}</button></a>}
+
+			<ol class="page-list">
+				{[...Array(page.total).keys()].map(pageNumber => 
+					<li><a>{pageNumber}</a></li>
+					
+					)
+				}
+			</ol>
+			
+			{page.url.next && <a href={page.url.next}><button>{">"}</button></a>}
+		</div>
+		
 		</section>	
 	</div>
 </Layout>
 
-<style>
+<style lang="scss">
 	.wrapper {
 		display: flex;
 	}
@@ -100,5 +112,23 @@ if (!page.url.prev) {
 	}
 	.gamla-inlägg h1 {
 		padding-left: 12px;
+	}
+
+	.page-switcher {
+		display: flex;
+		align-items: center;
+		button {
+			background-color: transparent;
+			border: none;
+		}
+		.page-list {
+			display: flex;
+			list-style: none;
+			padding: 0;
+			gap: 15px;
+			li {
+				padding: 0;
+			}
+		}
 	}
 </style>
