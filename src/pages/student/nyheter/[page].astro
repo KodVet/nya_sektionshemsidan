@@ -19,16 +19,7 @@ export async function getStaticPaths({ paginate }) {
 		const dateB = new Date(b.frontmatter.date)
 		return dateB - dateA
 	})
-	// medlemmar.map(medlem => console.log("medlem namn", medlem.frontmatter.namn))
-	// sortedPosts.map(post => console.log("post authors", post.frontmatter.authors))
 	const postsWithAuthors = sortedPosts.map(post => {
-		// let newPost = JSON.parse(JSON.stringify(post))
-		const authorsObject = {
-			frontmatter: {
-				...post.frontmatter,
-				authors: post.frontmatter.authors.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter)
-			}
-		}
 		const newPost = {
 			...post,
 			frontmatter: {
@@ -36,44 +27,44 @@ export async function getStaticPaths({ paginate }) {
 				authors: post.frontmatter.authors.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter)
 			}
 		}
-		// newPost.frontmatter.authors = post.frontmatter.authors.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author))
-		// console.log("newPost", newPost.frontmatter)
 		return newPost
 	})
-	// console.log("post with authors antal", postsWithAuthors.length)
-	// postsWithAuthors.map((post)=>console.log("post with author" ,post.frontmatter))
-    return paginate(postsWithAuthors, { pageSize: 2 })
+    return paginate(postsWithAuthors, { pageSize: 12 })
 }
 const { page } = Astro.props
-import { format } from 'date-fns'
-import { sv } from 'date-fns/locale/index.js'
+let oldPosts = page.data
+let newPosts
+if (!page.url.prev) {
+	newPosts = page.data.slice(0,3)
+	oldPosts = page.data.slice(3)
+}
 ---
 <Layout title="Kodvet är bäst" active={Astro.url.pathname}>
 	<div class="wrapper" slot="main">
 		<script is:inline>
 		</script>
-		<!-- <Sidebar posts={page.data.map(({frontmatter}) => frontmatter)} /> -->
 		<section id="inlägg">
-			{page.data.map((post, index) => {
-				return (
-				<div class="post">
-				<div class="scrollAnchor" id={post.frontmatter.title} style={`--max-height: ${max_height}px`}></div>
-				<NyhetCard post={post.frontmatter} reverse={index % 2}>
-					<Fragment>
-						{post.frontmatter.excerpt}
-					</Fragment>
-				</NyhetCard>
-				</div>
-				)
-			}
-
-		)}
-		<NyhetList posts={page.data.map(post => post.frontmatter)}/>
+			{!page.url.prev && 
+			<div class="nya-inlägg">
+				{newPosts.map((post, index) => {
+					return (
+					<div class="post">
+					<div class="scrollAnchor" id={post.frontmatter.title} style={`--max-height: ${max_height}px`}></div>
+					<NyhetCard post={post.frontmatter} reverse={index % 2}>
+						<Fragment>
+							{post.frontmatter.excerpt}
+						</Fragment>
+					</NyhetCard>
+					</div>
+					)
+				}
+			)}
+			</div>}
+		<NyhetList posts={oldPosts.map(post => post.frontmatter)}/>
 		{page.url.prev && <a href={page.url.prev}><button>Förra</button></a>}
 		{page.url.next && <a href={page.url.next}><button>Nästa</button></a>}
 		</section>	
 	</div>
-
 </Layout>
 
 <style>
@@ -87,11 +78,14 @@ import { sv } from 'date-fns/locale/index.js'
 		top: -200px;
 		visibility: hidden;
 	}
+	
 	#inlägg {
-		display: flex;
-		flex-direction: column;
 		width: 70%;
 		margin: auto;
+	}
+	.nya-inlägg {
+		display: flex;
+		flex-direction: column;
 		gap: 50px;
 	}
 	.post {
