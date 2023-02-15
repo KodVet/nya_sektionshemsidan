@@ -1,8 +1,44 @@
 <script>
-    import pages from '../../data/navbarConfig.json'
+    import {pages} from '../../data/navbarConfig.json'
+    export let active = "/om-sektionen"
+    
+
 </script>
- 
- <nav>
+
+<nav>
+<ul>
+    {#each pages as { url, btnName, childPages }, topIndex}
+    <li class="navBtn" id="{btnName}"
+        class:active={active.split('/')[1] === (url).split('/')[1]}>
+        <a href="{url}">{btnName}</a>
+    </li>
+
+    {#if childPages.length > 0}
+                <div class="ddcontent" 
+                     
+                    id={btnName}> 
+                    <ul>
+                    {#each childPages as { url, btnName }, index}
+                        <li class="button" 
+                        class:active={active.split('/')[2] && (active.split('/')[2] === (url).split('/')[2])}>
+                            <div class="dot"></div>
+                            <a 
+                                tabindex={'0'} 
+                                href="{url}">
+                                {btnName}
+                            </a>
+                        </li>
+                         <li class="line"></li>
+                        
+                        {/each}
+                    </ul>
+                </div>
+                {/if}
+    {/each}
+</ul>
+</nav>
+<!--
+    <nav>
         <div class= "dropdown-menu">
             <ul>
                     <li> <a href indexedDB.astro id="start"> Start </a></li>
@@ -17,29 +53,30 @@
             
  </nav>
 
-
+-->
 <style>
 nav{
     display:none;
 }
 
-nav .dropdown-menu {
-    display: inline-block;
-    position: relative;
+ul .navBtn .ddcontent {
+    display:none;
 }
-nav .dropdown-content a{
-    display: none;
-    position: relative;
+ul .navBtn button:hover {
+    display: inline-block;
+
 }
 
 nav:hover .dropdown-content a {
     display: inline-block;
     position: relative;
 }
+.active{
+    color:red;
+}
 
 /*nav:hover .dropdown-content {display: block;}
 nav:hover .dropbtn {background-color: var(--navbar-bg);}*/
-
 
 @media (max-width: 576px) 
 {nav {
