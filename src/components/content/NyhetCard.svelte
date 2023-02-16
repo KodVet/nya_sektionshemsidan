@@ -19,7 +19,7 @@
     const { title, authors, date, excerpt, useNamn, usePost, useUtskott, img = ""} = post
 </script>
 <div class="container">
-    <a href={title}>
+    <a href={'/student/nyheter/' + title}>
         <div class="highlight"></div>
         <article class:reverse={reverse}>
             <div class="image wrapper">
