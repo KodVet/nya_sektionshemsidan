@@ -5,11 +5,7 @@ import Layout from '../../../layouts/baseLayout.astro';
 import NyhetCard from '@components/content/NyhetCard.svelte';
 import NyhetList from '@components/content/NyhetList.svelte';
 import {max_height} from '../../../components/UI/navbar.svelte'
-// log om man vill kolla
-// posts.map((post) => {
-// 	console.log('post här ', post)
-// })
-// console.log(max_height)
+
 export async function getStaticPaths({ paginate }) {
 	const medlemmar = await Astro.glob('../../../data/medlemmar/*.md')
 	const posts = await Astro.glob('../../../data/nyheter/*.md')
@@ -20,14 +16,13 @@ export async function getStaticPaths({ paginate }) {
 		return dateB - dateA
 	})
 	const postsWithAuthors = sortedPosts.map(post => {
-		const newPost = {
+		return {
 			...post,
 			frontmatter: {
 				...post.frontmatter,
 				authors: post.frontmatter.authors.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter)
 			}
 		}
-		return newPost
 	})
     return paginate(postsWithAuthors, { pageSize: 3 })
 }
@@ -47,6 +42,7 @@ if (!page.url.prev) {
 			{!page.url.prev && 
 			<div class="nya-inlägg">
 				{newPosts.map((post, index) => {
+					console.log("post", post)
 					return (
 					<div class="post">
 					<div class="scrollAnchor" id={post.frontmatter.title} style={`--max-height: ${max_height}px`}></div>

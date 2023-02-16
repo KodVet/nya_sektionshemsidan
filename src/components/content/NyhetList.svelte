@@ -6,9 +6,9 @@
 </script>
 
 <div class="container">
-    <a href="#">
-        <ol>
-            {#each posts as { title, date, authors, useNamn, usePost, useUtskott }}
+    <ol>
+        {#each posts as { title, date, authors, useNamn, usePost, useUtskott }}
+            <a href={title}>
                 <li>
                     <div class="highlight"></div>
                     <div class="main">
@@ -42,9 +42,9 @@
                         <p class="readmore">Läs mer →</p>
                     </div>
                 </li>
-            {/each}
-        </ol>
-    </a>
+            </a>
+        {/each}
+    </ol>
 </div>
 
 <style lang="scss">
