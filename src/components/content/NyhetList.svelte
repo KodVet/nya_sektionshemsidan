@@ -8,7 +8,7 @@
 <div class="container">
     <ol>
         {#each posts as { title, date, authors, useNamn, usePost, useUtskott }}
-            <a href={title}>
+            <a href={'/student/nyheter/' + title}>
                 <li>
                     <div class="highlight"></div>
                     <div class="main">
