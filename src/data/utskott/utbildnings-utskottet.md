@@ -1,5 +1,8 @@
 ---
+Uuid: 7yww4rtb
 title: Utbildningsutskottet
+medlemmarConfig:
+  sorting: ascending
 ---
 # Utbildningsutskottet
 

@@ -4,7 +4,7 @@
   "label_singular": "nyhet",
   "folder": "src/data/nyheter",
   "create": true,
-  "slug": "{{slug}}",
+  "slug": "{{Uuid}}",
   "icon": "newspaper",
   "sortable_fields": {
     "fields": [
@@ -45,6 +45,10 @@
   },
   "fields": [
     {
+      "widget": "uuid",
+      "name": "Uuid"
+    },
+    {
       "label": "Utkast?",
       "name": "draft",
       "widget": "boolean",
@@ -56,12 +60,13 @@
       "name": "authors",
       "widget": "relation",
       "collection": "medlemmar",
-      "value_field": "{{namn}}",
+      "value_field": "{{Uuid}}",
       "search_fields": [
         "namn",
         "post",
         "utskott"
       ],
+      "display_fields": ["namn"],
       "required": true,
       "multiple": true,
       "options_lenght": 20

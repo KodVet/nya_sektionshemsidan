@@ -6,7 +6,7 @@
   "folder": "src/data/medlemmar",
   "icon": "usergroup",
   "create": true,
-  "slug": "{{slug}}",
+  "slug": "{{Uuid}}",
   "IframePreview": {
     "baseSrc": "/om-sektionen/",
     "fieldSrc": "utskott",
@@ -23,6 +23,10 @@
     }
   ],
   "fields": [
+    {
+      "widget": "uuid",
+      "name": "Uuid"
+    },
     {
       "widget": "boolean",
       "default": false,

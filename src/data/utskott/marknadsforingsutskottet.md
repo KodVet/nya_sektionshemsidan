@@ -1,5 +1,8 @@
 ---
+Uuid: vZe9vuZf
 title: Marknadsföringsutskottet
+medlemmarConfig:
+  sorting: ascending
 ---
 # Marknadsföringsutskottet
 

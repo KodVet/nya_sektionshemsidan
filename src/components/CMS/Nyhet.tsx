@@ -41,7 +41,7 @@ const Component = ({ entry, widgetFor, collection }) => {
             <Card
             post={{
                 title: entry.data["title"],
-                authors: entry.data["authors"]?.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter) || [
+                authors: entry.data["authors"]?.map(author => medlemmar.find(medlem => medlem.frontmatter.Uuid === author).frontmatter) || [
                     {
                         namn: "Författare"
                     }

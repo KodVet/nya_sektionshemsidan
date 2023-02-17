@@ -1,4 +1,6 @@
 ---
+Uuid: iuoZvstv
+direction: false
 namn: Nathalie Wahlner
 utskott: Styrelsen
 position: 2

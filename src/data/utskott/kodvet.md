@@ -1,7 +1,8 @@
 ---
+Uuid: 9dz5nz9v
 title: Kodvet
 medlemmarConfig:
-  sorting: ascending
+  sorting: "ascending\r"
 ---
 
 

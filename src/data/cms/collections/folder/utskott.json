@@ -4,7 +4,7 @@
   "folder": "src/data/utskott",
   "icon": "userrectangle",
   "extension": "md",
-  "slug": "{{slug}}",
+  "slug": "{{Uuid}}",
   "create": true,
   "IframePreview": {
     "baseSrc": "/om-sektionen/",
@@ -19,6 +19,10 @@
     "frame": false
   },
   "fields": [
+    {
+      "widget": "uuid",
+      "name": "Uuid"
+    },
     {
       "label": "Namn",
       "name": "title",

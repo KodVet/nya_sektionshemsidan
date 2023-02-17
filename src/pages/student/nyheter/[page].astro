@@ -20,7 +20,7 @@ export async function getStaticPaths({ paginate }) {
 			...post,
 			frontmatter: {
 				...post.frontmatter,
-				authors: post.frontmatter.authors.map(author => medlemmar.find(medlem => medlem.frontmatter.namn === author).frontmatter)
+				authors: post.frontmatter.authors.map(author => medlemmar.find(medlem => medlem.frontmatter.Uuid === author).frontmatter)
 			}
 		}
 	})
