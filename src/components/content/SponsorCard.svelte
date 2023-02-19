@@ -1,6 +1,5 @@
 <script>
     import { sponsors } from '@data/sponsorer/panel'
-    console.log(sponsors)
 </script>
 
 <div id="SponsorCard">
