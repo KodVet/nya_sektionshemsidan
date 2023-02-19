@@ -13,11 +13,24 @@
         usePost: false,
         useUtskott: false,
         date: new Date(),
-        excerpt: ``
     }
     export let reverse = false
-    const { title, authors, date, excerpt, useNamn, usePost, useUtskott, img = ""} = post
+    // let authors
+    // if (typeof post.authors[0] === 'string') {
+    //     const allAuthors = import.meta.glob('../../data/medlemmar/*.md', {eager: true})
+    //     const filteredAuthors = post.authors.map(uuid => {
+    //         return Object.entries(allAuthors).find(([key]) => {
+    //             return key.includes(uuid)
+    //         })[1] // [1]:an är värdet, då Object.entries(<objekt>) returnerar en lista av listor med [nyckel, värde]
+    //         })
+    //         // console.log("filteredauthors", filteredAuthors)
+            
+    //         authors = filteredAuthors.map(author => author.frontmatter)
+    //     } else authors = post.authors
+
+    const { title, date, authors, useNamn, usePost, useUtskott, img = ""} = post
 </script>
+
 <div class="container">
     <a href={'/student/nyheter/' + title}>
         <div class="highlight"></div>
@@ -30,30 +43,32 @@
                     {title}
                 </h1>
                 <h6>
-                    <time datetime={new Date(date)}>{format(new Date(date), 'dd/MM/yyyy', {locale: sv})}</time>
+                    <time datetime={new Date(date)}>{format(new Date(date), 'dd/MM/yyyy')}</time>
                     {#if useNamn || usePost || useUtskott}
                     av
                     {/if}
-                    {#each authors as author, index}
-                    {#if useNamn}
-                        {author.namn}
-                    {/if}
-                    {#if useNamn && usePost}
-                        {" - "}
-                    {/if}
-                    {#if usePost}
-                        {author.post}
-                    {/if}
-                    {#if (usePost && useUtskott || useNamn && useUtskott)}
-                        {" - "}
-                    {/if}
-                    {#if useUtskott}
-                        {author.utskott}
-                    {/if}
-                    {#if authors[index + 1]}
-                        <span style="margin-left: -4px;">{', '.trimStart()}</span>
-                    {/if}
-                    {/each}
+                    <div class="author">
+                        {#each authors as author, index}
+                            {#if useNamn}
+                            {author.namn}
+                            {/if}
+                            {#if useNamn && usePost}
+                            {" - "}
+                            {/if}
+                            {#if usePost}
+                            {author.post}
+                            {/if}
+                            {#if (usePost && useUtskott || useNamn && useUtskott)}
+                            {" - "}
+                            {/if}
+                            {#if useUtskott}
+                            {author.utskott}
+                            {/if}
+                            {#if authors[index + 1]}
+                            <span style="margin-left: -4px;">{', '.trimStart()}</span>
+                            {/if}
+                        {/each}
+                    </div>
                 </h6>
                 <div class="excerpt">
                     <slot>

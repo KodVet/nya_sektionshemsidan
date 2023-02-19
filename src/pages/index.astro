@@ -3,6 +3,7 @@ import Layout from '../layouts/baseLayout.astro';
 import Hero from '../components/content/hero.astro';
 import Titlecard from '@components/content/TitleCard.astro';
 import SponsorCard from '@components/content/SponsorCard.svelte';
+import NyhetCard from '@components/content/NyhetCard.svelte';
 const posts = await Astro.glob('../data/nyheter/*.md')
 const publishedPosts = posts.filter(post => !post.frontmatter.draft)
 const sortedPosts = publishedPosts.sort((a, b) => {
@@ -10,12 +11,22 @@ const sortedPosts = publishedPosts.sort((a, b) => {
 		const dateB = new Date(b.frontmatter.date)
 		return dateB - dateA
 	})
-const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
-const components = await Astro.glob('../components/*/*.astro')
-console.log(components)
-// console.log(news)
 
-console.log("DATUM", publishedPosts[0].frontmatter.date)
+const latestPost = sortedPosts.find(post => {
+	// console.log("datum", Date(Math.max(...sortedPosts.map(post => new Date(post.frontmatter.date).getTime()))))
+	// console.log("frontmatter", Date(post.frontmatter.date))
+	return Date(post.frontmatter.date) === Date(Math.max(...sortedPosts.map(post => new Date(post.frontmatter.date).getTime())))
+})
+
+const latestPostWithAuthorFrontmatter = {
+	...latestPost.frontmatter,
+		authors: await Promise.all(latestPost.frontmatter.authors.map(async uuid => {
+			const imported = await import(`../data/medlemmar/${uuid}.md`)
+			return imported.frontmatter
+		}))
+	}
+
+
 ---
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname} isOpaque={true}>
 <Fragment slot="main">
@@ -41,21 +52,20 @@ console.log("DATUM", publishedPosts[0].frontmatter.date)
 			</aside>
 		</section>
 		<section class="news">
-			<h1>Nyheter</h1>
+			<h1>Senaste inlägg</h1>
 			<span class="line"></span>
 			<div class="newsList">
-				{sortedPosts.slice(0, 3).map(({Content, frontmatter, getHeadings}, index) =>
+				{sortedPosts.slice(0, 1).map(({frontmatter}, index) =>
 					<article style={`flex-direction: ${index%2===0?'row':'row-reverse'}`}>
-						<div class="img">
-								<img src={frontmatter.img} alt=""/>
-						</div>
-						<div class="text">
-							<div class="title">
-								<a href={`/student/nyheter/1#${frontmatter.title}`}><h2>{frontmatter.title}</h2></a>
-							</div>
-							<div class="date"><small>{frontmatter.date}</small></div>
-							<div class="excerpt">{frontmatter.excerpt}</div>
-						</div>
+						{() => {
+							console.log("post som skicka till svelte", latestPostWithAuthorFrontmatter)
+							// const newAuthors = Astro.glob('../data/medlemmar/*.md').filter(({frontmatter: {Uuid}}) => frontmatter.authors.includes(Uuid))
+							return (
+								<NyhetCard post={latestPostWithAuthorFrontmatter}>
+									{frontmatter.excerpt}	
+								</NyhetCard>
+							)
+						}}
 					</article>
 				)}
 			</div>

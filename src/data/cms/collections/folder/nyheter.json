@@ -137,6 +137,11 @@
         "allow_multiple": true,
         "choose_url": true
       }
+    },
+    {
+      "name": "bodyy",
+      "widget": "hidden",
+      "default": "import"
     }
   ],
   "hide": false,
