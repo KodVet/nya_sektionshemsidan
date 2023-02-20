@@ -1,7 +1,5 @@
 <script>
     import { format } from "date-fns";
-    import { sv } from 'date-fns/locale/index.js'
-    import './containerQueries.css'
     export let post = {
         title: "Rubrik",
         authors: [
@@ -33,52 +31,55 @@
 
 <div class="container">
     <a href={'/student/nyheter/' + title}>
-        <div class="highlight"></div>
-        <article class:reverse={reverse}>
-            <div class="image wrapper">
-                <img src={img} alt="" height="208px" width="265px">
-            </div>
-            <div class="text wrapper">
-                <h1 class="underline">
-                    {title}
-                </h1>
-                <h6>
-                    <time datetime={new Date(date)}>{format(new Date(date), 'dd/MM/yyyy')}</time>
-                    {#if useNamn || usePost || useUtskott}
-                    av
-                    {/if}
-                    <div class="author">
-                        {#each authors as author, index}
-                            {#if useNamn}
-                            {author.namn}
-                            {/if}
-                            {#if useNamn && usePost}
-                            {" - "}
-                            {/if}
-                            {#if usePost}
-                            {author.post}
-                            {/if}
-                            {#if (usePost && useUtskott || useNamn && useUtskott)}
-                            {" - "}
-                            {/if}
-                            {#if useUtskott}
-                            {author.utskott}
-                            {/if}
-                            {#if authors[index + 1]}
-                            <span style="margin-left: -4px;">{', '.trimStart()}</span>
-                            {/if}
-                        {/each}
+        <div class="anchor wrapper">
+            <div class="highlight"></div>
+                <article class:reverse={reverse}>
+                    <div class="image wrapper">
+                        <img src={img} alt="" height="208px" width="265px">
                     </div>
-                </h6>
-                <div class="excerpt">
-                    <slot>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id asperiores quas quos. Ex fugiat at fugit obcaecati sapiente incidunt! Rem distinctio voluptate ut. Consequuntur placeat harum laudantium error, aliquam architecto.
-                    Vitae, assumenda quos. Tenetur quia libero cumque corporis quidem cum quibusdam temporibus? Fugiat quos esse harum libero perferendis, ipsam illum maxime ducimus. Sunt minima repellat omnis maiores optio consectetur accusantium.
-                    </slot>
-                </div>
-                <p class="underline readmore">Läs mer →</p>
-            </div>
-        </article>
+                    <div class="text wrapper">
+                        <h1 class="underline">
+                            {title}
+                        </h1>
+                        <h6>
+                            <time datetime={new Date(date)}>{format(new Date(date), 'dd/MM/yyyy')}</time>
+                            {#if useNamn || usePost || useUtskott}
+                            av
+                            {/if}
+                            <div class="author">
+                                {#each authors as author, index}
+                                    {#if useNamn}
+                                    {author.namn}
+                                    {/if}
+                                    {#if useNamn && usePost}
+                                    {" - "}
+                                    {/if}
+                                    {#if usePost}
+                                    {author.post}
+                                    {/if}
+                                    {#if (usePost && useUtskott || useNamn && useUtskott)}
+                                    {" - "}
+                                    {/if}
+                                    {#if useUtskott}
+                                    {author.utskott}
+                                    {/if}
+                                    {#if authors[index + 1]}
+                                    <span style="margin-left: -4px;">{', '.trimStart()}</span>
+                                    {/if}
+                                {/each}
+                            </div>
+                        </h6>
+                        <div class="excerpt">
+                            <slot>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id asperiores quas quos. Ex fugiat at fugit obcaecati sapiente incidunt! Rem distinctio voluptate ut. Consequuntur placeat harum laudantium error, aliquam architecto.
+                            Vitae, assumenda quos. Tenetur quia libero cumque corporis quidem cum quibusdam temporibus? Fugiat quos esse harum libero perferendis, ipsam illum maxime ducimus. Sunt minima repellat omnis maiores optio consectetur accusantium.
+                            </slot>
+                        </div>
+                        <p class="underline readmore">Läs mer →</p>
+                    </div>
+                
+            </article>
+        </div>
     </a>
 </div>
 
@@ -95,39 +96,44 @@
         margin-bottom: 8px;
     }
     a {
-        width: 100%;
         text-decoration: none;
         color: black;
     }
     .highlight {
-        background-color: transparent;
-        width: 6px;
-        flex-basis: 2px; //nånting förstörde width: 100%, fattar inte vad
-        transition: background-color .08s ease-in-out;
+        background-color: var(--koggis-grön);
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 100ms ease;
     }
 
     .container {
         background-color: white;
-        height: fit-content;
-        width: calc(100% - 20px);
+        height: 238px;
+        width: 100%;
         margin: auto;
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
         border-radius: 0px;
         display: flex;
-        position: relative;
         justify-content: space-between;
-        
+        position: relative;
         &:hover {
             .highlight {
-                background-color: green;
+                opacity: 1;
             }
-            // .underline::after {
-            //     opacity: 1;
-            // }
+
             .underline {
                 text-decoration: underline black;
             }
         }
+    }
+    .anchor.wrapper {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
     }
     article.reverse {
         flex-direction: row-reverse;
@@ -137,22 +143,14 @@
         transition: text-decoration 80ms ease-in-out;
         position: relative;
     }
-    // .underline::after, h3::after {
-    //     transition: opacity .08s ease-in-out;
-    //     content: '';
-    //     width: 100%;
-    //     left: 0px;
-    //     font-weight: 100;
-    //     position: absolute;
-    //     opacity: 0;
-    //     text-decoration: underline;
-    // }
+
     article {
         font-size: 20px;
         flex-grow: 1;
         margin: 15px;
         display: flex;
         gap: 20px;
+
     }
     .text.wrapper {
         flex-grow: 1;
@@ -163,7 +161,6 @@
 
     .text.wrapper > .excerpt {
         margin-bottom: calc(1em - 11px);
-        line-height: 1.1;
         overflow: clip;
         overflow-clip-margin: 1px;
         display: -webkit-box;
