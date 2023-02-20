@@ -4,6 +4,7 @@ import Hero from '../components/content/hero.astro';
 import Titlecard from '@components/content/TitleCard.astro';
 import SponsorCard from '@components/content/SponsorCard.svelte';
 import NyhetCard from '@components/content/NyhetCard.svelte';
+import MainButton from '@components/content/MainButton.astro';
 const posts = await Astro.glob('../data/nyheter/*.md')
 const publishedPosts = posts.filter(post => !post.frontmatter.draft)
 const sortedPosts = publishedPosts.sort((a, b) => {
@@ -57,18 +58,17 @@ const latestPostWithAuthorFrontmatter = {
 			<div class="newsList">
 				{sortedPosts.slice(0, 1).map(({frontmatter}, index) =>
 					<article style={`flex-direction: ${index%2===0?'row':'row-reverse'}`}>
-						{() => {
-							console.log("post som skicka till svelte", latestPostWithAuthorFrontmatter)
-							// const newAuthors = Astro.glob('../data/medlemmar/*.md').filter(({frontmatter: {Uuid}}) => frontmatter.authors.includes(Uuid))
-							return (
-								<NyhetCard post={latestPostWithAuthorFrontmatter}>
-									{frontmatter.excerpt}	
-								</NyhetCard>
-							)
-						}}
+						<NyhetCard post={latestPostWithAuthorFrontmatter}>
+							{frontmatter.excerpt}	
+						</NyhetCard>
 					</article>
 				)}
 			</div>
+			<a href="student/nyheter/1">
+				<MainButton>
+					Alla inlägg
+				</MainButton>
+			</a>
 		</section>
 		
 </Fragment slot="main">
