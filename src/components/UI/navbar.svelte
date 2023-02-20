@@ -109,7 +109,7 @@ function generateBreakpoints(total){
 function readLinks() {
     Object.values(document.getElementsByTagName('a')).forEach(link => {
         const href = link.getAttribute('href')
-        
+        // console.log("link", link)
         link.addEventListener('click', () => {
             handleNavigation(href)
         })
@@ -152,10 +152,14 @@ $: {
 }
 
 function handleNavigation(href) {
-    if (href === active) return
-
+    if (href === active) {
+        console.log("href == acktiv")
+        return
+    }
+    console.log("handlenavigation kör")
     function dotWasActive() {
         const dot = document.querySelector('.active .dot')
+        if (!dot) return
         dot.style.transition ="300ms ease-in-out"
         dot.style.transform = "translateY(3px)"
         dot.style.height = "5px"
@@ -184,13 +188,15 @@ function handleNavigation(href) {
     let currentPage = pages.find(page => page.url.split('/')[1] === active.split('/')[1])
     //Om currentPage.url bara börjar på active, men inte helt stämmer övererns,
     //innebär det att currentPage är någon underordnad sida
-    if (!(currentPage.url === active)) {
-        currentPage = currentPage.childPages.find(childPage => childPage.url === active)
+    if (!(currentPage?.url === active)) {
+        currentPage = currentPage?.childPages.find(childPage => childPage.url === active)
     }
 
     //Kollar om navbaren ska vara genomskinlig
-    isOpaque = Boolean(currentPage.isOpaque) 
-    
+    isOpaque = currentPage
+               ? Boolean(currentPage.isOpaque)
+               : false
+    console.log("isopaque?", isOpaque)
 }
 
 let lastCallms = 0
