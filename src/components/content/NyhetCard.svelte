@@ -183,4 +183,16 @@
         }
     }
 
+    @container (max-width: 500px) {
+    .container {
+        width: 295px !important;
+        height: fit-content;
+    }
+    article {
+        flex-direction: column !important;
+    }
+    .excerpt {
+        -webkit-line-clamp: 13 !important;
+    }
+}
 </style>
