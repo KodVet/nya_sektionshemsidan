@@ -5,6 +5,8 @@ import Titlecard from '@components/content/TitleCard.astro';
 import SponsorCard from '@components/content/SponsorCard.svelte';
 import NyhetCard from '@components/content/NyhetCard.svelte';
 import MainButton from '@components/content/MainButton.astro';
+import SecondaryButton from '@components/content/SecondaryButton.astro';
+import LinkButton from '@components/content/LinkButton.astro';
 const posts = await Astro.glob('../data/nyheter/*.md')
 const publishedPosts = posts.filter(post => !post.frontmatter.draft)
 const sortedPosts = publishedPosts.sort((a, b) => {
@@ -70,7 +72,11 @@ const latestPostWithAuthorFrontmatter = {
 				</MainButton>
 			</a>
 		</section>
-		
+		<SecondaryButton>
+			knapp
+		</SecondaryButton>
+		<LinkButton>
+		Link knapp</LinkButton>
 </Fragment slot="main">
 </Layout>
 
