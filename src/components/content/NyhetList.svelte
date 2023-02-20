@@ -1,6 +1,7 @@
 <script>
     export let posts
     import { format } from "date-fns";
+    import './NyhetListQC.scss'
     console.log("posts i svelte", posts)
     
 </script>
@@ -119,25 +120,6 @@
         }
     }
 
-    @container (max-width: 500px) {
-        .wrapper {
-            height: fit-content;
-            .main {
-                flex-direction: column;
-                align-items: unset;
-                p:first-child {
-                    margin-top: 8px;
-                }
-                p:last-child {
-                    margin-top: 10px;
-                    margin-bottom: 8px;
-                }
-                p {
-                    margin-block: 3px;
-                    white-space: unset;
-                }
-            }
-        }
-    }
+
 
 </style>

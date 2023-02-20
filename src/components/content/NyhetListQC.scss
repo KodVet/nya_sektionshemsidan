@@ -1,0 +1,20 @@
+@container (max-width: 500px) {
+    .wrapper {
+        height: fit-content !important;
+        .main {
+            flex-direction: column !important;
+            align-items: unset !important;
+            p:first-child {
+                margin-top: 8px !important;
+            }
+            p:last-child {
+                margin-top: 10px !important;
+                margin-bottom: 8px !important;
+            }
+            p {
+                margin-block: 3px !important;
+                white-space: unset !important;
+            }
+        }
+    }
+}
