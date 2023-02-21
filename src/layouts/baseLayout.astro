@@ -5,7 +5,7 @@ import Grid from "../components/content/grid.svelte";
 import Mobilnavbar from "../components/UI/mobilnavbar.svelte";
 import "../globalStyles.css";
 import Css from 'json-to-css'
-
+import Footer from "@components/content/Footer.svelte";
 import jsoncss from '../CSSTheme.json'
 import meta from "../data/cms/collections/metaCollections/settings";
 import { env } from "../../.eslintrc.cjs";
@@ -46,9 +46,9 @@ const {
 			<slot name="main"/>
 		</main>
 		<footer id="foot">
-			<div>
+			<Footer>
 				<h1>Made by kodvet</h1>
-			</div>
+			</Footer>
 		</footer>
 		<script is:inline>
 			const css = document.documentElement.dataset.theme
