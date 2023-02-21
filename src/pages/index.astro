@@ -4,9 +4,9 @@ import Hero from '../components/content/hero.astro';
 import Titlecard from '@components/content/TitleCard.astro';
 import SponsorCard from '@components/content/SponsorCard.svelte';
 import NyhetCard from '@components/content/NyhetCard.svelte';
-import MainButton from '@components/content/MainButton.astro';
-import SecondaryButton from '@components/content/SecondaryButton.astro';
-import LinkButton from '@components/content/LinkButton.astro';
+import MainButton from '@components/UI/MainButton.astro';
+import SecondaryButton from '@components/UI/SecondaryButton.astro';
+import LinkButton from '@components/content/UI.astro';
 const posts = await Astro.glob('../data/nyheter/*.md')
 const publishedPosts = posts.filter(post => !post.frontmatter.draft)
 const sortedPosts = publishedPosts.sort((a, b) => {

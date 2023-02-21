@@ -1,6 +1,6 @@
 ---
 import Layout from '@layouts/baseLayout.astro'
-import MainButton from '@components/content/MainButton.astro'
+import MainButton from '@components/UI/MainButton.astro'
 
 export async function getStaticPaths() {
     const posts = await Astro.glob('../../../data/nyheter/*.md')
