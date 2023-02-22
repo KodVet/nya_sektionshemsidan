@@ -1,5 +1,6 @@
 
 <script>
+    import SecondaryButton from '@components/UI/SecondaryButton.svelte'
     export let medlem = {
         namn: 'Namn',
         post: 'Post',
@@ -86,7 +87,7 @@
         </div>
         <div class="btn">
             {#if hasContent}
-            <button on:click={collapse}>Read more</button>
+            <SecondaryButton size={13}><b>Read more</b></SecondaryButton>
             {/if}
         </div>
     </div>
@@ -103,7 +104,9 @@
         </div>
         <div class="btn">
             {#if hasContent}
-            <button on:click={collapse}>Read more</button>
+            <div on:click={collapse}>
+                <SecondaryButton size={13}><b style="color: var(--reflex-vit);">Read more</b></SecondaryButton>
+            </div>
             {/if}
         </div>
     </div>
@@ -166,7 +169,7 @@
 }
 .btn {
     position: absolute;
-    top: 160px;
+    top: 144px;
     right: 15px;
 }
 .content{
