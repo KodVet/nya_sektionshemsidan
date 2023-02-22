@@ -1,7 +1,9 @@
 ---
 Uuid: 8afpqvjd
 title: Kognitivet
-medlemmarConfig:
-  sorting: ascending
+config:
+  bgColor: "#d1f2d5"
+  medlemmarConfig:
+    sorting: ascending
 ---
 Tagga CK

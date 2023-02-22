@@ -1,8 +1,10 @@
 ---
 Uuid: 3v8lk2l3
 title: KVIT
-medlemmarConfig:
-  sorting: ascending
+config:
+  bgColor: "#d1f2d5"
+  medlemmarConfig:
+    sorting: ascending
 ---
 # KVIT
 

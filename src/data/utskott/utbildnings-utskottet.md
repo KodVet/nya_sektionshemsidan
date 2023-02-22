@@ -1,8 +1,10 @@
 ---
 Uuid: 7yww4rtb
 title: Utbildningsutskottet
-medlemmarConfig:
-  sorting: ascending
+config:
+  bgColor: "#d1f2d5"
+  medlemmarConfig:
+    sorting: ascending
 ---
 # Utbildningsutskottet
 

@@ -1,8 +1,10 @@
 ---
 Uuid: 9dz5nz9v
 title: Kodvet
-medlemmarConfig:
-  sorting: "ascending\r"
+config:
+  bgColor: "#d1f2d5"
+  medlemmarConfig:
+    sorting: ascending
 ---
 
 

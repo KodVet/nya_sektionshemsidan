@@ -16,20 +16,20 @@ const {
 	title = "Kogvet Sektionen på Linköpings Universitet",
 	isOpaque = false,
 	active,
-	customHead = false
+	bgColor = "--background-color"
 } = Astro.props;
 // const { customHead = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html data-theme={css} lang="en">
+<html data-theme={css} lang="en" data-bg={bgColor}>
 	
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
 				<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale: 1.0" />
+		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/png+xml" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -42,8 +42,13 @@ const {
 			<Mobilnavbar client:visible />
 		</header>
 
-		<main id="swup">
+		<main id="swup" data-bg={bgColor.startsWith('--')
+		? `var(${bgColor})`
+		: `${bgColor}`}>
 			<slot name="main"/>
+		<script is:inline data-swup-reload-script>
+			document.body.style.backgroundColor = document.getElementById('swup').dataset.bg
+		</script>
 		</main>
 		<footer id="foot">
 			<Footer>
@@ -76,6 +81,7 @@ const {
 		margin: 0;
 		overflow: overlay;
 		overflow-x: hidden;
+		min-height: 100svh;
 		// background-image: url(https://patterncooler.com/gen/index/w/half_moon_repeat_pattern-227.jpg);
 		// background-color: rgb(65, 82, 65);
 		// background-blend-mode: multiply;

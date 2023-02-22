@@ -8,7 +8,9 @@ import SwupRouteNamePlugin from '@swup/route-name-plugin';
 
 const swup = new Swup({
   plugins: [
-    new SwupScriptsPlugin(),
+    new SwupScriptsPlugin({
+      optin: true
+    }),
     new SwupHeadPlugin(),
     new SwupRouteNamePlugin({
       routes: [

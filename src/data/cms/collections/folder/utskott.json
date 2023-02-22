@@ -44,32 +44,52 @@
     },
     {
       "widget": "object",
-      "required": true,
-      "collapsed": true,
-      "name": "medlemmarConfig",
-      "label": "Medlemmar-listan",
-      "hint": "Här finns några inställningar och hur alla medlemmar ska visas.",
+      "name": "config",
+      "label": "Inställningar",
       "fields": [
         {
-          "widget": "select",
+          "widget": "color",
           "required": true,
-          "multiple": false,
-          "name": "sorting",
-          "label": "Sorterings-riktning",
-          "options": [
+          "allow_input": true,
+          "enable_alpha": false,
+          "name": "bgColor",
+          "label": "Bakgrundsfärg",
+          "hint": "Färgen som sidans bakgrund kommer få. Här kan ni styla lite och bestämma en egen färg om ni har en speciell. Annars kan vi rekommendera standard.",
+          "default": "#d1f2d5"
+        },
+        {
+          "widget": "object",
+          "required": true,
+          "collapsed": true,
+          "name": "medlemmarConfig",
+          "label": "Medlemmar-listan",
+          "hint": "Här finns några inställningar och hur alla medlemmar ska visas.",
+          "fields": [
             {
-              "label": "Stigande",
-              "value": "ascending"
-            },
-            {
-              "label": "Fallande",
-              "value": "descending"
+              "widget": "select",
+              "required": true,
+              "multiple": false,
+              "name": "sorting",
+              "label": "Sorterings-riktning",
+              "options": [
+                {
+                  "label": "Stigande",
+                  "value": "ascending"
+                },
+                {
+                  "label": "Fallande",
+                  "value": "descending"
+                }
+              ],
+              "default": "ascending",
+              "hint": "Hur ska medlemmarna sorteras. Stigande innebär positionerna går från lägst till högst (1,2,4,10, etc). Fallande fattar ni ju då var det är."
             }
-          ],
-          "default": "ascending",
-          "hint": "Hur ska medlemmarna sorteras. Stigande innebär positionerna går från lägst till högst (1,2,4,10, etc). Fallande fattar ni ju då var det är."
+          ]
         }
-      ]
+      ],
+      "required": true,
+      "collapsed": true,
+      "hint": "Här finns några inställningar för sidan. Notera att vissa inställningar inte kan förhandsvisas. Kolla hur test-sidan ser ut innan ni publicerar på netlify. Ni kan läsa mer på instruktionerna."
     }
   ],
   "hide": false,
