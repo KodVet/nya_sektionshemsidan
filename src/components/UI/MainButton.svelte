@@ -1,6 +1,3 @@
----
-
----
 <button>
     <slot/>
 </button>
@@ -9,7 +6,7 @@
         font-size: 20px;
         background-color: var(--koggis-grön);
         color: white;
-        padding: 18px;
+        padding: calc(1em * (18 / 20));
         border: none;
         transition: 90ms all ease;
     }

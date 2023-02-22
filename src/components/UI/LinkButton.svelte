@@ -1,7 +1,7 @@
----
-
----
-<button>
+<script>
+    export let size = 20
+</script>
+<button style={`font-size: ${size}px;`}>
     <slot/>
 </button>
 <style>
@@ -11,7 +11,7 @@
         font-weight: 400;
         background-color: transparent;
         color: var(--koggis-grön);
-        padding: 18px;
+        padding: calc(1em * (18 / 20));
         border: none;
         transition: 90ms all ease;
         text-decoration: underline transparent;
