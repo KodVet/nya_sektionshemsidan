@@ -1,0 +1,74 @@
+---
+import Layout from '../../layouts/baseLayout.astro';
+import Card from '../../components/content/människaCard.svelte'
+
+export async function getStaticPaths() {
+	const utskott = await Astro.glob('../../data/utskott/*.md')
+	const medlemmar = await Astro.glob('../../data/medlemmar/*.md')
+	return utskott.map(utskott => {
+		const filteredMedlemmar = medlemmar.filter(medlem => medlem.frontmatter.utskott === utskott.frontmatter.title)
+		const sortedMedlemmar = filteredMedlemmar.sort((a, b) => {
+			let positionA
+			let positionB
+			if (utskott.frontmatter.config.medlemmarConfig.sorting === 'ascending') {
+				positionA = a.frontmatter.position
+				positionB = b.frontmatter.position
+			}
+			else if (utskott.frontmatter.config.medlemmarConfig.sorting === 'descending') {
+				positionA = b.frontmatter.position
+				positionB = a.frontmatter.position
+			}
+			// console.log( positionA, positionB)
+			if (positionA === -1 || positionB === -1) return -1
+			else if (!positionA && !positionB) return 0
+			else if (positionA && !positionB) return -1
+			else if (!positionA && positionB) return 1
+			
+			else return positionA - positionB
+		})
+		// sortedMedlemmar.map(medlem => console.log(medlem.frontmatter.namn))
+		return {
+			params: { utskott: utskott.frontmatter.title.toLowerCase().replace(' ','-') },
+			props: { utskott: utskott, medlemmar: sortedMedlemmar },
+		}
+	})
+}
+const { utskott, medlemmar } = Astro.props
+const { Content } = utskott
+// console.log("medlemmar: ", medlemmar)
+console.log("sorterad: ")
+
+---
+
+<Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}
+bgColor={utskott.frontmatter.config.bgColor.startsWith('--')
+		 ? `var(${utskott.frontmatter.config.bgColor})`
+		 : utskott.frontmatter.config.bgColor}>
+	<div class="container" id={'utskott'} slot="main">
+		<div class="content">
+			<Content/>
+			
+		</div>
+		<ol class="medlemmarList">
+			{medlemmar.map(({ frontmatter, Content }, index) =>
+			<li class="cardContainer">
+				<Card client:visible
+				medlem={frontmatter}
+				direction={((index % 2==0) ? 'right' : 'left')}>
+					<Content />
+				</Card>
+			</li>
+			)}
+		</ol>
+	</div>
+</Layout>
+
+<style>
+	.cardContainer {
+		width: clamp(400px, 40vw, 900px);
+		margin-bottom: 20px;
+		list-style: none;
+	}
+
+
+</style>

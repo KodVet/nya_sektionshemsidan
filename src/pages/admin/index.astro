@@ -1,0 +1,152 @@
+---
+const instruktioner = await Astro.glob("../../data/cms/instruktioner.md")
+const markdown = instruktioner.map(md=>md.rawContent())
+import '../../globalStyles.css'
+---
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.png">
+  <title>Content Manager</title>
+</head>
+<body>
+    <div id="data" data-md={markdown}>
+    </div>
+    <!-- <script is:inline src="https://unpkg.com/@staticcms/app@^1.0.0/dist/static-cms-app.js"></script> -->
+    <script is:inline defer>
+      setTimeout(() => {
+      const link = document.createElement('link')
+        link.type = 'text/css'
+        link.rel = 'stylesheet'
+        link.href = '/admin/styles.css'
+        document.head.appendChild(link)
+      },2500)
+    </script>
+
+</body>
+</html>
+
+
+
+<script>
+    import CMS from '@staticcms/core'
+    import config from '../../data/cms/config'
+    import { faPalette,
+            faUsersRectangle,
+            faCog,
+            faPager,
+            faSitemap,
+            faUserGroup,
+            faNewspaper,
+            faCode,
+            faPersonChalkboard } from '@fortawesome/free-solid-svg-icons';
+    import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+    import ReactMarkdown from 'react-markdown'
+
+    const markdown = document.getElementById('data').dataset.md
+    
+    if (import.meta.env.DEV === true) {
+      config.display_url = 'http://localhost:3000'
+      config.local_backend = true
+    }
+
+    CMS.init({config});
+
+    //Testade olika syntax, den tredje var ju enklast så använd den
+    CMS.registerIcon('cog', function () {
+        return h(FontAwesomeIcon, {icon: faCog, size: "lg"})
+    })
+    CMS.registerIcon('usergroup', () => {return h(FontAwesomeIcon, {icon: faUserGroup, size: 'lg'})})
+    CMS.registerIcon('newspaper', ()=>h(FontAwesomeIcon, {icon: faNewspaper, size: 'lg'}))
+    CMS.registerIcon('sitemap', ()=>h(FontAwesomeIcon, {icon: faSitemap, size: 'lg'}))
+    CMS.registerIcon('code', ()=>h(FontAwesomeIcon, {icon: faCode, size: 'lg'}))
+    CMS.registerIcon('userrectangle', ()=>h(FontAwesomeIcon, {icon: faUsersRectangle, size: 'lg'}))
+    CMS.registerIcon('chalkboard', ()=>h(FontAwesomeIcon, {icon: faPersonChalkboard, size: 'lg'}))
+    
+    const GitLabIcon = () => {
+      return h('img', {src: '/gitlab.png', height: '20', width: '20'})
+      
+    }
+    const NetlifyIcon = () => h('img', {src: '/netlify.webp', height: '20', width: '20'})
+    CMS.registerIcon('netlify', NetlifyIcon)
+    CMS.registerIcon('gitlab', GitLabIcon)
+
+    const CustomPage = () => {
+      return h('div', {style: {height: '100%', width: '100%', paddingInline: '5px'}}, h(ReactMarkdown, {children: markdown}));
+    };
+
+    CMS.registerAdditionalLink({
+      id: 'instruktioner',
+      title: 'Instruktioner',
+      data: CustomPage,
+      options: {
+        icon: 'chalkboard',
+      },
+    });
+    CMS.registerAdditionalLink({
+      id: 'gitlab',
+      title: 'GitLab ↗',
+      data: 'https://gitlab.liu.se/Kodvet/sektionshemsidan',
+      options: {
+        icon: 'gitlab'
+      }
+    })
+    CMS.registerAdditionalLink({
+      id: 'netlify',
+      title: 'Netlify ↗',
+      data: 'https://app.netlify.com/teams/webbgruppen-kogvet/overview',
+      options: {
+        icon: 'netlify'
+      }
+    })
+
+
+import NyhetCardEntry from '@components/CMS/NyhetCardEntry'
+CMS.registerPreviewCard('nyheter', NyhetCardEntry);
+
+const buildHook = () => {
+      function handleClick() {
+        fetch('https://api.netlify.com/build_hooks/63d4647c45202500ab1fac38', {
+          method: 'POST'
+        })
+        console.log("tjosan")
+      }
+
+      return h('div', {}, h('button', {onClick: handleClick}, 'Publicera alllllltt nuuuu!'))
+    }
+
+const reloadStatusBadge = () => {
+  async function handleClick() {
+    const url = 'https://api.netlify.com/api/v1/badges/51fa1acc-7b6e-4026-98ac-ce1b29f97754/deploy-status'
+    await fetch(url, { cache: 'reload', mode: 'no-cors' })
+  document.body.querySelectorAll(`img[src='${url}']`)
+    .forEach(img => img.src = url)
+  }
+  return h('div', {}, h('button', {onClick: handleClick}, 'Checka bygge'))
+}
+
+const reloadPreviewFrame = () => {
+  function handleClick() {
+    document.getElementById('previewFrame').src = document.getElementById('previewFrame').src
+  }
+  return h('div', {}, h('button', {onClick: handleClick}, 'Checka preview'))
+}
+CMS.registerAdditionalLink({
+      id: 'preview',
+      title: 'Preview',
+      data: () => h('div', {style: {height: '100%', width: '100%',resize: 'both', overflow: 'hidden'}}, h(buildHook, {}, ), h('img', {src: 'https://api.netlify.com/api/v1/badges/51fa1acc-7b6e-4026-98ac-ce1b29f97754/deploy-status', id: 'badge'}), h(reloadStatusBadge, {}), h(reloadPreviewFrame, {}), h('iframe', {src: 'https://sektionshemsidan-test.netlify.app', height: '100%', width: '100%', id: 'previewFrame'}))
+    })
+import IframeLivePreview from '@components/CMS/IframeLivePreview'
+// import NavbarPreview from '@components/CMS/Navbar'
+import MänniskaCardPreview from '@components/CMS/Card'
+import NyhetPreview from '@components/CMS/Nyhet'
+CMS.registerPreviewTemplate('nyheter', NyhetPreview)
+CMS.registerPreviewTemplate('medlemmar', MänniskaCardPreview)
+CMS.registerPreviewTemplate("utskott", IframeLivePreview)
+// CMS.registerPreviewTemplate('navbarConfig', NavbarPreview)
+
+import UuidWidget from '@components/CMS/UuidWidget'
+CMS.registerWidget('uuid', UuidWidget)

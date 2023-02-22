@@ -1,0 +1,92 @@
+{
+  "pages": [
+    {
+      "btnName": "Start",
+      "url": "/",
+      "isOpaque": true,
+      "childPages": []
+    },
+    {
+      "btnName": "Om sektionen",
+      "url": "/om-sektionen",
+      "isOpaque": false,
+      "childPages": [
+        {
+          "btnName": "Styrelsen",
+          "url": "/om-sektionen/styrelsen",
+          "isOpaque": false
+        },
+        {
+          "btnName": "Kodvet",
+          "url": "/om-sektionen/kodvet",
+          "isOpaque": false
+        },
+        {
+          "btnName": "Kognitivet",
+          "url": "/om-sektionen/kognitivet",
+          "isOpaque": false
+        },
+        {
+          "btnName": "KVIT",
+          "url": "/om-sektionen/kvit",
+          "isOpaque": false
+        },
+        {
+          "btnName": "Dokument",
+          "url": "/om-sektionen/dokument",
+          "isOpaque": false
+        }
+      ]
+    },
+    {
+      "btnName": "Student",
+      "url": "/student",
+      "childPages": [
+        {
+          "btnName": "Boende",
+          "url": "/student/boende",
+          "isOpaque": false
+        },
+        {
+          "btnName": "Studentliv",
+          "url": "/student/studentliv",
+          "isOpaque": false
+        },
+        {
+          "btnName": "Anslagstavlan",
+          "url": "/student/anslagstavlan",
+          "isOpaque": false
+        },
+        {
+          "btnName": "Arbetsmiljö",
+          "url": "/student/arbetsmiljö",
+          "isOpaque": false
+        },
+        {
+          "btnName": "Åka utomlands",
+          "url": "/student/utbyte",
+          "isOpaque": false
+        },
+        {
+          "btnName": "Näringsliv",
+          "url": "/student/naringsliv",
+          "isOpaque": false
+        }
+      ],
+      "isOpaque": false
+    },
+    {
+      "btnName": "Kontakt",
+      "url": "/kontakt",
+      "childPages": [
+        {
+          "btnName": "Klagolådan",
+          "url": "/kontakt/klagolådan",
+          "isOpaque": false
+        }
+      ],
+      "isOpaque": false
+    }
+  ] 
+
+}

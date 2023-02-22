@@ -1,0 +1,114 @@
+{
+    "name": "config",
+    "label": "Inställningar",
+    "icon": "cog",
+    "editor": {
+      "preview": false
+    },
+    "files": [
+      {
+        "label": "Färgschema",
+        "name": "css-colors",
+        "file": "src/CSSTheme.json",
+        "fields": [
+          {
+            "label": "Färger",
+            "name": ":root",
+            "widget": "object",
+            "fields": [
+              {
+                "label": "Bakgrund",
+                "name": "--background-color",
+                "widget": "color",
+                "allow_input": true
+              },
+              {
+                "label": "Navbar färg",
+                "name": "--navbar-bg",
+                "widget": "color",
+                "allow_input": true
+              },
+              {
+                "label": "Navbar dropdown färg",
+                "name": "--navbar-dropdown-bg",
+                "widget": "color",
+                "allow_input": true
+              },
+              {
+                "label": "Navbar aktiv dropdown färg",
+                "name": "--navbar-active-dropdown-bg",
+                "widget": "color",
+                "allow_input": true
+              },
+              {
+                "label": "Sidfot-färg",
+                "name": "--footer-bg",
+                "widget": "color",
+                "allow_input": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Navbar config",
+        "name": "navbarConfig",
+        "file": "src/data/navbarConfig.json",
+        "fields": [
+          {
+            "label": "Sidor",
+            "label_singular": "Sida",
+            "name": "pages",
+            "create": true,
+            "widget": "list",
+            "collapsed": true,
+            "fields": [
+              {
+                "label": "Namn",
+                "name": "btnName",
+                "widget": "string"
+              },
+              {
+                "label": "url",
+                "name": "url",
+                "widget": "string"
+              },
+              {
+                "label": "Är genomskinlig?",
+                "name": "isOpaque",
+                "widget": "boolean",
+                "default": true
+              },
+              {
+                "label": "Underordnade sidor",
+                "label_singular": "Sida",
+                "name": "childPages",
+                "widget": "list",
+                "create": true,
+                "collapsed": true,
+                "required": false,
+                "fields": [
+                  {
+                    "label": "Namn",
+                    "name": "btnName",
+                    "widget": "string"
+                  },
+                  {
+                    "label": "url",
+                    "name": "url",
+                    "widget": "string"
+                  },
+                  {
+                    "label": "Är genomskinlig?",
+                    "name": "isOpaque",
+                    "widget": "boolean",
+                    "default": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

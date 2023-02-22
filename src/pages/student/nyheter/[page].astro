@@ -1,0 +1,154 @@
+---
+import Sidebar from '../../../components/UI/sidebar.astro';
+import Layout from '../../../layouts/baseLayout.astro';
+
+import NyhetCard from '@components/content/NyhetCard.svelte';
+import NyhetList from '@components/content/NyhetList.svelte';
+import {max_height} from '../../../components/UI/navbar.svelte'
+
+export async function getStaticPaths({ paginate }) {
+	const medlemmar = await Astro.glob('../../../data/medlemmar/*.md')
+	const posts = await Astro.glob('../../../data/nyheter/*.md')
+	const publishedPosts = posts.filter(post => !post.frontmatter.draft)
+	const sortedPosts = publishedPosts.sort((a, b) => {
+		const dateA = new Date(a.frontmatter.date)
+		const dateB = new Date(b.frontmatter.date)
+		return dateB - dateA
+	})
+	const postsWithAuthors = sortedPosts.map(post => {
+		return {
+			...post,
+			frontmatter: {
+				...post.frontmatter,
+				authors: post.frontmatter.authors.map(author => medlemmar.find(medlem => medlem.frontmatter.Uuid === author).frontmatter)
+			}
+		}
+	})
+    return paginate(postsWithAuthors, { pageSize: 6 })
+}
+const { page } = Astro.props
+let oldPosts = page.data
+let newPosts
+if (!page.url.prev) {
+	newPosts = page.data.slice(0,3)
+	oldPosts = page.data.slice(3)
+}
+---
+<Layout title="Kodvet är bäst" active={Astro.url.pathname}>
+	<div class="wrapper" slot="main">
+		<script is:inline>
+		</script>
+		<section id="inlägg">
+			{!page.url.prev && 
+			<div class="nya-inlägg">
+				{newPosts.map((post, index) => {
+					console.log("post", post)
+					return (
+					<div class="post">
+					<div class="scrollAnchor" id={post.frontmatter.title} style={`--max-height: ${max_height}px`}></div>
+					<NyhetCard post={post.frontmatter} reverse={index % 2}>
+						<Fragment>
+							{post.frontmatter.excerpt}
+						</Fragment>
+					</NyhetCard>
+					</div>
+					)
+				}
+			)}
+			</div>}
+		<div class="gamla-inlägg">
+			<h1>Äldre inlägg</h1>
+			<NyhetList posts={oldPosts.map(post => post.frontmatter)}/>
+			<div class="page-switcher">
+				{page.currentPage >= 3 && <a href={page.url.prev}><button class="arrow">«</button></a>}
+				{page.url.prev && <a href={page.url.prev}><button class="arrow">‹</button></a>}
+	
+				<ol class="page-list">
+					{[...Array(page.lastPage).keys()].map(pageNumber => {
+						pageNumber ++
+						return (
+							<li>
+								<a
+								href={`/student/nyheter/${pageNumber}`} 
+								>
+									<button style={(pageNumber === page.currentPage) && 'text-decoration: underline;'}>{pageNumber}</button>
+								</a>
+							</li>
+
+							)
+						})
+					}
+				</ol>
+				
+				{page.url.next && <a href={page.url.next}><button class="arrow">›</button></a>}
+				{page.lastPage -  page.currentPage >= 3 && <a href={page.url.prev}><button class="arrow">»</button></a>}
+				{()=>console.log(page.total)}
+			</div>
+		</div>
+		
+		</section>	
+	</div>
+</Layout>
+
+<style lang="scss">
+	.wrapper {
+		display: flex;
+	}
+	/* dessa funkar som "ankare" för att autoscrolla till */
+	.scrollAnchor {
+		display: block;
+		position: relative;
+		top: -200px;
+		visibility: hidden;
+	}
+	
+	#inlägg {
+		width: 70%;
+		margin: auto;
+	}
+	.nya-inlägg {
+		display: flex;
+		flex-direction: column;
+		gap: 50px;
+	}
+	.post {
+		container-type: inline-size;
+		/* width: 70vw; */
+		position: relative;
+		display: flex;
+		justify-content: center;
+	}
+	
+	.gamla-inlägg {
+		container-type: inline-size;
+	}
+
+	.page-switcher {
+		container-type:inline-size;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		justify-content: center;
+		a {
+			color: black;
+			text-decoration: none;
+			button {
+				background-color: transparent;
+				border: none;
+				font-size: 18px;
+				&.arrow {
+					font-weight: bold;
+				}
+			}
+		}
+		.page-list {
+			display: flex;
+			list-style: none;
+			padding: 0;
+			gap: 5px;
+			li {
+				padding: 0;
+			}
+		}
+	}
+</style>

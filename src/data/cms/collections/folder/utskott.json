@@ -1,0 +1,97 @@
+{
+  "name": "utskott",
+  "label": "Utskott",
+  "folder": "src/data/utskott",
+  "icon": "userrectangle",
+  "extension": "md",
+  "slug": "{{Uuid}}",
+  "create": true,
+  "IframePreview": {
+    "baseSrc": "/om-sektionen/",
+    "fieldSrc": "title",
+    "container": "title"
+  },
+  "editor": {
+    "sortable_fields": [
+      "title"
+    ],
+    "preview": true,
+    "frame": false
+  },
+  "fields": [
+    {
+      "widget": "uuid",
+      "name": "Uuid"
+    },
+    {
+      "label": "Namn",
+      "name": "title",
+      "widget": "string",
+      "required": true,
+      "hint": "Namnet här blir tillgängligt i listan av utskott som en \"medlem\" kan tillsättas"
+    },
+    {
+      "label": "Innehåll",
+      "name": "body",
+      "widget": "markdown",
+      "hint": "Detta är det som kommer stå i mitten-rutan på sidan",
+      "class": "content",
+      "required": true,
+      "media_library": {
+        "allow_multiple": true,
+        "choose_url": true
+      }
+    },
+    {
+      "widget": "object",
+      "name": "config",
+      "label": "Inställningar",
+      "fields": [
+        {
+          "widget": "color",
+          "required": true,
+          "allow_input": true,
+          "enable_alpha": false,
+          "name": "bgColor",
+          "label": "Bakgrundsfärg",
+          "hint": "Färgen som sidans bakgrund kommer få. Här kan ni styla lite och bestämma en egen färg om ni har en speciell. Annars kan vi rekommendera standard.",
+          "default": "#d1f2d5"
+        },
+        {
+          "widget": "object",
+          "required": true,
+          "collapsed": true,
+          "name": "medlemmarConfig",
+          "label": "Medlemmar-listan",
+          "hint": "Här finns några inställningar och hur alla medlemmar ska visas.",
+          "fields": [
+            {
+              "widget": "select",
+              "required": true,
+              "multiple": false,
+              "name": "sorting",
+              "label": "Sorterings-riktning",
+              "options": [
+                {
+                  "label": "Stigande",
+                  "value": "ascending"
+                },
+                {
+                  "label": "Fallande",
+                  "value": "descending"
+                }
+              ],
+              "default": "ascending",
+              "hint": "Hur ska medlemmarna sorteras. Stigande innebär positionerna går från lägst till högst (1,2,4,10, etc). Fallande fattar ni ju då var det är."
+            }
+          ]
+        }
+      ],
+      "required": true,
+      "collapsed": true,
+      "hint": "Här finns några inställningar för sidan. Notera att vissa inställningar inte kan förhandsvisas. Kolla hur test-sidan ser ut innan ni publicerar på netlify. Ni kan läsa mer på instruktionerna."
+    }
+  ],
+  "hide": false,
+  "delete": true
+}

@@ -1,0 +1,83 @@
+{
+  "name": "sponsorer",
+  "label": "Sponsorer",
+  "media_folder": "/static/sponsorer",
+  "publid_folder": "/sponsorer",
+  "files": [
+    {
+      "file": "src/data/sponsorer/panel.json",
+      "name": "sponsorer_panel",
+      "label": "Sponsorer panelen",
+      "fields": [
+        {
+          "name": "sponsors",
+          "label": "Sponsorerna",
+          "widget": "list",
+          "fields": [
+            {
+              "name": "img",
+              "label": "Bilden",
+              "widget": "image"
+            },
+            {
+              "type": "string",
+              "required": true,
+              "name": "href",
+              "label": "Länken"
+            }
+          ],
+          "required": true,
+          "allow_add": true,
+          "collapsed": true,
+          "add_to_top": false,
+          "summary": "fis"
+        }
+      ],
+      "editor": {
+        "preview": true,
+        "frame": false
+      },
+      "hide": false
+    },
+    {
+        "file": "src/data/sponsorer/footer.json",
+        "name": "sponsorer_footer",
+        "label": "Sponsorer sidfot",
+        "fields": [
+          {
+            "name": "sponsors",
+            "label": "Sponsorerna",
+            "widget": "list",
+            "fields": [
+              {
+                "name": "img",
+                "label": "Bilden",
+                "widget": "image"
+              },
+              {
+                "type": "string",
+                "required": true,
+                "name": "href",
+                "label": "Länken"
+              }
+            ],
+            "required": true,
+            "allow_add": true,
+            "collapsed": true,
+            "add_to_top": false,
+            "summary": "fis"
+          }
+        ],
+        "editor": {
+          "preview": true,
+          "frame": false
+        },
+        "hide": false
+      }
+  ],
+  "editor": {
+    "preview": false,
+    "frame": false
+  },
+  "hide": false
+}

@@ -1,0 +1,39 @@
+---
+const { posts } = Astro.props
+import { format } from 'date-fns'
+---
+
+<ul>
+    {posts.map(({ date, title }) => 
+    <li>
+        <h1><a href={'#' + title}>{title}</a></h1>
+        <h3>{format(new Date(date), 'yyyy/MM/dd')}</h3>
+    </li>
+    )}
+</ul>
+
+<style lang="scss">
+
+ul {
+    position: sticky;
+    align-self: flex-start;
+    top: 30vh;
+    z-index: 10;
+    width: fit-content;
+    li {
+        margin-bottom: 50px;
+        color: black;
+        h1 {
+                a {
+                    text-decoration: none;
+                    color: black;
+                    transition: ease-in-out .1s;
+                    display: block;
+                    &:hover {
+                        color: rgb(152, 152, 152);
+                    }
+                }
+            }
+        }
+    }
+</style>

@@ -1,0 +1,33 @@
+---
+import Layout from '../../../layouts/Basic.astro';
+
+const pdfsPaths = (import.meta.glob('/static/dokument/*', {eager: true, import: 'default'}))
+
+const pdfs = Object.fromEntries(Object.entries(pdfsPaths).map(([key, value]) => 
+[key.replace('static/', ''), String(value).split('/')[2].replace(/(?<=[a-zA-Z])-/g,' ').replace(/\..*/,'')]));
+console.log(pdfs)
+console.log(pdfsPaths)
+---
+
+<Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>
+	<div class="container" slot="content">
+        <h1>här är dem</h1>
+		<ul>
+			{Object.entries(pdfs).map(([filepath, cleanedName])=>
+			<li>
+				<a data-no-swup href={filepath}>{cleanedName}</a>
+			</li>
+			)}
+		</ul>
+		
+	</div>
+</Layout>
+
+<style>
+	.container {
+		margin: auto;
+		padding: 1em;
+		max-width: 60ch;
+	}
+
+</style>

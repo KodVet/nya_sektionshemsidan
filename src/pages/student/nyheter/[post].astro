@@ -1,0 +1,46 @@
+---
+import Layout from '@layouts/baseLayout.astro'
+import MainButton from '@components/UI/MainButton.svelte'
+
+export async function getStaticPaths() {
+    const posts = await Astro.glob('../../../data/nyheter/*.md')
+    const publishedPosts = posts.filter(post => !post.frontmatter.draft)
+	const sortedPosts = publishedPosts.sort((a, b) => {
+		const dateA = new Date(a.frontmatter.date)
+		const dateB = new Date(b.frontmatter.date)
+		return dateB - dateA
+	})
+    return sortedPosts.map(post => {
+        return {
+            params: {
+                post: post.frontmatter.title
+            },
+            props: { post: post, backLink: Math.floor(((sortedPosts.indexOf(post) + 1) / sortedPosts.length) + 1) }
+        }
+    })
+};
+
+console.log("props", Astro.props)
+const { post, backLink } = Astro.props
+---
+
+<Layout>
+<Fragment slot="main">
+    <div class="back">
+        <a href={`/student/nyheter/${backLink}`}>
+            <MainButton>Tillbaka till alla inlägg</MainButton>
+        </a>
+    </div>
+    <article>
+        <post.Content/>
+    </article>
+</Fragment>
+</Layout>
+
+<style>
+    article {
+        font-size: 20px;
+        width: 40%;
+        margin-left: 20%;
+    }
+</style>

@@ -1,0 +1,69 @@
+---
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<div class="container">
+    <img id= "heroimg" src={baseUrl + "/images/hero.png"}>
+    <div class="herotxt">
+        <img id= "logo" src={baseUrl + "/images/Sektionslogga 1.png"}>
+        <p id="title">Kogvet</p>
+        <p>Sektionen för de kognitionsvetenskapliga programmen på Linköpings universitet</p>
+    </div>
+
+
+
+</div>
+
+<style lang="scss">
+
+    .container {
+        position: relative;
+        &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            z-index: 10;
+            // box-shadow: inset 0 -100px 70px -70px var(--reflex-vit);
+            box-shadow: 0 0px 10px 2px black;
+        }
+    }
+    #heroimg{
+        //Justerade en del här för att se till att bilden är centrerad vid olika skärmstorlekar -Fredrik
+        object-fit: cover;
+        display:block;
+        min-height: calc(100vh + 230px);
+        position: relative;
+        width: 100%;
+        margin-left: 0%;
+        overflow: hidden;
+    }
+
+    .herotxt{
+        top:20%;
+        left:0%;
+        right:0%;
+        margin:auto;
+        text-align: center;
+        position: absolute;
+        width: 50%;
+        color: white;
+        font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+
+    }
+
+    .herotxt p{
+        font-size: 150%;
+    }
+
+    #title{
+        font-size: 300%;
+    }
+
+    #logo{
+        width:30%;
+        height: 30%;
+    }
+
+</style>
