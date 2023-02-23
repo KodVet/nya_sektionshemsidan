@@ -43,6 +43,11 @@
       "url": "/student",
       "childPages": [
         {
+          "btnName": "Nyheter",
+          "url": "student/nyheter/1",
+          "isOpaque": false
+        },
+        {
           "btnName": "Boende",
           "url": "/student/boende",
           "isOpaque": false
