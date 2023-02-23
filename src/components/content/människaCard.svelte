@@ -71,9 +71,6 @@
 
 
 <div class={direction + " wrapper"} class:expanded="{expanded}" id={namn}>
-
-
-    {#if direction === "right"}
     <div class="imageWrap">
         <img src={bild} alt="en fin bild på en person" class="image">
     </div>
@@ -87,33 +84,10 @@
         </div>
         <div class="btn">
             {#if hasContent}
-            <SecondaryButton size={13}><b>Read more</b></SecondaryButton>
+            <SecondaryButton size={13} on:click={collapse}><b>Read more</b></SecondaryButton>
             {/if}
         </div>
     </div>
-    {/if}
-
-    {#if direction === "left"}
-    <div class="info">
-        <div class="txt" id="namn">
-            <p><span class="post"><b>{post_hel ? `${post_hel} - ${post}`: post}</b></span></p>
-            <hr class="solid s-kyuocepncruE">
-            <p><span><b>Namn:</b></span>
-                <span>&nbsp;</span><span class="namn">{namn}</span></p>
-            <p><b>Kontakt:</b> <span class="kontakt"> {kontakt}</span></p>
-        </div>
-        <div class="btn">
-            {#if hasContent}
-            <div on:click={collapse}>
-                <SecondaryButton size={13}><b style="color: var(--reflex-vit);">Read more</b></SecondaryButton>
-            </div>
-            {/if}
-        </div>
-    </div>
-    <div class="imageWrap">
-        <img src={bild} alt="en fin bild på en person" class="image">
-    </div>
-    {/if}
 
     <div bind:this={collapsible} class='content'>
         <slot></slot>
