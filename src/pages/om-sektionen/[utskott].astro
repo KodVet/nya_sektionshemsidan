@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/baseLayout.astro';
-import Card from '../../components/content/människaCard.svelte'
+import Card from '../../components/content/MedlemCard.svelte'
 
 export async function getStaticPaths() {
 	const utskott = await Astro.glob('../../data/utskott/*.md')
@@ -47,7 +47,6 @@ bgColor={utskott.frontmatter.config.bgColor.startsWith('--')
 	<div class="container" id={'utskott'} slot="main">
 		<div class="content">
 			<Content/>
-			
 		</div>
 		<ol class="medlemmarList">
 			{medlemmar.map(({ frontmatter, Content }, index) =>
@@ -68,6 +67,9 @@ bgColor={utskott.frontmatter.config.bgColor.startsWith('--')
 		width: clamp(400px, 40vw, 900px);
 		margin-bottom: 20px;
 		list-style: none;
+	}
+	.medlemmarList {
+		padding: 0;
 	}
 
 

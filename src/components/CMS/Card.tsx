@@ -1,6 +1,6 @@
 import { reactify } from "svelte-preprocess-react";
 import type { TemplatePreviewProps } from "@staticcms/core";
-import card from "@components/content/människaCard.svelte";
+import card from "@components/content/MedlemCard.svelte";
 import { useEffect, useState } from "react";
 let Card = reactify(card);
 
