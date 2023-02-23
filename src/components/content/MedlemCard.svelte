@@ -174,7 +174,6 @@ img{
     clip-path: circle(84px);
     height: 200px;
     width: 200px;
-    flex-basis: 33%;
 }
 
 button{
