@@ -5,7 +5,7 @@ import Contentbox from '../components/content/Contentbox.astro'
 const { title = "Kogvet Sektionen på Linköpings Universitet" } = Astro.props;
 const { frontmatter } = Astro.props
 ---
-<Base active={Astro.url.pathname}>
+<Base active={Astro.url.pathname} title={`${frontmatter?.title || title} | KogVet`}>
     <Fragment slot="head">
         <slot name="head" />
     </Fragment>

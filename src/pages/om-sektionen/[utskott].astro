@@ -40,7 +40,7 @@ console.log("sorterad: ")
 
 ---
 
-<Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}
+<Layout title={`${utskott.frontmatter.title} | KogVet`} active={Astro.url.pathname}
 bgColor={utskott.frontmatter.config.bgColor.startsWith('--')
 		 ? `var(${utskott.frontmatter.config.bgColor})`
 		 : utskott.frontmatter.config.bgColor}>
