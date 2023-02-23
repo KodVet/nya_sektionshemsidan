@@ -48,7 +48,7 @@
         expanded=!expanded
     };
     let h = 70
-    $: margin = h - 70
+    $: margin = h - 50
 </script>
 
 
