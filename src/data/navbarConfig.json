@@ -44,7 +44,7 @@
       "childPages": [
         {
           "btnName": "Nyheter",
-          "url": "student/nyheter/1",
+          "url": "/student/nyheter/1",
           "isOpaque": false
         },
         {

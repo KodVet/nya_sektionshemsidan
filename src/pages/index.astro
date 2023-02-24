@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/baseLayout.astro';
 import Hero from '../components/content/hero.astro';
-import Titlecard from '@components/content/TitleCard.astro';
+import Titlecard from '@components/content/TitleCard.svelte';
 import SponsorCard from '@components/content/SponsorCard.svelte';
 import NyhetCard from '@components/content/NyhetCard.svelte';
 import MainButton from '@components/UI/MainButton.svelte';
@@ -37,36 +37,29 @@ const latestPostWithAuthorFrontmatter = {
 			<Hero />
 		</section>
 		<section class="welcome">
-			<div class="text">
-				<div>
-				<Titlecard>
-					<Fragment slot="header">
-						Välkommen till kogvet!
-					</Fragment>
-					<Fragment slot="content">
-						Vi är sektionen för det kognitionsvetenskapliga programmet vid Linköpings Universitet. Här finns information och dokument samlat till dig som är student under Student.
-						Är du nyfiken på vilka vi är och vad vi gör? Se Om sektionen. För mer information om Kognitionsvetenskap som program, se Kognitionsvetenskap vid LiU.
-					</Fragment>
-				</Titlecard>
-				</div>
-			</div>
-			<aside>
-				<SponsorCard />
-			</aside>
+			<Titlecard sponsors={true}>
+				<Fragment slot="header">
+					Välkommen till kogvet!
+				</Fragment>
+				<Fragment slot="content">
+					Vi är sektionen för det kognitionsvetenskapliga programmet vid Linköpings Universitet. Här finns information och dokument samlat till dig som är student under Student.
+					Är du nyfiken på vilka vi är och vad vi gör? Se Om sektionen. För mer information om Kognitionsvetenskap som program, se Kognitionsvetenskap vid LiU.
+				</Fragment>
+			</Titlecard>
 		</section>
 		<section class="news">
 			<h1>Senaste inlägg</h1>
 			<span class="line"></span>
 			<div class="newsList">
 				{sortedPosts.slice(0, 1).map(({frontmatter}, index) =>
-					<article style={`flex-direction: ${index%2===0?'row':'row-reverse'}`}>
+					<div class="post" style={`flex-direction: ${index%2===0?'row':'row-reverse'}`}>
 						<NyhetCard post={latestPostWithAuthorFrontmatter}>
 							{frontmatter.excerpt}	
 						</NyhetCard>
-					</article>
+					</div>
 				)}
 			</div>
-			<a href="student/nyheter/1">
+			<a href="/student/nyheter/1">
 				<MainButton>
 					Alla inlägg
 				</MainButton>
@@ -91,19 +84,11 @@ const latestPostWithAuthorFrontmatter = {
 	.welcome {
 		display: flex;
 		justify-content: space-between;
-		box-shadow: 0 0px 6px black;
+		// box-shadow: 0 0px 6px black;
 		// La till margins för att ge lite whitespace runt contentbox -Fredrik
 		margin-top: 1%;
 		margin-bottom: 3%;
 		
-		.text {
-			width: 75%;
-			margin-left: -3px;
-			div {
-				padding-left: 23%;
-				background-color: var(--koggis-grön);
-			}
-		}
 	
 		aside {
 			background-color: white;
@@ -131,35 +116,31 @@ const latestPostWithAuthorFrontmatter = {
 			display: flex;
 			flex-direction: column;
 			row-gap: 100px;
-			article {
+			.post {
+				container-type: inline-size;
 				display: flex;
 				flex-direction: row-reverse;
 				gap: 20px;
 				padding:20px;
 			}
-			img {
-				max-height: 150px;
+		}
+	}
+
+	@media (max-width: 500px) {
+		.news {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: unset;
+			h1 {
+				text-align: center;
 			}
-			
-			
-			.text>* {
-				margin-bottom: 8px;
-			}
-			.title * {
-				font-weight: 500;
-				transition: color .1s ease-in-out;
-				margin: 0;
-				text-decoration: none;
-				color: black;
-				&:hover {
-					color: rgb(67, 67, 67);
+			.newsList {
+				width: 100%;
+				.post {
+	
 				}
-			}
-			.date {
-				color: rgb(64, 64, 64);
-			}
-			a {
-				text-decoration: none;
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 ---
-import Sidebar from '../../../components/UI/sidebar.astro';
 import Layout from '../../../layouts/baseLayout.astro';
-
+import TitleCard from '@components/content/TitleCard.svelte';
 import NyhetCard from '@components/content/NyhetCard.svelte';
 import NyhetList from '@components/content/NyhetList.svelte';
 import {max_height} from '../../../components/UI/navbar.svelte'
@@ -38,8 +37,19 @@ if (!page.url.prev) {
 	<div class="wrapper" slot="main">
 		<script is:inline>
 		</script>
+		<section class="title">
+			<TitleCard sponsors={false}>
+				<Fragment slot="header">
+					Inlägg
+				</Fragment>
+				<Fragment slot="content">
+					Här finns alla sektions inlägg
+				</Fragment>
+			</TitleCard>
+		</section>
 		<section id="inlägg">
-			{!page.url.prev && 
+			{!page.url.prev &&
+			<h1>Nya inlägg</h1>
 			<div class="nya-inlägg">
 				{newPosts.map((post, index) => {
 					console.log("post", post)
@@ -92,7 +102,10 @@ if (!page.url.prev) {
 
 <style lang="scss">
 	.wrapper {
-		display: flex;
+		// margin-block: 50px;
+	}
+	section {
+		margin-block: 50px;
 	}
 	/* dessa funkar som "ankare" för att autoscrolla till */
 	.scrollAnchor {
@@ -149,6 +162,22 @@ if (!page.url.prev) {
 			li {
 				padding: 0;
 			}
+		}
+	}
+	@media (max-width: 800px) {
+		#inlägg {
+			width: 90%;
+			h1 {
+				text-align: center;
+			}
+			.gamla-inlägg {
+			}
+		}
+	}
+
+	@media (max-width: 400px) {
+		#inlägg {
+			width: 100%;
 		}
 	}
 </style>
