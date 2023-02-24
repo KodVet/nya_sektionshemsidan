@@ -68,13 +68,15 @@
         </div>
         {#if hasContent}
         <div class="btn">
-            <SecondaryButton size={13} on:click={collapse}><b>Read more</b></SecondaryButton>
+            <SecondaryButton size={13} on:click={collapse}><b>Mer om posten</b></SecondaryButton>
         </div>
         {/if}
     </div>
 
     <div class="more wrapper">
         <div bind:this={collapsible} class='content'>
+            <p style="text-align: center;">Mer om posten</p>
+            <hr>
             <slot></slot>
         </div>
     </div>
@@ -82,7 +84,12 @@
 
 
 <style lang="scss">
+hr {
+    border-style: solid;
+    clip-path: inset(0 1px 0 1px);
+}
 .container {
+    position: relative;
     width: 100%;
     border-radius: 3px;
     clip-path: inset(0 -50px -50px -50px);
