@@ -1,18 +1,21 @@
 <script>
     export let speed = 1
     const scaledSpeed = 1/speed * 40
-
+    let pause = false
+    function pauser() {
+        pause = !pause
+    }
 </script>
 <div class="container">
-    <div class="images">
+    <div class="images" on:click={pauser}>
         <ol>
-            <div class="clone one" style="animation-duration:{scaledSpeed}s;">
+            <div class="clone one" style="animation-duration:{scaledSpeed}s; animation-play-state: {pause ? 'paused' : 'running'};">
                 <slot />
             </div>
-            <div class="clone two" style="animation-duration:{scaledSpeed}s;">
+            <div class="clone two" style="animation-duration:{scaledSpeed}s; animation-play-state: {pause ? 'paused' : 'running'};">
                 <slot />
             </div>
-            <div class="clone three" style="animation-duration:{scaledSpeed}s;">
+            <div class="clone three" style="animation-duration:{scaledSpeed}s; animation-play-state: {pause ? 'paused' : 'running'};">
                 <slot />
             </div>
         </ol>
