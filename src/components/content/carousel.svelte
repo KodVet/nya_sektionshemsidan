@@ -1,5 +1,4 @@
 <script>
-    import Carousel from 'svelte-carousel'
     export let speed = 1
     const scaledSpeed = 1/speed * 40
 
