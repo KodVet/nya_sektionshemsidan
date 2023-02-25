@@ -7,6 +7,7 @@ import NyhetCard from '@components/content/NyhetCard.svelte';
 import MainButton from '@components/UI/MainButton.svelte';
 import SecondaryButton from '@components/UI/SecondaryButton.svelte';
 import LinkButton from '@components/UI/LinkButton.svelte';
+import Caorusel from '@components/content/Carousel.svelte'
 const posts = await Astro.glob('../data/nyheter/*.md')
 const publishedPosts = posts.filter(post => !post.frontmatter.draft)
 const sortedPosts = publishedPosts.sort((a, b) => {
@@ -29,7 +30,7 @@ const latestPostWithAuthorFrontmatter = {
 		}))
 	}
 
-
+console.log("latestpost", latestPostWithAuthorFrontmatter)
 ---
 <Layout title="KogVet" active={Astro.url.pathname} isOpaque={true}>
 <Fragment slot="main">
@@ -47,17 +48,27 @@ const latestPostWithAuthorFrontmatter = {
 				</Fragment>
 			</Titlecard>
 		</section>
+		<div class="carousel">
+			<Caorusel client:visible>
+				 <img src="/images/karusell1.png" alt="" height="500px">
+				 <img src="/images/karusell2.png" alt="" height="500px">
+				 <img src="/images/karusell3.png" alt="" height="500px">
+				 <img src="/images/karusell4.png" alt="" height="500px">
+				 <!-- <div style="width: 500px; height: 500px; background-color: aqua;"></div>
+				 <div style="width: 500px; height: 500px; background-color: green;"></div>
+				 <div style="width: 500px; height: 500px; background-color: black;"></div>
+				 <div style="width: 500px; height: 500px; background-color: red;"></div> -->
+			</Caorusel>
+		</div>
 		<section class="news">
 			<h1>Senaste inlägg</h1>
 			<span class="line"></span>
 			<div class="newsList">
-				{sortedPosts.slice(0, 1).map(({frontmatter}, index) =>
-					<div class="post" style={`flex-direction: ${index%2===0?'row':'row-reverse'}`}>
-						<NyhetCard post={latestPostWithAuthorFrontmatter}>
-							{frontmatter.excerpt}	
-						</NyhetCard>
-					</div>
-				)}
+				<div class="post">
+					<NyhetCard post={latestPostWithAuthorFrontmatter}>
+						{latestPostWithAuthorFrontmatter.excerpt}
+					</NyhetCard>
+				</div>
 			</div>
 			<a href="/student/nyheter/1">
 				<MainButton>
@@ -69,8 +80,9 @@ const latestPostWithAuthorFrontmatter = {
 			knapp
 		</SecondaryButton>
 		<LinkButton>
-		Link knapp</LinkButton>
-</Fragment slot="main">
+			Link knapp
+		</LinkButton>
+</Fragment>
 </Layout>
 
 <style lang="scss">
@@ -125,7 +137,9 @@ const latestPostWithAuthorFrontmatter = {
 			}
 		}
 	}
-
+	.carousel {
+		height: 500px;
+	}
 	@media (max-width: 500px) {
 		.news {
 			display: flex;
