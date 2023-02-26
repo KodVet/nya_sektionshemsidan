@@ -1,4 +1,5 @@
 <script>
+    export let imageHeight = 'clamp(150px, 20vw, 500px)'
     export let speed = 1
 	import { tweened } from 'svelte/motion';
     import {cubicOut} from 'svelte/easing'
@@ -29,7 +30,8 @@
     scroll = previousScroll + touchdelta;
     }}
     on:touchend={(e)=>{previousScroll=scroll;}}>
-        <div class="wrapper">
+        <div class="wrapper"
+        style="--imageHeight: {imageHeight}">
             {#each ['one','two','three'] as index}
                 <div class="clone {index}" style="
                 animation-duration:{scaledSpeed}s; 
@@ -55,6 +57,9 @@
             .clone {
                 display: flex;
                 position: relative;
+                :global(img) {
+                    height: var(--imageHeight);
+                }
             }
             .clone.one {
                 // visibility: hidden;
