@@ -1,32 +1,54 @@
 <script>
     export let speed = 1
+	import { tweened } from 'svelte/motion';
+    import {cubicOut} from 'svelte/easing'
     const scaledSpeed = 1/speed * 40
     let pause = false
     function pauser() {
         pause = !pause
     }
+    function stop() {
+        pause = true
+    }
+    function play() {
+        pause = false
+    }
+    let scroll = 1
+    let previousScroll = 0
+    let touchdelta
+    let touchinit
+    const tween = tweened(0, { easing: cubicOut})
 </script>
 <div class="container">
-    <div class="images" on:click={pauser}>
-        <ol>
-            <div class="clone one" style="animation-duration:{scaledSpeed}s; animation-play-state: {pause ? 'paused' : 'running'};">
-                <slot />
-            </div>
-            <div class="clone two" style="animation-duration:{scaledSpeed}s; animation-play-state: {pause ? 'paused' : 'running'};">
-                <slot />
-            </div>
-            <div class="clone three" style="animation-duration:{scaledSpeed}s; animation-play-state: {pause ? 'paused' : 'running'};">
-                <slot />
-            </div>
-        </ol>
+    <div class="images" on:mousedown={pauser}
+    on:touchstart={(e)=> {
+          touchinit = e.touches[0].clientX;
+          console.log("scroll", scroll)}}
+    on:touchmove={(e)=> {touchdelta = (touchinit - e.touches[0].clientX) / 50 ;
+    tween.set((scroll)); 
+    scroll = previousScroll + touchdelta;
+    }}
+    on:touchend={(e)=>{previousScroll=scroll;}}>
+        <div class="wrapper">
+            {#each ['one','two','three'] as index}
+                <div class="clone {index}" style="
+                animation-duration:{scaledSpeed}s; 
+                animation-play-state: {pause ? 'paused' : 'running'}; 
+                animation-delay: {$tween - 1000000}s;">
+                    <slot />
+                </div>
+            {/each}
+        </div>
     </div>
+    <button on:click={() => {tween.set(-scroll); scroll += scaledSpeed/12}}>tween 1</button>
+    <button on:click={() => tween.set(2)}>tween 2</button>
 </div>
 
 <style lang="scss">
     .images {
         display: flex;
         overflow: hidden;
-        ol {
+        .wrapper {
             padding: 0;
             display: flex;
             transform: translateX(calc(100% - ((100% * 4) / 3)));
