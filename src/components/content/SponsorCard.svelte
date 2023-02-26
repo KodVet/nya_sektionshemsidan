@@ -1,20 +1,42 @@
 <script>
     import { sponsors } from '@data/sponsorer/panel'
+    import Icon from '@iconify/svelte/dist/Icon.svelte'
+    import FaFacebookF from 'svelte-icons/fa/FaFacebookF.svelte'
+    import FaInstagram from 'svelte-icons/fa/FaInstagram.svelte'
+    import { afterUpdate } from 'svelte';
+    let media
+    afterUpdate(()=> {
+        media = window?.matchMedia('(max-width: 800px').matches
+        console.log(media)
+    })
+    let width
+    $: fontSize = media ? width / 20 : width / 15
+    $: console.log("fontsize", fontSize)
+
 </script>
 
-<div id="SponsorCard">
+<div id="SponsorCard" bind:clientWidth={width} on:click={()=>console.log("clientWidth", width)}>
     <h3>KOGVET PÅ SOCIALA MEDIER</h3>
-    <ul class="socials">
+    <ul class="socials" style="--fontSize: {fontSize}px">
         <li>
             <!-- Länk till sektionens facebook sida -->
             <a href="https://www.facebook.com/KogVet" target="_blank" rel="noreferrer">
-                <img class="Facebook" src="https://mtb6000.dk/wp-content/uploads/2021/12/png-transparent-social-media-computer-icons-facebook-inc-icon-design-social-media.png" alt="Facebook logo">
+                <!-- <Icon icon="ri:facebook-fill" width={64}/> -->
+                <div class="border">
+                    <div class="icon facebook">
+                        <FaFacebookF />
+                    </div>
+                </div>
             </a>
         </li>
         <li>
             <!-- Länk till sektionens instagram sida -->
             <a href="https://www.instagram.com/kogvetstyret/" target="_blank" rel="noreferrer">
-                <img class="Instagram" src="https://www.freepnglogos.com/uploads/logo-ig-png/logo-ig-instagram-icon-instagram-logo-icon-instagram-logo-16.png" alt="Instagram logo">
+                <div class="border">
+                    <div class="icon instagram">
+                        <FaInstagram />
+                    </div>
+                </div>
             </a>
         </li>
     </ul>
@@ -50,20 +72,48 @@
             display:flex;
             justify-content: space-around;
             li {
+                display: flex;
                 flex-basis: 50%;
+                a {
+                    display: block;
+                    margin: auto;
+                    text-decoration: none;
+                }
+            }
+            &.socials {
+                a {
+                    filter: drop-shadow(0 0 1.5px black);
+                    color: black;
+                    font-size: clamp(26px, var(--fontSize), 46px);
+                    .border {
+                        display: flex;
+                        width: 2em;
+                        height: 2em;
+                        clip-path: circle(1em);
+                        background-color: #bbb;
+                        .icon {
+                            display: flex;
+                            margin: auto;
+                        }
+                        .facebook {
+                            width: 0.8em;
+                            transform: translateX(-1px);
+                        }
+                        .instagram {
+                            width: 1.1em;
+                        }
+                    }
+                }
+            }
+            &.sponsors {
                 img {
-                    width : clamp(80px, 60%, 120px);
+                    width: clamp(100px, 90%, 200px);
+                    flex-basis: 50%;
+                    object-fit: contain;
                 }
             }
         }
-        .socials {
-            img {
-            }
-        }
-        .sponsors {
-            img {
-            }
-        }
+        
     }
 
     .solid{

@@ -1,5 +1,5 @@
 <script>
-    export let imageHeight = 'clamp(150px, 20vw, 500px)'
+    export let imageHeight = 'clamp(150px, 30vw, 500px)'
     export let speed = 1
 	import { tweened } from 'svelte/motion';
     import {cubicOut} from 'svelte/easing'
@@ -42,8 +42,6 @@
             {/each}
         </div>
     </div>
-    <button on:click={() => {tween.set(-scroll); scroll += scaledSpeed/12}}>tween 1</button>
-    <button on:click={() => tween.set(2)}>tween 2</button>
 </div>
 
 <style lang="scss">

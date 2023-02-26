@@ -2,11 +2,8 @@
 import Layout from '../layouts/baseLayout.astro';
 import Hero from '../components/content/hero.astro';
 import Titlecard from '@components/content/TitleCard.svelte';
-import SponsorCard from '@components/content/SponsorCard.svelte';
 import NyhetCard from '@components/content/NyhetCard.svelte';
 import MainButton from '@components/UI/MainButton.svelte';
-import SecondaryButton from '@components/UI/SecondaryButton.svelte';
-import LinkButton from '@components/UI/LinkButton.svelte';
 import Caorusel from '@components/content/Carousel.svelte'
 const posts = await Astro.glob('../data/nyheter/*.md')
 const publishedPosts = posts.filter(post => !post.frontmatter.draft)
@@ -38,7 +35,7 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 			<Hero />
 		</section>
 		<section class="welcome">
-			<Titlecard sponsors={true}>
+			<Titlecard sponsors={true} client:visible>
 				<Fragment slot="header">
 					Välkommen till kogvet!
 				</Fragment>
@@ -48,7 +45,7 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 				</Fragment>
 			</Titlecard>
 		</section>
-		<div class="carousel">
+		<section class="carousel">
 			<Caorusel client:visible>
 				 <img src="/images/karusell1.png" alt="">
 				 <img src="/images/karusell2.png" alt="">
@@ -59,7 +56,7 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 				 <div style="width: 500px; height: 500px; background-color: black;"></div>
 				 <div style="width: 500px; height: 500px; background-color: red;"></div> -->
 			</Caorusel>
-		</div>
+		</section>
 		<section class="news">
 			<h1>Senaste inlägg</h1>
 			<span class="line"></span>
@@ -76,16 +73,13 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 				</MainButton>
 			</a>
 		</section>
-		<SecondaryButton>
-			knapp
-		</SecondaryButton>
-		<LinkButton>
-			Link knapp
-		</LinkButton>
 </Fragment>
 </Layout>
 
 <style lang="scss">
+	section:not(.hero) {
+		margin-block: 40px;
+	}
 	.hero {
 		z-index: 2;
 		min-height: 100vh;
@@ -98,10 +92,9 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 		justify-content: space-between;
 		// box-shadow: 0 0px 6px black;
 		// La till margins för att ge lite whitespace runt contentbox -Fredrik
-		margin-top: 1%;
-		margin-bottom: 3%;
-		
-	
+		// margin-top: 1%;
+		// margin-bottom: 3%;
+
 		aside {
 			background-color: white;
 			display: flex;
@@ -134,13 +127,22 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 				flex-direction: row-reverse;
 				gap: 20px;
 				padding:20px;
+				justify-content: center;
 			}
 		}
 	}
 	.carousel {
-		height: 500px;
 	}
 	@media (max-width: 500px) {
+		.hero {
+			margin-bottom: 0;
+			& :global(.container::before) {
+				box-shadow: none;
+			}
+		}
+		.welcome {
+			margin-top: 0 !important;
+		}
 		.news {
 			display: flex;
 			flex-direction: column;

@@ -1,8 +1,8 @@
 {
   "name": "sponsorer",
   "label": "Sponsorer",
-  "media_folder": "/static/sponsorer",
-  "publid_folder": "/sponsorer",
+  "media_folder": "/static/images",
+  "publid_folder": "/images",
   "files": [
     {
       "file": "src/data/sponsorer/panel.json",
