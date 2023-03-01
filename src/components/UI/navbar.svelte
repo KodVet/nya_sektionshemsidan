@@ -38,7 +38,7 @@ onMount(() =>{
         navbar.style.backgroundColor = 'var(--koggis-grön)'
     }
     
-    //Eventlisteners och observers
+    //Eventlisteners och observers, sak från javascript, grundläggande grej att använda javascript till, lyssnar efter knapptryck
     if (hero) intersectionObserver.observe(hero)
     ddcontents.forEach(ddcontent => ddcontentReziseObserver.observe(ddcontent))
     readLinks()
