@@ -1,0 +1,41 @@
+@container (max-width: 400px) {
+    .container.left, .container.right {
+        width: 270px !important;
+        font-size: 20px !important;
+        .main.wrapper {
+            flex-direction: column !important;
+            align-items: center;
+            .info {
+                padding-bottom: 15px;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .btn {
+                position: relative;
+                right: unset !important;
+                left: unset !important;
+                top: unset !important;
+                bottom: unset !important;
+                margin-bottom: 15px;
+            }
+            .info {
+                width: calc(100% - 30px);
+                .txt {
+                    max-width: unset;
+                    padding-left: 0;
+                    margin: 0 !important;
+                }
+            }
+            .imageWrap {
+                width: 275px;
+                height: 275px;
+                clip-path: circle(116px);
+                img {
+                    width: 275px;
+                    height: 275px;
+                    clip-path: circle(114px);
+                }
+            }
+        }
+    }
+}

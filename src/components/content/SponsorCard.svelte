@@ -18,7 +18,7 @@
 <div id="SponsorCard" bind:clientWidth={width} on:click={()=>console.log("clientWidth", width)}>
     <h3>KOGVET PÅ SOCIALA MEDIER</h3>
     <ul class="socials" style="--fontSize: {fontSize}px">
-        <li>
+        <li class="facebook">
             <!-- Länk till sektionens facebook sida -->
             <a href="https://www.facebook.com/KogVet" target="_blank" rel="noreferrer">
                 <!-- <Icon icon="ri:facebook-fill" width={64}/> -->
@@ -29,7 +29,7 @@
                 </div>
             </a>
         </li>
-        <li>
+        <li class="instagram">
             <!-- Länk till sektionens instagram sida -->
             <a href="https://www.instagram.com/kogvetstyret/" target="_blank" rel="noreferrer">
                 <div class="border">
@@ -40,6 +40,7 @@
             </a>
         </li>
     </ul>
+    <hr>
     <h3>VÅRA SPONSORER!</h3>
     <ul class="sponsors">
         <!-- Loopar igenom alla objekt i filen data/sponsorer/panel.json och skapar en länk av den ikonen som lagts till -->
@@ -57,7 +58,9 @@
 <style lang="scss">
 
     #SponsorCard{
-        background-color: white;
+        overflow-x: hidden;
+        padding: 7px;
+        background-color: rgba(255, 255, 255, 0.79);
         /* width: 270px; */
         /* height: 300px; */
         margin: auto;
@@ -66,14 +69,19 @@
             text-align: center;
             color: black;
         }
+        hr {
+            border: solid 2px white;
+            width: 90%;
+        }
         ul {
             list-style: none;
             padding: 0;
             display:flex;
             justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
             li {
                 display: flex;
-                flex-basis: 50%;
                 a {
                     display: block;
                     margin: auto;
@@ -81,6 +89,10 @@
                 }
             }
             &.socials {
+                justify-content: center;
+                li {
+                    flex-basis: 80px;
+                }
                 a {
                     filter: drop-shadow(0 0 1.5px black);
                     color: black;
@@ -95,13 +107,22 @@
                             display: flex;
                             margin: auto;
                         }
-                        .facebook {
-                            width: 0.8em;
-                            transform: translateX(-1px);
-                        }
-                        .instagram {
-                            width: 1.1em;
-                        }
+                    }
+                }
+                .facebook {
+                    a {
+
+                        align-self: flex-end;
+                    }
+                    .icon {
+                        width: 0.8em;
+                        transform: translateX(-1px);
+                    }
+                }
+                .instagram {
+                    align-self: flex-start;
+                    .icon {
+                        width: 1.1em;
                     }
                 }
             }
@@ -120,21 +141,21 @@
       border-top: 2px solid #bbb;
     }
 
-    @media (max-width: 900px) {
-        #SponsorCard {
-            ul {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
-    }
-    @media (max-width: 800px) {
-        #SponsorCard {
-            ul {
-                flex-direction: row;
-                gap: 0px;
-            }
-        }
-    }
+    // @media (max-width: 900px) {
+    //     #SponsorCard {
+    //         ul {
+    //             flex-direction: column;
+    //             gap: 20px;
+    //         }
+    //     }
+    // }
+    // @media (max-width: 800px) {
+    //     #SponsorCard {
+    //         ul {
+    //             flex-direction: row;
+    //             gap: 0px;
+    //         }
+    //     }
+    // }
 </style>
 

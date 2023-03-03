@@ -1,12 +1,12 @@
 <script>
-    export let size = 20
+    export let size = '20px'
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher()
     function handleClick() {
         dispatch('click')
     }
 </script>
-<button style={`font-size: ${size}px;`} on:click={handleClick}>
+<button style={`font-size: ${size};`} on:click={handleClick}>
     <slot/>
 </button>
 <style>
@@ -16,7 +16,7 @@
         color: white;
         padding: calc(1em * (18 / 20));
         border: none;
-        transition: 90ms all ease;
+        transition: 90ms background-color ease;
     }
     button:hover {
         background-color: #025335;

@@ -1,9 +1,11 @@
 <script>
     import SponsorCard from "./SponsorCard.svelte";
     export let sponsors = false
+    export let split = true
+    export let bgColor = 'var(--koggis-grön)'
 </script>
 
-<div class="container">
+<div class="container" class:fuse={!split} style="--bg: {bgColor}">
     <div class="text" style="flex-basis: {sponsors ? '60' : '40'}%;">
         <h1>
             <slot name="header"/>
@@ -12,17 +14,19 @@
             <slot name="content" />
         </p>
     </div>
-    <div class="sponsors" style="background-color: {sponsors ? 'white' : 'lightgrey'}">
+    <div class="right-panel" style="background-color: {sponsors ? 'white' : 'lightgrey'}">
         {#if sponsors}
             <aside>
                 <SponsorCard/>
             </aside>
         {/if}
+        <slot name="right-panel"/>
     </div>
 </div>
 
 <style lang="scss">
     .container {
+        // overflow-x: hidden;
         position: relative;
         border-radius: 3px;
         width: 100%;
@@ -34,11 +38,11 @@
             padding: 100px;
             padding-top: 20px;
             padding-bottom: calc(3em + 20px);
-            max-width: 110ch;
             padding-left: calc(20vw - 130px);
-            background-color: var(--koggis-grön);
+            background-color: var(--bg);
+            min-width: 56ch;
         }
-        .sponsors {
+        .right-panel {
             flex-basis: 25%;
             background-color: lightgray;
         }
@@ -50,12 +54,32 @@
     p {
         font-size: 1.5rem;
     }
+    .fuse {
+        .text {
+
+            flex-grow: 1;
+        }
+        .right-panel {
+            flex-basis: 700px;
+            background-color: rgb(255, 255, 255);
+            :global(img) {
+                display: block;
+                width: 700px;
+            }
+        }
+    }
     @media (max-width: 800px) {
         .container {
             flex-direction: column;
             .text {
                 padding-inline: 30px;
             }
+            :global(.right-panel img) {
+                width: 100% !important;
+            }
+        }
+        .right-panel {
+            flex-basis: unset !important;
         }
     }
 </style>

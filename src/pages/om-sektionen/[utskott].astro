@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/baseLayout.astro';
+import TitleCard from '@components/content/TitleCard.svelte';
 import Card from '../../components/content/MedlemCard.svelte'
+import SponsorCard from '@components/content/SponsorCard.svelte';
 
 export async function getStaticPaths() {
 	const utskott = await Astro.glob('../../data/utskott/*.md')
@@ -44,33 +46,102 @@ console.log("sorterad: ")
 bgColor={utskott.frontmatter.config.bgColor.startsWith('--')
 		 ? `var(${utskott.frontmatter.config.bgColor})`
 		 : utskott.frontmatter.config.bgColor}>
-	<div class="container" id={'utskott'} slot="main">
-		<div class="content">
-			<Content/>
+<Fragment slot="main">
+	<div class="wrapper" id={'utskott'}>
+		<section class="title">
+			<TitleCard split={false} bgColor={utskott.frontmatter.titleBgColor}>
+				<Fragment slot="header">
+					{utskott.frontmatter.title}
+				</Fragment>
+				<Fragment slot="content">
+					{utskott.frontmatter.beskrivning}
+				</Fragment>
+				<div slot="right-panel">
+					<img src={utskott.frontmatter.image} alt="">
+				</div>
+			</TitleCard>
+		</section>
+		<section class="members">
+				<aside class="sponsors">
+					<SponsorCard/>
+				</aside>
+				<ol class="medlemmarList">
+					{medlemmar.map(({ frontmatter, Content }, index) =>
+					<li class="cardContainer">
+						<Card client:visible
+						medlem={frontmatter}
+						direction={((index % 2==0) ? 'right' : 'left')}
+						size="28px">
+							<Content />
+						</Card>
+					</li>
+					)}
+				</ol>
+			</section>
 		</div>
-		<ol class="medlemmarList">
-			{medlemmar.map(({ frontmatter, Content }, index) =>
-			<li class="cardContainer">
-				<Card client:visible
-				medlem={frontmatter}
-				direction={((index % 2==0) ? 'right' : 'left')}>
-					<Content />
-				</Card>
-			</li>
-			)}
-		</ol>
-	</div>
+</Fragment>
 </Layout>
 
-<style>
-	.cardContainer {
-		width: clamp(400px, 40vw, 900px);
-		margin-bottom: 20px;
-		list-style: none;
+<style lang="scss">
+	section {
+		padding-block: var(--spacing);
 	}
-	.medlemmarList {
-		padding: 0;
+	.sponsors {
+		position: sticky;
+		top: 100px;
+	}
+	.members {
+		overflow-x: unset;
+		display: flex;
+		flex-direction: row-reverse;
+		justify-content: space-around;
+		aside {
+			position: sticky;
+			top: 200px;
+			align-self: flex-start;
+			flex-basis: 25%;
+		}
+		.medlemmarList {
+			overflow-x: hidden;
+			margin: 0;
+			padding: 0;
+			flex-basis: 65%;
+			.cardContainer {
+				container-type: inline-size;
+				margin-bottom: 20px;
+				list-style: none;
+			}
+		}
 	}
 
-
+	@media (max-width: 600px) {
+		.members {
+			justify-content: space-between;
+			aside {
+				top: 100px;
+				flex-grow: 1;
+			}
+			li {
+				width: 100%;
+			}
+		}
+	}
+	@media (max-width: 416px) {
+		.members {
+			overflow-x: hidden;
+			flex-direction: column;
+			gap: 25px;
+			aside {
+				position: relative;
+				top: unset;
+				align-self: center;
+			}
+			ol {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				max-width: 400px;
+			}
+		}
+	}
 </style>
