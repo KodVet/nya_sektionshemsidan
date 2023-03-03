@@ -1,7 +1,35 @@
 <script>
     import {pages} from '../../data/navbarConfig.json'
     export let active = "/om-sektionen"
+    let hero
+    import { afterUpdate, beforeUpdate, onMount } from "svelte";
     
+//livscykel funktion, första gången man ser komponenten på hemsidan. 
+onMount(() =>{
+    readLinks()
+})
+
+//funktioner
+function handleNavigation(href) {
+    if (href === active) {
+        console.log("href == acktiv")
+        return
+        }
+//Sätter ny active
+if (!href.startsWith('#')) active = href.replace(/\#.*/, '') //Tar bort anchors från URLen, så att active alltid motsvarar någon länk i navbaren 
+
+}
+ 
+function readLinks() {
+    Object.values(document.getElementsByTagName('a')).forEach(link => {
+        const href = link.getAttribute('href')
+        console.log("link", link)
+        link.addEventListener('click', () => {
+            handleNavigation(href)
+        })
+    })
+}
+
 
 </script>
 
