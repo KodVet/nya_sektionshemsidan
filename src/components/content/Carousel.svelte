@@ -20,8 +20,10 @@
     let touchinit
     const tween = tweened(0, { easing: cubicOut})
 </script>
+<svelte:window on:click={()=> {if (pause) play()}}/>
 <div class="container">
-    <div class="images" on:mousedown={pauser}
+    <div class="images" 
+    on:mousedown={e => {if (e.button === 2) stop()}}
     on:touchstart={(e)=> {
           touchinit = e.touches[0].clientX;
           console.log("scroll", scroll)}}
@@ -45,6 +47,9 @@
 </div>
 
 <style lang="scss">
+    .container {
+        overflow-x: hidden;
+    }
     .images {
         display: flex;
         overflow: hidden;

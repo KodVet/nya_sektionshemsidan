@@ -71,7 +71,9 @@ const {
 	// 	font-family: 'GillSans';
 	// 	src: url('/gill-sans.ttf') format('ttf');
 	// }
-
+	:global(section) {
+		overflow-x: hidden;
+	}	
 	html {
 		font-family: 'GillSans', sans-serif;	}
 
@@ -80,7 +82,6 @@ const {
 		flex-direction: column;
 		margin: 0;
 		overflow: overlay;
-		overflow-x: hidden;
 		min-height: 100svh;
 		// background-image: url(https://patterncooler.com/gen/index/w/half_moon_repeat_pattern-227.jpg);
 		// background-color: rgb(65, 82, 65);
@@ -90,7 +91,6 @@ const {
 		transition: background-color 500ms ease;
 	}
 	main {
-		overflow-x: hidden;
 		flex-grow: 0;
 		margin-bottom: 60px;
 	}
