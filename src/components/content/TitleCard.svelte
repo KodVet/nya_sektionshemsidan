@@ -73,6 +73,7 @@
             flex-direction: column;
             .text {
                 padding-inline: 30px;
+                min-width: unset;
             }
             :global(.right-panel img) {
                 width: 100% !important;
