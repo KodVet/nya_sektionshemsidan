@@ -34,9 +34,7 @@ onMount(() =>{
     generateBreakpoints(15)
 
     //Enksilda checkar
-    if (!isOpaque) {
-        navbar.style.backgroundColor = 'var(--koggis-grön)'
-    }
+
     
     //Eventlisteners och observers, sak från javascript, grundläggande grej att använda javascript till, lyssnar efter knapptryck
     if (hero) intersectionObserver.observe(hero)
@@ -89,8 +87,18 @@ function animateNavHeight(breakpoint, totalBreakpoints) {
         navHeight = max_height - ((max_height-min_height)/totalBreakpoints)*breakpoint
 }
 
-const maxFontSize = 24
-const minFontSize = 18
+const minBasis = 0.1
+const maxBasis = 0.4
+let rightBasis = maxBasis
+let liBasis = (rightBasis * 0.1) + 0.6
+function animateRightPadding(breakpoint, totalBreakpoints) {
+    rightBasis = maxBasis - ((maxBasis-minBasis)/totalBreakpoints)*breakpoint
+    // liBasis = maxBasis - ((maxBasis-minBasis)/totalBreakpoints)*breakpoint
+    liBasis = (rightBasis * 0.1) + 0.6
+}
+
+const maxFontSize = 32
+const minFontSize = 20
 let navFontSize = maxFontSize;
 function animateFontSize(breakpoint, totalBreakpoints, eager=false) {
         navFontSize = (maxFontSize - (((maxFontSize-minFontSize)/totalBreakpoints))*breakpoint)
@@ -101,6 +109,7 @@ function generateBreakpoints(total){
     for (let i = 0; i <= total; i++) {
         if (((i*max_scroll)/total)<=yScrollPosition) {
             animateNavHeight(i, total);
+            animateRightPadding(i, total)
             animateFontSize(i, total);
         }
     }
@@ -255,12 +264,12 @@ function handleResize () {
 <nav 
     bind:this={navbar} 
     id={isOpaque?'isOpaque':''}
-    style="height:{navHeight}px; background-color: {isOpaque ? 'transparent' : 'transparent'}">
+    style="height:{navHeight}px;">
         <a href="/">
         </a>
     <img id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     
-    <ul id="navList">
+    <ul id="navList" style="--rightBasis: {rightBasis}; --liBasis: {liBasis}">
         {#each pages as { url, btnName, childPages }, topIndex}
         <li  class="navBtn" id="{btnName}">
             <span class="ddbutton"
@@ -369,7 +378,8 @@ nav {
         
         &::after{
             content:"";
-            flex-grow: 1.5;
+            transition: flex-grow var(--scrollTransition);
+            flex-grow: var(--rightBasis);
         }
 
         &::before{
@@ -383,7 +393,8 @@ nav {
         height: 100%;
         // padding-inline: clamp(1px, calc(12vw - 85px), 30px);
         margin-inline: clamp(1px, .4%, 5px);
-        flex-grow: 1;
+        transition: flex-grow var(--scrollTransition);
+        flex-grow: var(--liBasis);
         // padding-inline: clamp(0px, calc(3%), 30px);
         
 
