@@ -15,6 +15,7 @@ let hero
 let ddbuttons
 let ddcontents
 export let isOpaque = false 
+let previousIsOpaque = isOpaque
 
 let lines = []
 
@@ -44,6 +45,7 @@ onMount(() =>{
     //När sidans innehåll uppdateras (av swup)
     document.addEventListener('swup:contentReplaced', ()=> {
         console.log("sidan uppdaterades av swup")
+        setTimeout(()=> navbar.style.removeProperty('--scrollTransition'), 310)
         readLinks()
         adjustPads()
         hero = document.getElementById('heroimg')
@@ -179,12 +181,11 @@ function handleNavigation(href) {
             dot.style.height = ""
             dot.style.clipPath = ""
         }, 300)
-        
     }
-
+    
     const href_topPath = href.split('/')[1]
     const active_topPath = active.split('/')[1]
-
+    
     if (href_topPath != active_topPath) {
         dotWasActive();
     }
@@ -192,7 +193,7 @@ function handleNavigation(href) {
     
     //Sätter ny active
     if (!href.startsWith('#')) active = href.replace(/\#.*/, '') //Tar bort anchors från URLen, så att active alltid motsvarar någon länk i navbaren 
-
+    
     //Letar rätt på nuvarande sida i navbarConfig.json, för att kunna kolla inställningar
     let currentPage = pages.find(page => page.url.split('/')[1] === active.split('/')[1])
     //Om currentPage.url bara börjar på active, men inte helt stämmer övererns,
@@ -200,12 +201,18 @@ function handleNavigation(href) {
     if (!(currentPage?.url === active)) {
         currentPage = currentPage?.childPages.find(childPage => childPage.url === active)
     }
-
+    
     //Kollar om navbaren ska vara genomskinlig
+    previousIsOpaque = isOpaque
     isOpaque = currentPage
-               ? Boolean(currentPage.isOpaque)
-               : false
+    ? Boolean(currentPage.isOpaque)
+    : false
+    console.log("prevOpaque", previousIsOpaque)
     console.log("isopaque?", isOpaque)
+
+
+    navbar.style.setProperty('--scrollTransition', '300ms ease')
+    //--scrollTransition går tillbaka till normal efter 310ms efter sidan uppdateras. Se rad 50
 }
 
 let lastCallms = 0
@@ -216,11 +223,11 @@ function handleResize () {
         return   
     }
     (function checkLines() {
-
+        
         for (let i = 0; i<(lines?.length); i++) {
-
+            
             if (!lines[i]) continue
-
+            
             for (let j=0;j<(lines[i].length - 1); j++) {
 
                 const line = lines[i][j]
@@ -335,13 +342,14 @@ function handleResize () {
     // z-index: -1;
 }
 nav {
+    --scrollTransition: 20ms ease
     opacity: 100%;
     position: fixed;
     width: 100%;    
     display: none;
     visibility: hidden;
     justify-content: space-between;
-    transition: height 10ms;
+    transition: height var(--scrollTransition);
     box-shadow: 0 -10px 50px black;
     background-color: transparent;
     
