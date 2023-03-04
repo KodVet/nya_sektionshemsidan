@@ -1,6 +1,6 @@
 @container (max-width: 400px) {
     .container.left, .container.right {
-        width: 270px !important;
+        width: clamp(275px, 85%, 310px) !important;
         font-size: 20px !important;
         .main.wrapper {
             flex-direction: column !important;
