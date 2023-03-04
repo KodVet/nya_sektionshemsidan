@@ -8,7 +8,7 @@ metaFileCollections.folder = 'src/data/cms/collections/file'
 metaFolderCollections.folder = 'src/data/cms/collections/folder'
 import settings from './settings.json'
 // console.log(settings)
-const config = {
+const config = import.meta.env.DEV ? {
     ...settings,
     collections: [
         ...folder_collections,
@@ -16,6 +16,12 @@ const config = {
         metaSettings,
         metaFileCollections,
         metaFolderCollections
+    ]
+} : {
+    ...settings,
+    collections: [
+        ...folder_collections,
+        ...file_collections
     ]
 }
 export default config
