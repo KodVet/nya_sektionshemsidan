@@ -99,7 +99,7 @@ function animateRightPadding(breakpoint, totalBreakpoints) {
     liBasis = (rightBasis * 0.1) + 0.6
 }
 
-const maxFontSize = 32
+const maxFontSize = 30
 const minFontSize = 20
 let navFontSize = maxFontSize;
 function animateFontSize(breakpoint, totalBreakpoints, eager=false) {
@@ -280,7 +280,7 @@ function handleResize () {
         {#each pages as { url, btnName, childPages }, topIndex}
         <li  class="navBtn" id="{btnName}">
             <span class="ddbutton"
-                style="font-size:clamp(0px, {navFontSize}px, 3.1vw)" 
+                style="font-size:clamp(0px, {navFontSize}px, 4vw)" 
                 class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
                 <a tabindex="0" 
                     href="{baseUrl + url}">{btnName}
@@ -392,7 +392,7 @@ nav {
 
         &::before{
             content:"";
-            flex-grow: 4;
+            flex-basis: clamp(20px, calc(-344px + 50vw), 1009px);
         }
 
         .navBtn{
@@ -438,7 +438,7 @@ nav {
                     /* pixel-värdet är bredden av scrollbaren */
                     width: 100%;
                     right: 0;
-                    font-size: 1rem;
+                    font-size: 18px;
                     box-shadow:0px 0px 10px black;
                     background-color: var(--navbar-dropdown-bg);
                     top: 100%;
