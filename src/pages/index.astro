@@ -58,8 +58,10 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 			</Caorusel>
 		</section>
 		<section class="news">
-			<h1>Senaste inlägg</h1>
-			<span class="line"></span>
+			<div class="header wrapper">
+				<h1>Senaste inlägg</h1>
+				<hr>
+			</div>
 			<div class="newsList">
 				<div class="post">
 					<NyhetCard post={latestPostWithAuthorFrontmatter}>
@@ -67,11 +69,13 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 					</NyhetCard>
 				</div>
 			</div>
-			<a href="/student/nyheter/1">
-				<MainButton>
-					Alla inlägg
-				</MainButton>
-			</a>
+			<div class="button-wrapper">
+				<a href="/student/nyheter/1">
+					<MainButton>
+						Alla inlägg
+					</MainButton>
+				</a>
+			</div>
 		</section>
 </Fragment>
 </Layout>
@@ -104,17 +108,18 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 		}
 	}
 	.news {
-		width: clamp(500px, 70vw, 1200px);
+		width: clamp(500px, 1300px, 90vw);
 		margin-inline: auto;
+		display: flex;
+		flex-direction: column;
 		z-index: -1;
-		.line {
-			display: none;
-			@media (min-width: 577px)  {
-				display: block
-			}
+		gap: 10px;
+		hr {
+			display: block;
 			height: 2px;
 			width: 100%;
 			background-color: var(--buckethat-svart);
+			margin: 0;
 		}
 	
 		.newsList {
@@ -130,10 +135,14 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 				justify-content: center;
 			}
 		}
+		.button-wrapper {
+			display: inline;
+			margin: auto;
+		}
 	}
 	.carousel {
 	}
-	@media (max-width: 500px) {
+	@media (max-width: 601px) {
 		.hero {
 			margin-bottom: 0;
 			& :global(.container::before) {
@@ -149,13 +158,16 @@ console.log("latestpost", latestPostWithAuthorFrontmatter)
 			justify-content: center;
 			align-items: center;
 			width: unset;
-			h1 {
+			max-width: 400px;
+			.header.wrapper {
 				text-align: center;
+				width: 90%;
+				min-width: 300px;
 			}
 			.newsList {
 				width: 100%;
 				.post {
-	
+					
 				}
 			}
 		}
