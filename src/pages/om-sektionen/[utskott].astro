@@ -3,6 +3,7 @@ import Layout from '../../layouts/baseLayout.astro';
 import TitleCard from '@components/content/TitleCard.svelte';
 import Card from '../../components/content/MedlemCard.svelte'
 import SponsorCard from '@components/content/SponsorCard.svelte';
+import { sponsors } from '@data/sponsorer/panel.json'
 
 export async function getStaticPaths() {
 	const utskott = await Astro.glob('../../data/utskott/*.md')
@@ -63,7 +64,7 @@ bgColor={utskott.frontmatter.config.bgColor.startsWith('--')
 		</section>
 		<section class="members">
 				<aside class="sponsors">
-					<SponsorCard/>
+					<SponsorCard sponsors={sponsors}/>
 				</aside>
 				<ol class="medlemmarList">
 					{medlemmar.map(({ frontmatter, Content }, index) =>
@@ -71,7 +72,7 @@ bgColor={utskott.frontmatter.config.bgColor.startsWith('--')
 						<Card client:visible
 						medlem={frontmatter}
 						direction={((index % 2==0) ? 'right' : 'left')}
-						size="28px">
+						size="26px">
 							<Content />
 						</Card>
 					</li>
