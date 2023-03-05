@@ -210,8 +210,9 @@ function handleNavigation(href) {
     console.log("prevOpaque", previousIsOpaque)
     console.log("isopaque?", isOpaque)
 
-
-    navbar.style.setProperty('--scrollTransition', '300ms ease')
+    if (active === '/') {
+        navbar.style.setProperty('--scrollTransition', '300ms ease')
+    }
     //--scrollTransition går tillbaka till normal efter 310ms efter sidan uppdateras. Se rad 50
 }
 
