@@ -1,5 +1,7 @@
 <script>
-    import { sponsors } from '@data/sponsorer/panel'
+    export let bgColor = 'rgba(255, 255, 255, 0.79)'
+    import { sponsors as defaultSponsors } from '@data/sponsorer/panel'
+    export let sponsors = defaultSponsors
     import Icon from '@iconify/svelte/dist/Icon.svelte'
     import FaFacebookF from 'svelte-icons/fa/FaFacebookF.svelte'
     import FaInstagram from 'svelte-icons/fa/FaInstagram.svelte'
@@ -15,7 +17,7 @@
 
 </script>
 
-<div id="SponsorCard" bind:clientWidth={width} on:click={()=>console.log("clientWidth", width)}>
+<div id="SponsorCard" bind:clientWidth={width} on:click={()=>console.log("clientWidth", width)} style="--bgColor: {bgColor}">
     <h3>KOGVET PÅ SOCIALA MEDIER</h3>
     <ul class="socials" style="--fontSize: {fontSize}px">
         <li class="facebook">
@@ -60,7 +62,7 @@
     #SponsorCard{
         overflow-x: hidden;
         padding: 7px;
-        background-color: rgba(255, 255, 255, 0.79);
+        background-color: var(--bgColor);
         /* width: 270px; */
         /* height: 300px; */
         margin: auto;
