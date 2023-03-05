@@ -89,14 +89,14 @@ function animateNavHeight(breakpoint, totalBreakpoints) {
         navHeight = max_height - ((max_height-min_height)/totalBreakpoints)*breakpoint
 }
 
-const minBasis = 0.1
-const maxBasis = 0.4
-let rightBasis = maxBasis
-let liBasis = (rightBasis * 0.1) + 0.6
+const minGrow = 0.1
+const maxGrow = 0.4
+let rightGrow = maxGrow
+let midGrow = (rightGrow * 0.1) + 0.6
 function animateRightPadding(breakpoint, totalBreakpoints) {
-    rightBasis = maxBasis - ((maxBasis-minBasis)/totalBreakpoints)*breakpoint
+    rightGrow = maxGrow - ((maxGrow-minGrow)/totalBreakpoints)*breakpoint
     // liBasis = maxBasis - ((maxBasis-minBasis)/totalBreakpoints)*breakpoint
-    liBasis = (rightBasis * 0.1) + 0.6
+    midGrow = (rightGrow * 0.1) + 0.6
 }
 
 const maxFontSize = 30
@@ -256,7 +256,7 @@ function handleResize () {
     lastCallms = Date.now() 
 }
 
-
+$: leftGrow = ((0.0028)*viewportWidth)-1.375
 
 </script>
 
@@ -276,11 +276,11 @@ function handleResize () {
         </a>
     <img id="logo" src={baseUrl + "/images/KogvetHuvet.svg"} alt="det är ju loggan hummer" />
     
-    <ul id="navList" style="--rightBasis: {rightBasis}; --liBasis: {liBasis}">
+    <ul id="navList" style="--leftGrow: {leftGrow}; --rightBasis: {rightGrow}; --liBasis: {midGrow}">
         {#each pages as { url, btnName, childPages }, topIndex}
         <li  class="navBtn" id="{btnName}">
             <span class="ddbutton"
-                style="font-size:clamp(0px, {navFontSize}px, 4vw)" 
+                style="font-size:clamp(0px, {navFontSize}px, 4vw);" 
                 class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
                 <a tabindex="0" 
                     href="{baseUrl + url}">{btnName}
@@ -392,7 +392,7 @@ nav {
 
         &::before{
             content:"";
-            flex-basis: clamp(20px, calc(65vw - 411px), 1009px);
+            flex-grow: var(--leftGrow);
         }
 
         .navBtn{
