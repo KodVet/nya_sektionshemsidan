@@ -392,7 +392,7 @@ nav {
 
         &::before{
             content:"";
-            flex-basis: clamp(20px, calc(-344px + 50vw), 1009px);
+            flex-basis: clamp(20px, calc(65vw - 411px), 1009px);
         }
 
         .navBtn{
