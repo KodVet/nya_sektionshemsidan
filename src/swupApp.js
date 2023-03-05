@@ -6,6 +6,14 @@ import SwupSlideTheme from "@swup/slide-theme";
 import SwupScriptsPlugin from "@swup/scripts-plugin";
 import SwupRouteNamePlugin from '@swup/route-name-plugin';
 
+const scrollPlugin = new SwupScrollPlugin({
+  animateScroll: {
+    samePageWithHash: true,
+    betweenPages: true
+  },
+  doScrollingRightAway: false,
+})
+
 const swup = new Swup({
   plugins: [
     new SwupScriptsPlugin({
@@ -17,16 +25,17 @@ const swup = new Swup({
         { name: 'start', path: '/'}
       ]
     }),
-    new SwupScrollPlugin({
-      animateScroll: {
-        samePageWithHash: true,
-        betweenPages: false
-      },
-      doScrollingRightAway: false,
-    }),
+    scrollPlugin,
     new SwupSlideTheme({ reversed: true }),
     new SwupPreloadPlugin(),
   ],
   ignoreVisit: (href, { el } = {}) =>
     el?.matches('[data-no-swup], [href$=".pdf"]'),
 });
+
+
+document.getElementById('Start').addEventListener('click', ()=> {
+  scrollPlugin.options.animateScroll.betweenPages = false
+})
+
+swup.on('scrollDone', () => scrollPlugin.options.animateScroll.betweenPages = true)

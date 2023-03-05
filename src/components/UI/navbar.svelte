@@ -283,7 +283,7 @@ $: leftGrow = ((0.0028)*viewportWidth)-1.375
                 style="font-size:clamp(0px, {navFontSize}px, 4vw);" 
                 class:active={active.split('/')[1] === (baseUrl+url).split('/')[1]}>
                 <a tabindex="0" 
-                    href="{baseUrl + url}">{btnName}
+                    href="{baseUrl + url}" id={btnName}>{btnName}
                 </a>
                 <span class="wrapper">
                     <div class="dot"></div>
