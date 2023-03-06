@@ -91,6 +91,7 @@ function animateNavHeight(breakpoint, totalBreakpoints) {
 
 const minGrow = 0.1
 const maxGrow = 0.4
+let leftGrow = 4
 let rightGrow = maxGrow
 let midGrow = (rightGrow * 0.1) + 0.6
 function animateRightPadding(breakpoint, totalBreakpoints) {
@@ -103,10 +104,10 @@ const maxFontSize = 30
 const minFontSize = 20
 let navFontSize = maxFontSize;
 function animateFontSize(breakpoint, totalBreakpoints, eager=false) {
-        navFontSize = (maxFontSize - (((maxFontSize-minFontSize)/totalBreakpoints))*breakpoint)
-        
-}
+    navFontSize = (maxFontSize - (((maxFontSize-minFontSize)/totalBreakpoints))*breakpoint)
     
+}
+
 function generateBreakpoints(total){
     for (let i = 0; i <= total; i++) {
         if (((i*max_scroll)/total)<=yScrollPosition) {
@@ -130,7 +131,7 @@ function readLinks() {
 function adjustPads() {
     const activeDdcontentHeight = document.querySelector('.ddbutton.active .ddcontent')?.clientHeight
     staticBackground.style.marginBottom = `${activeDdcontentHeight}px`
-
+    
     for (let ddbutton of ddbuttons) {
         if (!ddbutton.querySelector('.ddcontent')) continue
         const pad = ddbutton.querySelector('.pad')
@@ -138,23 +139,23 @@ function adjustPads() {
         pad.style.height = `calc(${ddcontent.clientHeight + 40}px + 2vh)`
     };
 }
-    
+
 //Abstrakta funktioner som hanterar händelser,
 //och i sin tur anropar funktionerna från förra delen.
 //Funktionerna här anropas på olika sätt beroende på vad som var enklast
 
 
 //handleScroll
-    //Med denna variant kan jag lösa buggen med snabb skroll.
-    //Att namge kodstycke här till en funktionen och binda en event-listener funkar ej,
-    //vet inte vrf
+//Med denna variant kan jag lösa buggen med snabb skroll.
+//Att namge kodstycke här till en funktionen och binda en event-listener funkar ej,
+//vet inte vrf
 let previousScrollPosition
 $: {
     // (viewportWidth)
     previousScrollPosition = yScrollPosition;
     const scrollDelta = Math.abs(yScrollPosition - previousScrollPosition); 
     generateBreakpoints(30-Math.floor(scrollDelta/10))
-
+    
     //Detta är det som lägger på bl.a blur effekten på startsidan
     if (isOpaque) {
         navbar?.classList.toggle('scrolled', yScrollPosition >= max_scroll)
@@ -189,7 +190,7 @@ function handleNavigation(href) {
     if (href_topPath != active_topPath) {
         dotWasActive();
     }
-
+    
     
     //Sätter ny active
     if (!href.startsWith('#')) active = href.replace(/\#.*/, '') //Tar bort anchors från URLen, så att active alltid motsvarar någon länk i navbaren 
@@ -209,7 +210,7 @@ function handleNavigation(href) {
     : false
     console.log("prevOpaque", previousIsOpaque)
     console.log("isopaque?", isOpaque)
-
+    
     if (active === '/') {
         navbar.style.setProperty('--scrollTransition', '300ms ease')
     }
@@ -223,6 +224,10 @@ function handleResize () {
         // console.log("throttle", Date.now())
         return   
     }
+    if (viewportWidth) {
+
+        leftGrow = ((0.0028) * viewportWidth) - 1.375 
+    }
     (function checkLines() {
         
         for (let i = 0; i<(lines?.length); i++) {
@@ -230,7 +235,7 @@ function handleResize () {
             if (!lines[i]) continue
             
             for (let j=0;j<(lines[i].length - 1); j++) {
-
+                
                 const line = lines[i][j]
                 const nextLine = lines[i][j+1]
                 const previousLine = lines[i][j-1]
@@ -257,7 +262,7 @@ function handleResize () {
     lastCallms = Date.now() 
 }
 
-$: leftGrow = ((0.0028)*viewportWidth)-1.375
+
 
 </script>
 
@@ -390,10 +395,11 @@ nav {
             transition: flex-grow var(--scrollTransition);
             flex-grow: var(--rightBasis);
         }
-
+        
         &::before{
             content:"";
             flex-grow: var(--leftGrow);
+            transition: flex-grow .2s ease;
         }
 
         .navBtn{
