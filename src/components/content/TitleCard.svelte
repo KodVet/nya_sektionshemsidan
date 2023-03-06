@@ -49,10 +49,10 @@
     }
 
     h1 {
-        font-size: 4rem;
+        font-size: 3.7rem;
     }
     p {
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
     .fuse {
         .text {
@@ -81,6 +81,13 @@
         }
         .right-panel {
             flex-basis: unset !important;
+        }
+    }
+    @media (max-width: 412px) {
+        .container {
+            h1 {
+                font-size: 18vw !important;
+            }
         }
     }
 </style>

@@ -3,7 +3,8 @@
   src: url('/fonts/gill-sans.ttf') format('truetype');
 }
 
-  :root{
+:root{
+    font-size: 20px;
     --koggis-grön: #037D4F;
     --valla-grön: #16a654;
     --limejuice: #d1f2d5;
