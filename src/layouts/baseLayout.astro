@@ -8,6 +8,7 @@ import Css from 'json-to-css'
 import Footer from "@components/content/Footer.svelte";
 import jsoncss from '../CSSTheme.json'
 import meta from "../data/cms/collections/metaCollections/settings";
+import * as mdData from '@data/footer.md'
 import { env } from "../../.eslintrc.cjs";
 const css = Css.of(jsoncss)
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -19,6 +20,7 @@ const {
 	bgColor = "--background-color"
 } = Astro.props;
 // const { customHead = false } = Astro.props;
+
 ---
 
 <!DOCTYPE html>
@@ -51,7 +53,7 @@ const {
 		</script>
 		</main>
 		<footer id="foot">
-			<Footer>
+			<Footer client:load>
 				<!-- <h1>Made by kodvet</h1> -->
 			</Footer>
 		</footer>
