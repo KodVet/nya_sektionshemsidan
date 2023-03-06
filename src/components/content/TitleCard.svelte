@@ -3,9 +3,10 @@
     export let sponsors = false
     export let split = true
     export let bgColor = 'var(--koggis-grön)'
+    console.log($$slots)
 </script>
 
-<div class="container" class:fuse={!split} style="--bg: {bgColor}">
+<div class="container" class:fuse={!split} style="--bg: {bgColor}" class:hasImg={$$slots['right-panel']}>
     <div class="text" style="flex-basis: {sponsors ? '60' : '40'}%;">
         <h1>
             <slot name="header"/>
@@ -35,12 +36,14 @@
         justify-content: space-between;
         .text {
             flex-basis: 40%;
-            padding: 100px;
+            padding-right: 100px;
             padding-top: 20px;
             padding-bottom: calc(3em + 20px);
             padding-left: calc(20vw - 130px);
             background-color: var(--bg);
-            min-width: 56ch;
+            p {
+                max-height: 9ch;
+            }
         }
         .right-panel {
             flex-basis: 25%;
@@ -68,10 +71,30 @@
             }
         }
     }
+    @media screen and (max-width: 1169px) and (min-width: 800px) {
+        .container.hasImg {
+            .text {
+                min-width: calc(40vw - (3vw + (20vw - 130px)));
+                padding-right: 3vw;
+                h1 {
+                    font-size: clamp(1.2rem, calc(6.4vw), 3.7rem);
+                    margin-top: clamp(0px, calc(23.5vw - 210px), 62px);
+                    margin-bottom: clamp(0px, calc(23.5vw - 180px), 62px);
+                }
+            }
+        }
+        :global(.right-panel img:not(.sponsor-img)) {
+            width: 60vw !important;
+        }
+    }
     @media (max-width: 800px) {
         .container {
             flex-direction: column;
             .text {
+                h1 {
+                    font-size: 3.7rem;
+                    margin-block: revert;
+                }
                 padding-inline: 30px;
                 min-width: unset;
             }
