@@ -2,7 +2,7 @@
 Uuid: 9dz5nz9v
 title: Kodvet
 config:
-  bgColor: "#d1f2d5"
+  bgColor: --reflex-vit
   medlemmarConfig:
     sorting: ascending
 ---

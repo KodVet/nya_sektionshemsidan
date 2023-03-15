@@ -2,7 +2,7 @@
 Uuid: vZe9vuZf
 title: Marknadsföringsutskottet
 config:
-  bgColor: "#d1f2d5"
+  bgColor: --reflex-vit
   medlemmarConfig:
     sorting: ascending
 ---

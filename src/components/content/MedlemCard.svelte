@@ -120,7 +120,7 @@ hr {
 
 .container.right {
     flex-direction: row;
-    background: var(--reflex-vit);
+    background: white;
     .imageWrap {
         background-color: var(--koggis-grön);
     }

@@ -2,7 +2,7 @@
 Uuid: 7yww4rtb
 title: Utbildningsutskottet
 config:
-  bgColor: "#d1f2d5"
+  bgColor: --reflex-vit
   medlemmarConfig:
     sorting: ascending
 ---

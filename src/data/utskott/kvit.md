@@ -2,7 +2,7 @@
 Uuid: 3v8lk2l3
 title: KVIT
 config:
-  bgColor: "#d1f2d5"
+  bgColor: --reflex-vit
   medlemmarConfig:
     sorting: ascending
 ---
