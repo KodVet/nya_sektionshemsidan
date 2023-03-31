@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Victor</title>
+    <style>
+        :root {
+            --BucketHatBlack: #221E1F;
+            --ReflexWhite: #F3F3F4;
+            --KoggisGreen: #037D4F;
+            --VallaGreen: #16A654;
+            --FulVinsRod: #7D0331;
+            --OvveBlues: #16A69C;
+            --LimeJuice: #D1F2D5;
+            --BubbleGum: #EAC0D8;
+            --RegnigBetong: #414141;
+            --KissEfterForMycketOlGul: #CA8112;
+        }
+
+        header {
+            background-color: var(--KoggisGreen);
+            color: var(--ReflexWhite);
+            padding: 20px;
+            text-align: center;
+            font-size: 32px;
+        }
+
+        footer {
+            background-color: var(--KoggisGreen);
+            color: var(--ReflexWhite);
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        #chat-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 400px;
+    width: 300px;
+    overflow: auto;
+}
+
+#message-list {
+    position: relative;
+    padding: 10px;
+    bottom: 0;
+}
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Victors</h1>
+    </header>
+
+    <div id="chat-box">
+        <script type="text/javascript">
+            function createChatBox() {
+                // Create chat window
+                const chatBox = document.getElementById('chat-box');
+                chatBox.innerHTML = `
+                    <div id="chat-window">
+                        <div id="message-list"></div>
+                        <input type="text" id="message-input" placeholder="Skriv till Victor...">
+                        <button id="send-button">Skicka</button>
+                    </div>
+                `;
+
+                // Connect to WebSocket server
+                const ws = new WebSocket('ws://localhost:8000');
+
+               
+                }
