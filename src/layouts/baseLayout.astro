@@ -10,6 +10,7 @@ import jsoncss from '../CSSTheme.json'
 import meta from "../data/cms/collections/metaCollections/settings";
 import * as mdData from '@data/footer.md'
 import { env } from "../../.eslintrc.cjs";
+import NavbarMobile from "@components/UI/navbarMobile.svelte";
 const css = Css.of(jsoncss)
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 // console.log(css)
@@ -40,8 +41,9 @@ const {
 	<body>
 		
 		<header>
-			<Navbar isOpaque={isOpaque} client:visible active={Astro.url.pathname} baseUrl={baseUrl}/>
+			<!-- <Navbar isOpaque={isOpaque} client:visible active={Astro.url.pathname} baseUrl={baseUrl}/> -->
 			<Mobilnavbar client:visible />
+			<NavbarMobile client:visible active />
 		</header>
 
 		<main id="swup" data-bg={bgColor.startsWith('--')
