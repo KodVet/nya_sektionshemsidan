@@ -16,3 +16,8 @@ a[href="#/collections"] {
 #preview-pane {
     background-color: var(--reflex-vit);
 }
+
+li svg, li img {
+    margin: auto;
+    
+}

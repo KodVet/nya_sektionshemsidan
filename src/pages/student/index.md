@@ -1,4 +1,4 @@
 ---
 layout: ../../layouts/Basic.astro
-title: Utbyte
+title: Student
 ---

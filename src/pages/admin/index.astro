@@ -1,7 +1,8 @@
 ---
 const instruktioner = await Astro.glob("../../data/cms/instruktioner.md")
 const markdown = instruktioner.map(md=>md.rawContent())
-import '../../globalStyles.css'
+import '@staticcms/core/dist/main.css';
+import './styles.css'
 ---
 
 <!doctype html>
@@ -16,15 +17,6 @@ import '../../globalStyles.css'
     <div id="data" data-md={markdown}>
     </div>
     <!-- <script is:inline src="https://unpkg.com/@staticcms/app@^1.0.0/dist/static-cms-app.js"></script> -->
-    <script is:inline defer>
-      setTimeout(() => {
-      const link = document.createElement('link')
-        link.type = 'text/css'
-        link.rel = 'stylesheet'
-        link.href = '/admin/styles.css'
-        document.head.appendChild(link)
-      },2500)
-    </script>
 
 </body>
 </html>
