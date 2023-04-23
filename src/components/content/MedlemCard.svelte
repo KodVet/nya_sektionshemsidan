@@ -86,14 +86,13 @@ bind:this={container}>
         </div>
         {#if hasContent}
         <div class="btn">
-            <SecondaryButton size="calc(1em - 6px)" on:click={collapse}><b>Mer om posten</b></SecondaryButton>
+            <SecondaryButton size="calc(1em - 6px)" on:click={collapse} light={direction === 'left'}><b>Mer om posten</b></SecondaryButton>
         </div>
         {/if}
     </div>
 
     <div class="more wrapper">
         <div bind:this={collapsible} class='content'>
-            <p style="text-align: center;">Mer om posten</p>
             <hr>
             <div class="more" bind:this={more}>
                 <slot></slot>
