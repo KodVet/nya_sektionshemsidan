@@ -5,7 +5,12 @@ import { pages } from '../../data/navbarConfig.json'
 
 </script>
 <div class="container">
-    <div class="mobileHeader"></div>
+    <div class="mobileHeader">
+        <img src="/images/KogvetHuvet.svg" alt="det är ju loggan hummer" height="40px"/>
+        <button>dropdown</button>
+    </div>
+        
+    <hr>
     <nav>
         <ul>
             {#each pages as page}
@@ -37,11 +42,21 @@ import { pages } from '../../data/navbarConfig.json'
         display:none;
     }
     .container {
+        display: none;
         background-color: var(--koggis-grön);
         .mobileHeader {
-            height: 50px;
+            height: fit-content;
+            display: flex;
+            // flex-direction: column;
+            justify-content: space-between;
+            img {
+                padding: 20px;
+            }
         }
-        ul{
+        hr {
+            margin: 0;
+        }
+        ul{ 
             display: flex;
             justify-content: center;
             flex-direction: column;
@@ -52,6 +67,7 @@ import { pages } from '../../data/navbarConfig.json'
             padding: 0;
             // margin: auto;
             li{
+                background-color: rgb(190, 244, 172);
                 width: fit-content;
                 a{
                     text-decoration: none;
@@ -65,4 +81,13 @@ import { pages } from '../../data/navbarConfig.json'
             }
         }
     }
+@media (max-width: 576px) {
+    .container {
+        display:block; 
+        // margin: auto; 
+        // width: 90%;
+        // justify-content: center; }
+    }
+}
+
 </style>
