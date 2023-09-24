@@ -52,7 +52,7 @@ if (!page.url.prev) {
 			<h1>Nya inlägg</h1>
 			<div class="nya-inlägg">
 				{newPosts.map((post, index) => {
-					console.log("post", post)
+					// console.log("post", post)
 					return (
 					<div class="post">
 					<div class="scrollAnchor" id={post.frontmatter.title} style={`--max-height: ${max_height}px`}></div>
@@ -92,7 +92,7 @@ if (!page.url.prev) {
 				
 				{page.url.next && <a href={page.url.next}><button class="arrow">›</button></a>}
 				{page.lastPage -  page.currentPage >= 3 && <a href={page.url.prev}><button class="arrow">»</button></a>}
-				{()=>console.log(page.total)}
+				
 			</div>
 		</div>
 		

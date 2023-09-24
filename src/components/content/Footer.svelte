@@ -6,7 +6,7 @@
   	import { Fragment } from "react";
 	// const compiledContent = mdData.compiledContent()
 	import * as mdData from '@data/footer.md'
-	console.log("md", mdData)
+	("md", mdData)
     export const sponsorer = []
 </script>
 

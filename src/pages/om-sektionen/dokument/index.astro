@@ -5,8 +5,8 @@ const pdfsPaths = (import.meta.glob('/static/dokument/*', {eager: true, import: 
 
 const pdfs = Object.fromEntries(Object.entries(pdfsPaths).map(([key, value]) => 
 [key.replace('static/', ''), String(value).split('/')[2].replace(/(?<=[a-zA-Z])-/g,' ').replace(/\..*/,'')]));
-console.log(pdfs)
-console.log(pdfsPaths)
+// console.log(pdfs)
+// console.log(pdfsPaths)
 ---
 
 <Layout title="Kogvet Sektionen på Linköpings Universitet" active={Astro.url.pathname}>

@@ -3,7 +3,6 @@
     export let sponsors = false
     export let split = true
     export let bgColor = 'var(--koggis-grön)'
-    console.log($$slots)
 </script>
 
 <div class="container" class:fuse={!split} style="--bg: {bgColor}" class:hasImg={$$slots['right-panel']}>

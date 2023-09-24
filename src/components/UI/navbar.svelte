@@ -60,7 +60,7 @@ onMount(() =>{
 
     //När sidans innehåll uppdateras (av swup)
     document.addEventListener('astro:after-swap', ()=> {
-        console.log("sidan uppdaterades av swup")
+        ("sidan uppdaterades av swup")
         setTimeout(()=> navbar.style.removeProperty('--scrollTransition'), 310)
         readLinks()
         adjustPads()
@@ -69,7 +69,7 @@ onMount(() =>{
     
     })
 
-    console.log(pages)
+    (pages)
 });
 
 beforeUpdate(() => {
@@ -122,7 +122,7 @@ function generateBreakpoints(total){
 function readLinks() {
     Object.values(document.getElementsByTagName('a')).forEach(link => {
         const href = link.getAttribute('href')
-        // console.log("link", link)
+        // ("link", link)
         link.addEventListener('click', () => {
             handleNavigation(href)
         })
@@ -166,10 +166,10 @@ $: {
 
 function handleNavigation(href) {
     if (href === active) {
-        console.log("href == acktiv")
+        ("href == acktiv")
         return
     }
-    console.log("handlenavigation kör")
+    ("handlenavigation kör")
     function dotWasActive() {
         const dot = document.querySelector('.active .dot')
         if (!dot) return
@@ -209,8 +209,8 @@ function handleNavigation(href) {
     isOpaque = currentPage
     ? Boolean(currentPage.isOpaque)
     : false
-    console.log("prevOpaque", previousIsOpaque)
-    console.log("isopaque?", isOpaque)
+    ("prevOpaque", previousIsOpaque)
+    ("isopaque?", isOpaque)
     
     if (active === '/') {
         navbar.style.setProperty('--scrollTransition', '300ms ease')
@@ -222,7 +222,7 @@ let lastCallms = 0
 function handleResize () {
     // En basic throttle. Begränsar funktionsanrop till max en gång varje 40ms
     if ((Date.now() - lastCallms) < 50 && lastCallms != 0) {
-        // console.log("throttle", Date.now())
+        // ("throttle", Date.now())
         return   
     }
     if (viewportWidth) {

@@ -7,6 +7,8 @@ import { sponsors } from '@data/sponsorer/panel.json'
 
 export async function getStaticPaths() {
 	const utskott = await Astro.glob('../../data/utskott/*.md')
+	console.log("alla utskott: ")
+	utskott.map((utskott)=>console.log("utskott titel: ", utskott.frontmatter.title, "utskott slug: ", utskott.frontmatter.title.toLowerCase().replace(' ','-')))
 	const medlemmar = await Astro.glob('../../data/medlemmar/*.md')
 	return utskott.map(utskott => {
 		const filteredMedlemmar = medlemmar.filter(medlem => medlem.frontmatter.utskott === utskott.frontmatter.title)
@@ -31,15 +33,15 @@ export async function getStaticPaths() {
 		})
 		// sortedMedlemmar.map(medlem => console.log(medlem.frontmatter.namn))
 		return {
-			params: { utskott: utskott.frontmatter.title.toLowerCase().replace(' ','-') },
+			params: { utskott: utskott.frontmatter.title.toLowerCase().replaceAll(' ','-') },
 			props: { utskott: utskott, medlemmar: sortedMedlemmar },
 		}
 	})
 }
 const { utskott, medlemmar } = Astro.props
 const { Content } = utskott
-// console.log("medlemmar: ", medlemmar)
-console.log("sorterad: ")
+console.log("utskott: ", utskott.frontmatter)
+console.log("slug: ", utskott.frontmatter.title.toLowerCase().replace(' ','-'))
 
 ---
 

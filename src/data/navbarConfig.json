@@ -35,6 +35,11 @@
           "btnName": "Dokument",
           "url": "/om-sektionen/dokument",
           "isOpaque": false
+        },
+        {
+          "isOpaque": true,
+          "btnName": "Det eminenta utskottet",
+          "url": "/om-sektionen/det-eminenta-utskottet"
         }
       ]
     },
@@ -92,6 +97,5 @@
       ],
       "isOpaque": false
     }
-  ] 
-
+  ]
 }

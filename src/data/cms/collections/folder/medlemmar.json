@@ -95,7 +95,8 @@
         "allow_multiple": true
       },
       "required": true,
-      "class": "image"
+      "class": "image",
+      "choose_url": true
     },
     {
       "label": "Om mig",
