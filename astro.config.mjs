@@ -24,5 +24,9 @@ export default defineConfig({
   // called `static` instead.
   publicDir: 'static',
   integrations: [svelte(), mdx(), react()],
-  output: "static"
+  output: "static",
+  scopedStyleStrategy: "where",
+  build: {
+    inlineStylesheets: "never"
+  }
 });

@@ -19,7 +19,9 @@ const swup = new Swup({
     new SwupScriptsPlugin({
       optin: true
     }),
-    new SwupHeadPlugin(),
+    new SwupHeadPlugin({
+      awaitAssets: true
+    }),
     new SwupRouteNamePlugin({
       routes: [
         { name: 'start', path: '/'}

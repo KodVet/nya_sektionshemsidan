@@ -36,14 +36,30 @@ onMount(() =>{
 
     //Enksilda checkar
 
-    
+    //Defenitioner av alla observers
+    const intersectionObserver = new IntersectionObserver(entries=>{
+        entries.forEach(entry => {
+            navbar.classList.toggle('intersectingHero', entry.isIntersecting)
+            staticBackground.classList.toggle('intersectingHero', entry.isIntersecting)
+        })
+    }, {rootMargin: `${-10}px`})
+
+    let previousDdcontentHeights = []
+    const ddcontentReziseObserver = new ResizeObserver(entries => {
+        entries.forEach((entry, index) => {
+            const ddcontentHeight = entry.contentRect.height
+            if (ddcontentHeight != previousDdcontentHeights[index]) adjustPads()
+            previousDdcontentHeights[index] = ddcontentHeight || previousDdcontentHeights.push(ddcontentHeight)
+        })
+    })
+
     //Eventlisteners och observers, sak från javascript, grundläggande grej att använda javascript till, lyssnar efter knapptryck
     if (hero) intersectionObserver.observe(hero)
     ddcontents.forEach(ddcontent => ddcontentReziseObserver.observe(ddcontent))
     readLinks()
 
     //När sidans innehåll uppdateras (av swup)
-    document.addEventListener('swup:contentReplaced', ()=> {
+    document.addEventListener('astro:after-swap', ()=> {
         console.log("sidan uppdaterades av swup")
         setTimeout(()=> navbar.style.removeProperty('--scrollTransition'), 310)
         readLinks()
@@ -64,22 +80,7 @@ afterUpdate(() => {
 
 })
 
-//Defenitioner av alla observers
-const intersectionObserver = new IntersectionObserver(entries=>{
-    entries.forEach(entry => {
-        navbar.classList.toggle('intersectingHero', entry.isIntersecting)
-        staticBackground.classList.toggle('intersectingHero', entry.isIntersecting)
-    })
-}, {rootMargin: `${-10}px`})
 
-let previousDdcontentHeights = []
-const ddcontentReziseObserver = new ResizeObserver(entries => {
-    entries.forEach((entry, index) => {
-        const ddcontentHeight = entry.contentRect.height
-        if (ddcontentHeight != previousDdcontentHeights[index]) adjustPads()
-        previousDdcontentHeights[index] = ddcontentHeight || previousDdcontentHeights.push(ddcontentHeight)
-    })
-})
 
 //Funktionerna som gör sakerna
 const min_height = 50;

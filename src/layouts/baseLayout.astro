@@ -10,6 +10,7 @@ import jsoncss from '../CSSTheme.json'
 import meta from "../data/cms/collections/metaCollections/settings";
 import * as mdData from '@data/footer.md'
 import { env } from "../../.eslintrc.cjs";
+import { ViewTransitions } from "astro:transitions";
 
 const css = Css.of(jsoncss)
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -26,7 +27,6 @@ const {
 
 <!DOCTYPE html>
 <html data-theme={css} lang="en" data-bg={bgColor}>
-	
 	<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,17 +37,19 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<slot name="head" />
+		<!-- <ViewTransitions /> -->
 	</head>
 	<body>
 		
 		<header>
 			<Navbar isOpaque={isOpaque} client:visible active={Astro.url.pathname} baseUrl={baseUrl}/>
-			<Mobilnavbar client:visible />
+			<!-- <Mobilnavbar client:visible /> -->
 		</header>
 
 		<main id="swup" data-bg={bgColor.startsWith('--')
 		? `var(${bgColor})`
-		: `${bgColor}`}>
+		: `${bgColor}`}
+		transition:name="main">
 			<slot name="main"/>
 		<script is:inline data-swup-reload-script>
 			document.body.style.backgroundColor = document.getElementById('swup').dataset.bg
@@ -58,13 +60,18 @@ const {
 				<!-- <h1>Made by kodvet</h1> -->
 			</Footer>
 		</footer>
-		<script is:inline>
+		<!-- <script>
 			const css = document.documentElement.dataset.theme
 			document.querySelector(':root').innerHTML += `<style>${css}</style>`
-		</script>
+		</script> -->
 	</body>
 </html>
-
+<script>
+	console.log("bör bara köras en gång")
+	document.addEventListener('astro:page-load', () => {
+		console.log("soft navigation")
+	}, {once: true})
+</script>
 
 	
 <style lang="scss">
@@ -77,8 +84,17 @@ const {
 	:global(section) {
 		overflow-x: hidden;
 	}	
+	:root {
+    --background-color: var(--reflex-vit);
+    --navbar-bg: var(--koggis-grön);
+    --navbar-dropdown-bg: gainsboro;
+    --navbar-active-dropdown-bg: var(--limejuice);
+    --footer-bg: var(--buckethat-svart);
+    --spacing: 50px
+  }
 	html {
-		font-family: 'GillSans', sans-serif;	}
+		font-family: 'GillSans', sans-serif;	
+	}
 
 	body {
 		display: flex;
