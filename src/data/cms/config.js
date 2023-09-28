@@ -1,27 +1,23 @@
-const folder_collections = Object.values(import.meta.glob(['./collections/folder/*.json'], {eager: true, import: 'default'}))
-const file_collections = Object.values(import.meta.glob(['./collections/file/*.json'], {eager: true, import: 'default'}))
+let collections = Object.values(import.meta.glob(['./collections/*.json'], {eager: true, import: 'default'}))
 import metaSettings from './collections/metaCollections/settings'
-import metaFolderCollections from './collections/metaCollections/folderCollections'
-import metaFileCollections from './collections/metaCollections/fileCollections'
-metaSettings.files[0].file = 'src/data/cms/settings.json'
-metaFileCollections.folder = 'src/data/cms/collections/file'
-metaFolderCollections.folder = 'src/data/cms/collections/folder'
+import metaCollections from './collections/metaCollections/Collections'
+// collections.push(metaSettings)
 import settings from './settings.json'
 // console.log(settings)
-const config = import.meta.env.DEV ? {
+for (const collection of collections) {
+    if (collection.type === "Folder") {
+        delete collection.files
+    }
+}
+
+const config = {
     ...settings,
     collections: [
-        ...folder_collections,
-        ...file_collections,
+        ...collections,
         metaSettings,
-        metaFileCollections,
-        metaFolderCollections
-    ]
-} : {
-    ...settings,
-    collections: [
-        ...folder_collections,
-        ...file_collections
+        // metaFileCollections,
+        // metaFolderCollections,
+        metaCollections
     ]
 }
 export default config

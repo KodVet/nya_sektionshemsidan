@@ -1,4 +1,5 @@
 {
+  "type": "Folder",
   "name": "utskott",
   "label": "Utskott",
   "folder": "src/data/utskott",

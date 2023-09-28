@@ -1,0 +1,44 @@
+{
+  "type": "Folder",
+  "label": "Sidor",
+  "label_singular": "sida",
+  "name": "sidor",
+  "icon": "sitemap",
+  "folder": "src/pages/",
+  "description": "Här är (för närvarande) alla sidor förutom de som innehåller speciella komponenter (såsom de för utskotten).",
+  "nested": {
+    "path": {
+      "widget": "string",
+      "label": "Path",
+      "index_file": "index"
+    },
+    "depth": 4
+  },
+  "fields": [
+    {
+      "label": "Mall",
+      "name": "layout",
+      "widget": "select",
+      "options": [
+        {
+          "label": "Basic",
+          "value": "../../layouts/Basic.astro"
+        }
+      ]
+    },
+    {
+      "label": "Innehåll",
+      "name": "body",
+      "widget": "markdown",
+      "hint": "Detta är det som kommer stå i mitten-rutan på sidan"
+    },
+    {
+      "label": "Title",
+      "name": "title",
+      "widget": "string",
+      "hint": "Detta är namnet som dyker upp i entries-listan",
+      "samt utgör mallen för filnamnet": null
+    }
+  ],
+  "create": true
+}

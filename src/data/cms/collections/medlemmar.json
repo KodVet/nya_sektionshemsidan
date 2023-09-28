@@ -1,4 +1,5 @@
 {
+  "type": "Folder",
   "name": "medlemmar",
   "identifier_field": "namn",
   "label": "Medlemmar",
@@ -21,6 +22,11 @@
       "label": "Utskott",
       "field": "utskott"
     }
+  ],
+  "summary_fields": [
+    "namn",
+    "utskott",
+    "bild"
   ],
   "fields": [
     {

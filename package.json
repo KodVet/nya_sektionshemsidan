@@ -18,6 +18,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@staticcms/app": "^3.2.0",
+    "@staticcms/proxy-server": "^4.0.3",
     "@swup/preload-plugin": "^1.0.5",
     "@swup/route-name-plugin": "^3.0.1",
     "@swup/scripts-plugin": "^1.1.0",
