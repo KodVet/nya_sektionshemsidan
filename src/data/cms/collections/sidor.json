@@ -8,11 +8,11 @@
   "description": "Här är (för närvarande) alla sidor förutom de som innehåller speciella komponenter (såsom de för utskotten).",
   "nested": {
     "path": {
-      "widget": "string",
       "label": "Path",
       "index_file": "index"
     },
-    "depth": 4
+    "depth": 4,
+    "summary": "{{title}}"
   },
   "fields": [
     {
