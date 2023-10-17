@@ -59,7 +59,7 @@ onMount(() =>{
     readLinks()
 
     //När sidans innehåll uppdateras (av swup)
-    document.addEventListener('astro:after-swap', ()=> {
+    document.addEventListener('swup:contentReplaced', ()=> {
         ("sidan uppdaterades av swup")
         setTimeout(()=> navbar.style.removeProperty('--scrollTransition'), 310)
         readLinks()
