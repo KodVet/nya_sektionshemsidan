@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "cms": "npx @staticcms/proxy-server",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

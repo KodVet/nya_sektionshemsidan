@@ -41,7 +41,7 @@ import './styles.css'
     const markdown = document.getElementById('data').dataset.md
     
     if (import.meta.env.DEV === true) {
-      config.display_url = 'http://localhost:3000'
+      config.display_url = 'http://localhost:4321'
       config.local_backend = true
     }
     console.log("config: ", config)
@@ -139,6 +139,3 @@ CMS.registerPreviewTemplate('nyheter', NyhetPreview)
 CMS.registerPreviewTemplate('medlemmar', MänniskaCardPreview)
 CMS.registerPreviewTemplate("utskott", IframeLivePreview)
 // CMS.registerPreviewTemplate('navbarConfig', NavbarPreview)
-
-import UuidWidget from '@components/CMS/UuidWidget'
-CMS.registerWidget('uuid', UuidWidget)
