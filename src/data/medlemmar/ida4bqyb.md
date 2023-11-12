@@ -6,5 +6,6 @@ utskott: Styrelsen
 position: 0
 post: Utbildningsbevakare
 kontakt: utbildning@kogvet.se
-bild: https://www.kogvet.se/wp-content/uploads/2022/10/frejahemsida.png
+bild: https://media.tenor.com/OQu20Puq8SYAAAAi/cool-cool-emoji.gif
+gammal: https://www.kogvet.se/wp-content/uploads/2022/10/frejahemsida.png
 ---
