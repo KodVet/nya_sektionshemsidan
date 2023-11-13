@@ -3,7 +3,7 @@
     "name": "github",
     "repo": "KodVet/nya_sektionshemsidan",
     "branch": "main",
-    "site_domain": "https://sektionshemsidan.netlify.app"
+    "site_domain": "sektionshemsidan.netlify.app"
   },
   "local_backend": false,
   "logo_url": "https://sektionshemsidan.netlify.app/images/Sektionslogga 1.png",
