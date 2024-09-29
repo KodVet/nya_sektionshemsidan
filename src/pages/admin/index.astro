@@ -1,5 +1,5 @@
 ---
-const instruktioner = await Astro.glob("../../data/cms/instruktioner.md")
+const instruktioner = await Astro.glob("../../cms/instruktioner.md")
 const markdown = instruktioner.map(md=>md.rawContent())
 import '@staticcms/core/dist/main.css';
 import './styles.css'
@@ -25,7 +25,7 @@ import './styles.css'
 
 <script>
     import CMS from '@staticcms/core'
-    import config from '../../data/cms/config'
+    import config from '../../cms/config'
     import { faPalette,
             faUsersRectangle,
             faCog,
